@@ -1,7 +1,10 @@
 package ssg.service;
 
+import java.util.List;
+
 import ssg.container.Container;
 import ssg.dao.ArticleDao;
+import ssg.dto.Article;
 import ssg.dto.Board;
 
 public class ArticleService {
@@ -24,7 +27,7 @@ public class ArticleService {
 		return articleDao.wirte(title,body,boardId); 
 	}
 
-	public Article getArticles() {
+	public List<Article> getArticles() {
 		return articleDao.getArticles(); 
 	}
 

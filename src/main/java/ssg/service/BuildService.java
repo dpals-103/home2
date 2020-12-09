@@ -1,9 +1,10 @@
 package ssg.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import ssg.container.Container;
-import ssg.dto.Board;
+import ssg.dto.Article;
 import ssg.util.Util;
 
 public class BuildService {
@@ -15,55 +16,97 @@ public class BuildService {
 	}
 
 	public void buildSite() {
-	
-		// 사이트 파일 만들기 
+
+		// -----------메인 홈 만들기 -------------------
 		Util.makeDir("site");
-		Util.makeDir("site/board");
-		
-		// 홈 템플릿 가져오기 
-		String head = Util.getFileContents("site-template/head.html");
-		String fileName = "공지사항" + ".html"; 
-		
+		Util.makeDir("site/home");
+
+		// 홈 템플릿 가져오기
+		String head = Util.getFileContents("site_template/part/head.html");
+		String footer = Util.getFileContents("site_template/part/footer.html");
+
 		StringBuilder sb = new StringBuilder();
 
-		Article article = articleService.getArticles(); 
-		
 		sb.append("<!DOCTYPE html>");
 		sb.append("<html lang=\"en\">");
 		sb.append("<head>");
 
 		sb.append("<meta charset=\"UTF-8\">");
 		sb.append(" <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
-		sb.append("<title> 게시판 만들기" + board.title + "</title>");
+		sb.append("<title>index</title>");
 
 		sb.append("</head>");
+
 		sb.append("<body>");
 
-		sb.append("<h1>게시물 상세페이지</h1>");
-		sb.append("<biv>");
-		sb.append("번호 : " + board.id + "<br>");
-		sb.append("이름 : " + board.title + "<br>");
-		sb.append("생성날짜 : " + board.regDate);
-
-		sb.append("</biv>");
+		sb.append("<section class = \"section-1 con-min-width\">");
+		sb.append("<div class=\"con\">");
+		sb.append("<div class = \"section-contents\">");
+		sb.append("Lorem ipsum dolor sit amet consectetur adipisicing elit. "
+				+ "Nam deleniti numquam iusto quae necessitatibus eveniet esse velit eius "
+				+ "inventore dolores atque rerum maiores quis sapiente, magnam corporis, ut "
+				+ "nesciunt! Impedit. Cumque, unde quo excepturi totam iste ad perspiciatis dolores "
+				+ "distinctio laborum. Ducimus fuga explicabo culpa perferendis consectetur assumenda"
+				+ " ullam dicta nostrum tempore voluptatibus ex, amet aspernatur enim, voluptatum, voluptatem "
+				+ "aliquid! Sunt suscipit maxime rerum? Ducimus, cumque nisi assumenda ipsa dicta impedit ad "
+				+ "itaque repudiandae quas error accusantium perferendis deserunt a ea doloremque ipsum nobis "
+				+ "esse illum debitis nesciunt aliquam quod? Velit incidunt voluptatem, eum est cum labore at "
+				+ "vero maxime dolores distinctio ad facilis ullam porro tempora repellendus et necessitatibus, "
+				+ "quibusdam dignissimos voluptas sunt. Tempora porro quidem aliquam optio magnam! Facilis, "
+				+ "ex minima? Ipsum similique corrupti ad nam soluta tempore quia, aspernatur fuga nulla est totam,"
+				+ " hic repellendus voluptatem aliquam nobis fugiat provident, "
+				+ "amet dolore exercitationem quam. Laborum, consectetur quas?");
+		sb.append("</div>");
+		sb.append("</div>");
+		sb.append("</section>");
 
 		sb.append("</body>");
 
 		sb.append("</html>");
-		
-		
-		Util.writeFile("site/board/" + fileName, head + "공지사항");
-		
 
+		// 파일쓰기
+		String fileName = "index" + ".html";
+		Util.writeFile("site/home/" + fileName, head + sb.toString() + footer);
+		System.out.printf("==%s 생성==\n", fileName);
 
+		// -----------홈만들기 끝-------------------
+
+		// -----------공지사항 게시판 만들기-------------------
+		Util.makeDir("site/board");
+		String list = Util.getFileContents("site_template/part/list.html");
+
+		StringBuilder sb_notice = new StringBuilder();
+
+		List<Article> articles = articleService.getArticles();
+		Collections.reverse(articles);	
+		
+		sb_notice.append("<main>");
+		
+		for (Article article : articles) {
+			sb_notice.append("<div class = \"notice flex_list\">");
+
+			sb_notice.append(" <div class=\"notice__id\">" + article.id + "</div>");
+			sb_notice.append(" <div class=\"notice__title\">" + article.title + "</div>");
+			sb_notice.append(" <div class=\"notice__writer\">" + article.writer + "</div>");
+			sb_notice.append(" <div class=\"notice__count\">" + article.count + "</div>");
+			sb_notice.append(" <div class=\"notice__regDate\">" + article.regDate + "</div>");
+
+			sb_notice.append("</div>");
 			
-			
-			
-			
-			// 파일쓰기 
-			String fileName = "board" + board.id + ".html"; 
- 			Util.writeFile("site/board/" + fileName, sb.toString());
- 		
 		}
-	}
+		
+			
+		
+		sb_notice.append("</main>");
+		sb_notice.append("</div>");
+		sb_notice.append("</div>");
+		sb_notice.append("</section>");
+		
 
+		// 파일쓰기
+		String notice_fileName = "notice-1" + ".html";
+		Util.writeFile("site/board/" + notice_fileName, head + list + sb_notice.toString() + footer);
+		System.out.printf("==%s 생성==\n", notice_fileName);
+
+	}
+}

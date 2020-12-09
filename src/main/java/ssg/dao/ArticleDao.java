@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import ssg.dto.Article;
 import ssg.dto.Board;
 import ssg.mysqlUtill.MysqlUtil;
 import ssg.mysqlUtill.SecSql;
-import ssg.service.Article;
+
 
 public class ArticleDao {
 
@@ -42,7 +43,7 @@ public class ArticleDao {
 		return 0;
 	}
 
-	public Article getArticles() {
+	public List<Article> getArticles() {
 		List<Article> newArticles = new ArrayList<>();
 
 		SecSql sql = new SecSql();
