@@ -180,7 +180,130 @@ section{
         </div>
         <div class="top__leftMenuBar"></div>
       </div>
-    </header><!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1"><title>index</title></head><body><section class = "section-1 con-min-width"><div class="con"><div class = "section-contents">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam deleniti numquam iusto quae necessitatibus eveniet esse velit eius inventore dolores atque rerum maiores quis sapiente, magnam corporis, ut nesciunt! Impedit. Cumque, unde quo excepturi totam iste ad perspiciatis dolores distinctio laborum. Ducimus fuga explicabo culpa perferendis consectetur assumenda ullam dicta nostrum tempore voluptatibus ex, amet aspernatur enim, voluptatum, voluptatem aliquid! Sunt suscipit maxime rerum? Ducimus, cumque nisi assumenda ipsa dicta impedit ad itaque repudiandae quas error accusantium perferendis deserunt a ea doloremque ipsum nobis esse illum debitis nesciunt aliquam quod? Velit incidunt voluptatem, eum est cum labore at vero maxime dolores distinctio ad facilis ullam porro tempora repellendus et necessitatibus, quibusdam dignissimos voluptas sunt. Tempora porro quidem aliquam optio magnam! Facilis, ex minima? Ipsum similique corrupti ad nam soluta tempore quia, aspernatur fuga nulla est totam, hic repellendus voluptatem aliquam nobis fugiat provident, amet dolore exercitationem quam. Laborum, consectetur quas?</div></div></section></body></html>
+    </header><!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>list</title>
+    <style type="text/css">
+    :root{
+  --freeboard__id : 150px;
+  --freeboard__title : 300px;
+  --freeboard__writer : 200px;
+  --freeboard__count : 200px;
+  --freeboard__regDate : 400px;
+}
+
+
+.flex_list{
+  display : flex; 
+  justify-content : center; 
+}
+
+.freeboard{
+  text-align : center;
+  font-family : 'Noto Sans KR', sans-serif;
+}
+
+.freeboard > div{
+  font-weight : 500;
+  font-size : 12px;
+}
+.section-2__freeboard > .title{
+  display : inline-block;
+  margin-bottom : 30px;
+}
+
+.section-2__freeboard >.title > span{
+  font-weight : 700;
+  font-size : 30px;
+}
+
+
+.section-2__freeboard > header > div > div{
+  position : relative; 
+}
+
+.section-2__freeboard > header > div > div::after{
+  content : "";
+  width : 1px;
+  height : 15px;
+  background-color : #191919;
+  position : absolute; 
+  top : 50%;
+  transform : translatey(-50%);
+  right : 0; 
+}
+
+.freeboard__id{
+  width : var(--freeboard__id); 
+}
+
+.freeboard__title{
+  width : var(--freeboard__title); 
+}
+
+.freeboard__writer{
+  width : var(--freeboard__writer); 
+}
+
+.freeboard__count{
+  width : var(--freeboard__count); 
+}
+
+.freeboard__regDate{
+  width : var(--freeboard__regDate); 
+}
+
+.section-2__freeboard > header{
+  padding : 10px 0;
+}
+
+.section-2__freeboard > main{
+  padding : 10px 0;
+  border-top : solid 1px;
+}
+    
+    </style>
+  </head>
+  <body>
+  
+  <!-- 작성필요 / 리스트에 따라 번호 바뀌어야 됨-->
+  
+   <section class = "section-2 con-min-width">
+      <div class="con">
+        <div class = "section-2__freeboard">
+          <div class="title">
+             <span>[ Free Board ]</span>
+           </div>
+          
+          <header>
+            <div class = "freeboard flex_list">
+              <div class="freeboard__id">번호</div>
+              <div class="freeboard__title">제목</div>
+              <div class="freeboard__writer">작성자</div>
+              <div class="freeboard__count">조회수</div>
+              <div class="freeboard__regDate">날짜</div>
+            </div>
+          </header>
+          
+          <!--  
+          <main>
+            <div class = "notice flex_list">
+             <div class="notice__id">번호</div>
+              <div class="notice__title">제목</div>
+              <div class="notice__writer">작성자</div>
+              <div class="notice__count">조회수</div>
+              <div class="notice__regDate">날짜</div>
+            </div>
+          </main>
+       
+          
+        </div>
+      </div>
+    </section>
+       --><main><div class = "freeboard flex_list"> <div class="freeboard__id">3</div> <div class="freeboard__title">제목3</div> <div class="freeboard__writer">임꺽정</div> <div class="freeboard__count">5</div> <div class="freeboard__regDate">2020-12-10 12:32:29</div></div><div class = "freeboard flex_list"> <div class="freeboard__id">2</div> <div class="freeboard__title">제목2</div> <div class="freeboard__writer">홍길삼</div> <div class="freeboard__count">5</div> <div class="freeboard__regDate">2020-12-10 12:32:29</div></div><div class = "freeboard flex_list"> <div class="freeboard__id">1</div> <div class="freeboard__title">제목1</div> <div class="freeboard__writer">홍길동</div> <div class="freeboard__count">3</div> <div class="freeboard__regDate">2020-12-10 12:32:29</div></div></main></div></div></section>
     <footer class="bottom con-min-width">
       <div class="con">
         <div class="bottom-bar">

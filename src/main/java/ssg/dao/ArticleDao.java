@@ -21,6 +21,7 @@ public class ArticleDao {
 		sql.append(", title = ?", title);
 
 		return MysqlUtil.insert(sql);
+		
 	}
 
 	public Board getBoard(int id) {
@@ -38,9 +39,10 @@ public class ArticleDao {
 
 	}
 
-	public int wirte(String title, String body, int boardId) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int wirte(String title, String body, String writer, int boardId) {
+		SecSql sql = new SecSql();
+		sql.append("INSERT INTO article set title =? , body =?, boardId =?, regDate=now()");
+
 	}
 
 	public List<Article> getArticles() {
@@ -56,6 +58,26 @@ public class ArticleDao {
 		}
 
 		return newArticles;
+	}
+
+	public List<Board> getBoards() {
+		
+		List<Board> boards = new ArrayList<>();
+
+		SecSql sql = new SecSql();
+		sql.append("select * from board");
+
+		List<Map<String, Object>> boardMapList = MysqlUtil.selectRows(sql);
+		
+		if (boardMapList.isEmpty()) {
+			return null;
+		}
+
+		for (Map<String, Object> boardMap : boardMapList) {
+			boards.add(new Board(boardMap));
+		}
+
+		return boards;
 	}
 
 }

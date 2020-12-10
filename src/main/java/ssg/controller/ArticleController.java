@@ -3,6 +3,7 @@ package ssg.controller;
 import java.util.Scanner;
 
 import ssg.container.Container;
+import ssg.dto.Board;
 import ssg.service.ArticleService;
 
 public class ArticleController extends Controller {
@@ -18,10 +19,30 @@ public class ArticleController extends Controller {
 		if (cmd.equals("article makeboard")) {
 			doMakeboard(cmd);
 		}
+		if (cmd.startsWith("article selectBoard ")) {
+			doSelect(cmd);
+		}
 		if (cmd.equals("article add")) {
 			dowrite(cmd);
 		}
+		
 	}
+
+	
+	// 게시판 선택하기 
+	
+	private void doSelect(String cmd) {
+		System.out.println("==게시판 선택하기==");
+		
+		int inputedId = Integer.parseInt(cmd.split("")[2]);
+		
+		Board board = articleService.getBoard(inputedId);
+		
+		System.out.printf("%s게시판이 선택되었습니다.\n", board.title);
+		
+		Container.session.selectedBoard(inputedId);
+	}
+	
 
 	// 게시글 작성
 	private void dowrite(String cmd) {
@@ -30,15 +51,18 @@ public class ArticleController extends Controller {
 		
 		String title; 
 		String body;
+		String writer;
 		
 		System.out.printf("제목 : ");
 		title = sc.nextLine();
 		System.out.printf("내용 : ");
 		body = sc.nextLine();
+		System.out.printf("작성자 : ");
+		writer = sc.nextLine();
 		
 		int boardId = Container.session.isSelectBoardId; 
 		
-		int id = articleService.write(title,body,boardId); 
+		int id = articleService.write(title,body,writer,boardId); 
 	}
 
 	// 게시판 생성

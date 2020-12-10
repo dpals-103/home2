@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>list</title>
+    <style type="text/css">
+    :root{
+  --freeboard__id : 150px;
+  --freeboard__title : 300px;
+  --freeboard__writer : 200px;
+  --freeboard__count : 200px;
+  --freeboard__regDate : 400px;
+}
+
+
+.flex_list{
+  display : flex; 
+  justify-content : center; 
+}
+
+.freeboard{
+  text-align : center;
+  font-family : 'Noto Sans KR', sans-serif;
+}
+
+.freeboard > div{
+  font-weight : 500;
+  font-size : 12px;
+}
+.section-2__freeboard > .title{
+  display : inline-block;
+  margin-bottom : 30px;
+}
+
+.section-2__freeboard >.title > span{
+  font-weight : 700;
+  font-size : 30px;
+}
+
+
+.section-2__freeboard > header > div > div{
+  position : relative; 
+}
+
+.section-2__freeboard > header > div > div::after{
+  content : "";
+  width : 1px;
+  height : 15px;
+  background-color : #191919;
+  position : absolute; 
+  top : 50%;
+  transform : translatey(-50%);
+  right : 0; 
+}
+
+.freeboard__id{
+  width : var(--freeboard__id); 
+}
+
+.freeboard__title{
+  width : var(--freeboard__title); 
+}
+
+.freeboard__writer{
+  width : var(--freeboard__writer); 
+}
+
+.freeboard__count{
+  width : var(--freeboard__count); 
+}
+
+.freeboard__regDate{
+  width : var(--freeboard__regDate); 
+}
+
+.section-2__freeboard > header{
+  padding : 10px 0;
+}
+
+.section-2__freeboard > main{
+  padding : 10px 0;
+  border-top : solid 1px;
+}
+    
+    </style>
+  </head>
+  <body>
+  
+  <!-- 작성필요 / 리스트에 따라 번호 바뀌어야 됨-->
+  
+   <section class = "section-2 con-min-width">
+      <div class="con">
+        <div class = "section-2__freeboard">
+          <div class="title">
+             <span>[ Free Board ]</span>
+           </div>
+          
+          <header>
+            <div class = "freeboard flex_list">
+              <div class="freeboard__id">번호</div>
+              <div class="freeboard__title">제목</div>
+              <div class="freeboard__writer">작성자</div>
+              <div class="freeboard__count">조회수</div>
+              <div class="freeboard__regDate">날짜</div>
+            </div>
+          </header>
+          
+          <!--  
+          <main>
+            <div class = "notice flex_list">
+             <div class="notice__id">번호</div>
+              <div class="notice__title">제목</div>
+              <div class="notice__writer">작성자</div>
+              <div class="notice__count">조회수</div>
+              <div class="notice__regDate">날짜</div>
+            </div>
+          </main>
+       
+          
+        </div>
+      </div>
+    </section>
+       -->

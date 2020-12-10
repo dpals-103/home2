@@ -8,6 +8,7 @@ import ssg.controller.MemberController;
 import ssg.dao.ArticleDao;
 import ssg.service.ArticleService;
 import ssg.service.BuildService;
+import ssg.service.MemberService;
 
 public class Container {
 
@@ -19,13 +20,14 @@ public class Container {
 	public static ArticleDao articleDao;
 	public static BuildService buildService;
 	public static Session session;
+	public static MemberService memberService;
 
 	static {
 		scanner = new Scanner(System.in);
 		session = new Session();
 		articleDao = new ArticleDao(); 
 
-		
+		memberService = new MemberService();
 		articleService = new ArticleService();
 		buildService = new BuildService();
 

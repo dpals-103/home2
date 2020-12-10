@@ -23,12 +23,16 @@ public class ArticleService {
 		return articleDao.getBoard(id);
 	}
 
-	public int write(String title, String body, int boardId) {
-		return articleDao.wirte(title,body,boardId); 
+	public int write(String title, String body, String writer, int boardId) {
+		return articleDao.wirte(title,body,writer,boardId); 
 	}
 
 	public List<Article> getArticles() {
 		return articleDao.getArticles(); 
+	}
+
+	public List<Board> getBoards() {
+		return articleDao.getBoards();
 	}
 
 }

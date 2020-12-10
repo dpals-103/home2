@@ -5,6 +5,7 @@ import java.util.List;
 
 import ssg.container.Container;
 import ssg.dto.Article;
+import ssg.dto.Board;
 import ssg.util.Util;
 
 public class BuildService {
@@ -23,6 +24,17 @@ public class BuildService {
 
 		// 홈 템플릿 가져오기
 		String head = Util.getFileContents("site_template/part/head.html");
+		
+		// DB에서 게시판 목록 불러와서 업데이트 하기 
+		String boardListHtml = ""; 
+		List<Board> boards = articleService.getBoards();
+		
+		for (Board board : boards) {
+			boardListHtml += "<li><a href=\"file:///C:/work/sts-4.4.0.RELEASE-workspace/home2/site/board/" + board.title + ".html\">" + board.title + "</a></li>";
+		}
+		
+		head = head.replace("[aaa]", boardListHtml);
+		
 		String footer = Util.getFileContents("site_template/part/footer.html");
 
 		StringBuilder sb = new StringBuilder();
@@ -73,7 +85,7 @@ public class BuildService {
 
 		// -----------공지사항 게시판 만들기-------------------
 		Util.makeDir("site/board");
-		String list = Util.getFileContents("site_template/part/list.html");
+		String notice = Util.getFileContents("site_template/part/notice.html");
 
 		StringBuilder sb_notice = new StringBuilder();
 
@@ -95,8 +107,6 @@ public class BuildService {
 			
 		}
 		
-			
-		
 		sb_notice.append("</main>");
 		sb_notice.append("</div>");
 		sb_notice.append("</div>");
@@ -104,9 +114,49 @@ public class BuildService {
 		
 
 		// 파일쓰기
-		String notice_fileName = "notice-1" + ".html";
-		Util.writeFile("site/board/" + notice_fileName, head + list + sb_notice.toString() + footer);
+		String notice_fileName = "Notice" + ".html";
+		Util.writeFile("site/board/" + notice_fileName, head + notice + sb_notice.toString() + footer);
 		System.out.printf("==%s 생성==\n", notice_fileName);
+		
+		// -----------공지사항 게시판 만들기 끝 -------------------
+		
+		
+		
+		// -----------자유게시판 만들기-------------------
+		
+		Util.makeDir("site/board");
 
+		String freeboard = Util.getFileContents("site_template/part/freeboard.html");
+		
+		StringBuilder sb_free = new StringBuilder();
+
+		List<Article> free_articles = articleService.getArticles();
+		Collections.reverse(free_articles);	
+
+		sb_free.append("<main>");
+		for (Article article : free_articles) {
+			sb_free.append("<div class = \"freeboard flex_list\">");
+
+			sb_free.append(" <div class=\"freeboard__id\">" + article.id + "</div>");
+			sb_free.append(" <div class=\"freeboard__title\">" + article.title + "</div>");
+			sb_free.append(" <div class=\"freeboard__writer\">" + article.writer + "</div>");
+			sb_free.append(" <div class=\"freeboard__count\">" + article.count + "</div>");
+			sb_free.append(" <div class=\"freeboard__regDate\">" + article.regDate + "</div>");
+
+			sb_free.append("</div>");	
+		}
+		
+		sb_free.append("</main>");
+		sb_free.append("</div>");
+		sb_free.append("</div>");
+		sb_free.append("</section>");
+		
+
+		// 파일쓰기
+		String freeboard_fileName = "Free board" + ".html";
+		Util.writeFile("site/board/" + freeboard_fileName, head + freeboard + sb_free.toString() + footer);
+		System.out.printf("==%s 생성==\n", freeboard_fileName);
+		
+		// -----------자유게시판 끝-------------------
 	}
 }
