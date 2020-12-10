@@ -30,7 +30,8 @@ public class BuildService {
 		List<Board> boards = articleService.getBoards();
 		
 		for (Board board : boards) {
-			boardListHtml += "<li><a href=\"file:///C:/work/sts-4.4.0.RELEASE-workspace/home2/site/board/" + board.title + ".html\">" + board.title + "</a></li>";
+			boardListHtml += "<li><a href=\"file:///C:/work/sts-4.8.0.RELEASE-workspace/ssg/site/board/" + board.title + ".html\">" 
+		+ board.title + "</a></li>";
 		}
 		
 		head = head.replace("[aaa]", boardListHtml);
@@ -90,8 +91,9 @@ public class BuildService {
 		StringBuilder sb_notice = new StringBuilder();
 
 		List<Article> articles = articleService.getArticles();
+		//List<Article> articlesList = articleService.getArticlesList();
 		Collections.reverse(articles);	
-		
+
 		sb_notice.append("<main>");
 		
 		for (Article article : articles) {

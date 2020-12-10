@@ -41,7 +41,11 @@ public class ArticleDao {
 
 	public int wirte(String title, String body, String writer, int boardId) {
 		SecSql sql = new SecSql();
-		sql.append("INSERT INTO article set title =? , body =?, boardId =?, regDate=now()");
+		
+		sql.append("INSERT INTO article set title =? , body =?, writer =?, boardId =?, regDate=now()",
+				title, body, writer, boardId);
+		
+		return MysqlUtil.insert(sql);
 
 	}
 

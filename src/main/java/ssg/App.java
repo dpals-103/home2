@@ -13,20 +13,17 @@ public class App {
 	private ArticleService articleService; 
 	private MemberService memberService; 
 	
-	/*
+	
 	App(){
-		makeTestData();
 		articleService = Container.articleService; 
 		memberService = Container.memberService; 
+		
 	}
 	
 	
-	private void makeTestData() {
-		int n = articleService.makeboard("공지사항"); 
-		int f = articleService.makeboard("자유게시판"); 
-	}*/
-	
-	
+
+
+
 	public void run() {
 		Scanner sc = Container.scanner;
 
@@ -34,8 +31,8 @@ public class App {
 			System.out.printf("명령어 ) ");
 			String cmd = sc.nextLine();
 
-			//MysqlUtil.setDBInfo("127.0.0.1", "dpals103", "dlgywn0168", "a1");
-			MysqlUtil.setDBInfo("127.0.0.1", "sbsst", "sbs123414", "a1");
+			MysqlUtil.setDBInfo("127.0.0.1", "dpals103", "dlgywn0168", "a1");
+			//MysqlUtil.setDBInfo("127.0.0.1", "sbsst", "sbs123414", "a1");
 
 			boolean needToExit = false;
 
