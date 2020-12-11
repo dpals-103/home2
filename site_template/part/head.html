@@ -32,152 +32,147 @@ a{
 
 /*라이브러리*/ 
 
-.top__banner{
-  width : 100%; 
+.container{
+  display: flex;
+  flex-direction : column;
+  min-height: 100vh;
+}
+
+.con{
+  max-width : 1200px;
+  margin : 0 auto;
+}
+
+.flex{
+  display : flex; 
+}
+
+/*헤더 ---- 배너*/
+.container > header .top__banner{
+  justify-content : center; 
   height : 150px;
 }
 
-.top__rightMenuBar{
-  height : 100px;
-}
-
-section{
-  height : 500px;
-  margin-top : 50px;
-}
-
-.con-min-width{
-  min-width : 1200px;
-}
-.con {
-  max-width : 1200px;
-  margin : 0 auto; 
-}
-
-.top__banner{
-  width : 100%; 
-  height : 150px; 
-
-}
-
-
-/* 커스텀*/ 
-/*메뉴바*/
-.top{
-  margin-bottom : 20px;
-}
-
-.row {
-  display : flex; 
-  justify-content : flex-end;   
-}
-
-.top__banner{
-  display : flex;
-  justify-content : center;
+.container > header .top__banner > a{
   align-items : center;
 }
 
-.top__banner > .img-box > img{
-  width : 100px;
-}
-
-.top__banner > span{
+.container > header .top__banner  a > span{
   font-size : 40px;
   font-weight : 700;
 }
 
-.top__rightMenuBar li{
+.container > header .top__banner  a > img{
+  width : 100px;
+}
+
+
+/*헤더 ---- 메뉴바 */
+
+.container > header .top__menuBar{
+  flex-direction : row;
+  justify-content : space-between;
+  height : 130px;
+}
+
+.container > header .top__menuBar > .icon > img{
+  padding : 5px;
+  width : 30px;
+}
+
+.top__menuBar li{
   position : relative; 
 }
 
-.top__rightMenuBar ul ul {
-  display : none; 
+.top__menuBar ul ul{
+  display : none;  
   position : absolute; 
-  top : 100%;
-  left: 0; 
 }
 
-
-
-
-.top__rightMenuBar .cell a{
-  padding : 5px 20px; 
-  font-size :14pt;
+.top__menuBar > .row li > a{
+  font-size : 14pt;
   display : block;
+  padding : 10px 20px;
+  white-space : nowrap; 
 }
 
-
-.top__rightMenuBar  .cell  a:hover {
-  color : #67a1e9; 
-  transition : color 0.5s; 
+.top__menuBar > .icon > img{
+  cursor : pointer; 
 }
 
+.top__menuBar > .row .cell  a:hover{
+  color : lightpink;
+  transition : color 0.5s;
+}
 
-.top__rightMenuBar .cell:hover > ul{
-  white-space : nowrap;
+.top__menuBar > .row .cell:hover ul{
   display : block; 
 }
 
 
 /*섹션*/ 
-
-/*푸터*/
-.bottom-bar{
-  display : block;
-  bottom :0;
-  width : 100%;
-  height : 70px;
+.container > section{
+  flex-grow : 1; 
 }
 
-
-.bottom-bar{
-  margin-top : 30px;
-  border-top : solid 1px; 
-  display : flex;
-  flex-direction : row;
-  justify-content : center;
+/*푸터*/ 
+.container > footer .bottom-bar{
+  flex-direction : row; 
+  justify-content : center; 
   align-items : center; 
+  border-top : solid 1px; 
+}
+
+.container > footer .bottom-bar > div:nth-child(1) >span{
+  font-size : 20px;
+  font-weight : 500;
+}
+
+.container > footer .bottom-bar > .img-box > img{
+  width: 40px;
+}
+
+.container > footer .bottom-bar > div:nth-child(3) span{
+  font-size : 20px;
+  font-weight : 500;
 }
 
 
-.bottom-bar > div:first-child > span{
-  font-size : 30px;
-  font-weight : 500; 
-}
-
-.bottom-bar > div:nth-child(2) {
-  margin-left : 20px;
-}
-
-
-
-
-    
     </style>
   </head>
   <body>
 
-    <header class="top con-min-width">
-      <div class="con">
-        <div class="top__banner">
-          <div class="img-box"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FXnwmU%2FbtqPNyskUIk%2FoEglomcERfDjifCAOVj900%2Fimg.png" alt=""></div> 
-          <span>Welcome!</span>
-        </div>
+     <div class="container">
 
-        <div class="top__rightMenuBar">
-          <ul class="row flex">
-            <li class="cell"><a href="file:///C:/work/sts-4.8.0.RELEASE-workspace/ssg/site/home/index.html">Home</a></li>
-            <li class="cell"><a href="#">About</a></li>
-            <li class="cell"><a href="#">Board</a>
-              <ul>
-               [aaa]
-              </ul> 
-            </li>
-            <li class="cell"><a href="#">Social</a></li>
-            <li class="cell"><a href="#">Data</a></li>
-          </ul>  
+      <!-----------헤더 시작---------------------------------->
+      <header class="top con-min-width">
+        <div class="con">
+          <div class="top__banner flex">  
+            <a href="file:///C:/work/sts-4.8.0.RELEASE-workspace/ssg/site/home/index.html" class="flex">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FXnwmU%2FbtqPNyskUIk%2FoEglomcERfDjifCAOVj900%2Fimg.png" alt="">
+              <span>Welcome!</span>
+            </a>
+
+          </div> 
+
+          <div class="top__menuBar flex">
+            <div class="icon">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdGbRo9%2FbtqP0sMtymz%2FdaU5uKrftzz9jTxknr92a1%2Fimg.png" alt="">
+            </div>
+
+            <ul class="row flex">
+              <li class="cell"><a href="file:///C:/work/sts-4.8.0.RELEASE-workspace/ssg/site/home/index.html">Home</a></li>
+              <li class="cell"><a href="#">About</a></li>
+              <li class="cell"><a href="#">Board</a>
+                <ul>
+                 [aaa]
+                </ul> 
+              </li>
+              <li class="cell"><a href="#">Social</a></li>
+              <li class="cell"><a href="#">Data</a></li>
+            </ul>  
+          </div>
+          <div class="top__leftMenuBar"></div>
         </div>
-        <div class="top__leftMenuBar"></div>
-      </div>
-    </header>
+      </header>
+      <!-----------헤더 끝---------------------------------->

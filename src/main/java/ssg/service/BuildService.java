@@ -30,7 +30,7 @@ public class BuildService {
 		List<Board> boards = articleService.getBoards();
 
 		for (Board board : boards) {
-			boardListHtml += "<li><a href=\"file:///C:/work/sts-4.8.0.RELEASE-workspace/ssg/site/board/" + board.title
+			boardListHtml += "<li><a href=\"file:///C:/work/sts-4.8.0.RELEASE-workspace/ssg/site/board/" + board.title + "-1"
 					+ ".html\">" + board.title + "</a></li>";
 		}
 
@@ -84,9 +84,20 @@ public class BuildService {
 
 		// -----------홈만들기 끝-------------------
 
+	
+		
+		
 		// -----------공지사항 게시판 만들기-------------------
 		Util.makeDir("site/board");
-		String notice = Util.getFileContents("site_template/part/notice.html");
+		String list = Util.getFileContents("site_template/part/list.html");
+		String titleHtml = "";
+
+		
+		
+		titleHtml += "<span>Notice</span>";
+		list = list.replace("[bbb]", titleHtml);
+		
+		
 
 		// 페이징 제한
 		int itemsInAPage = 10;
@@ -94,6 +105,14 @@ public class BuildService {
 		// 공지사항 게시판의 게시글 불러오기
 		List<Article> serchArticles = articleService.getArticles(1);
 
+		String paging = "";
+
+		for (int i = 1; i <= serchArticles.size()/10; i++) {
+			paging += " <div class=\"box\">" + " <a href=\"file:///C:/work/sts-4.8.0.RELEASE-workspace/ssg/site/board/Notice-" + i + ".html\">" + "[" + i + "]" + "</a>"
+					+ " </div>";
+		}
+		
+		
 		// 페이지가 1부터 시작될 때
 		for (int page = 1; page <= 100; page++) {
 
@@ -117,49 +136,53 @@ public class BuildService {
 
 				Article article = serchArticles.get(i);
 
-				sb_notice.append("<div class = \"notice flex_list\">");
+				sb_notice.append("<div class = \"list flex\">");
 
-				sb_notice.append(" <div class=\"notice__id\">" + article.id + "</div>");
-				sb_notice.append(" <div class=\"notice__title\">" + article.title + "</div>");
-				sb_notice.append(" <div class=\"notice__writer\">" + article.writer + "</div>");
-				sb_notice.append(" <div class=\"notice__count\">" + article.count + "</div>");
-				sb_notice.append(" <div class=\"notice__regDate\">" + article.regDate + "</div>");
+				sb_notice.append(" <div class=\"list__id\">" + article.id + "</div>");
+				sb_notice.append(" <div class=\"list__title\">" + article.title + "</div>");
+				sb_notice.append(" <div class=\"list__writer\">" + article.writer + "</div>");
+				sb_notice.append(" <div class=\"list__count\">" + article.count + "</div>");
+				sb_notice.append(" <div class=\"list__regDate\">" + article.regDate + "</div>");
 
 				sb_notice.append("</div>");
-		
+
 			}
-			
+
 			sb_notice.append("</main>");
+			sb_notice.append("<div class=\"page flex\">");
+			sb_notice.append(paging);
 			sb_notice.append("</div>");
 			sb_notice.append("</div>");
-			
-			String paging ="";
-			
-			for(int i = 1; i <= 10/serchArticles.size(); i++) {
-				paging += "<div class=\"page flex\">";
-				+= "<div class="box">";
-				+= <a href="#">[1]</a>
-			}	
-			
+			sb_notice.append("</div>");
+
 			sb_notice.append("</section>");
 
 			// Collections.reverse(articles);
 
 			// 파일쓰기
 			String notice_fileName = "Notice-" + page + ".html";
-			Util.writeFile("site/board/" + notice_fileName, head + notice + sb_notice.toString() + footer);
+			Util.writeFile("site/board/" + notice_fileName, head + list + sb_notice.toString() + footer);
 			System.out.printf("==%s 생성==\n", notice_fileName);
-			
+
 		}
-		
-		
+
 		// -----------공지사항 게시판 만들기 끝 -------------------
 
 		// -----------자유게시판 만들기-------------------
 
 		Util.makeDir("site/board");
-		String freeboard = Util.getFileContents("site_template/part/freeboard.html");
 
+		titleHtml = "";
+
+		titleHtml += "<span>Free board</span>";
+		list = list.replace("[bbb]", titleHtml);
+		
+		paging = "";
+
+		for (int i = 1; i <= serchArticles.size()/10; i++) {
+			paging += " <div class=\"box\">" + " <a href=\"file:///C:/work/sts-4.8.0.RELEASE-workspace/ssg/site/board/Free board-" + i + ".html\">" + "[" + i + "]" + "</a>"
+					+ " </div>";
+		}
 		// 자유게시판 게시판의 게시글 불러오기
 		List<Article> serchArticles_free = articleService.getArticles(2);
 
@@ -186,27 +209,31 @@ public class BuildService {
 
 				Article article = serchArticles_free.get(i);
 
-				sb_freeboard.append("<div class = \"freeboard flex_list\">");
+				sb_freeboard.append("<div class = \"list flex\">");
 
-				sb_freeboard.append(" <div class=\"freeboard__id\">" + article.id + "</div>");
-				sb_freeboard.append(" <div class=\"freeboard__title\">" + article.title + "</div>");
-				sb_freeboard.append(" <div class=\"freeboard__writer\">" + article.writer + "</div>");
-				sb_freeboard.append(" <div class=\"freeboard__count\">" + article.count + "</div>");
-				sb_freeboard.append(" <div class=\"freeboard__regDate\">" + article.regDate + "</div>");
+				sb_freeboard.append(" <div class=\"list__id\">" + article.id + "</div>");
+				sb_freeboard.append(" <div class=\"list__title\">" + article.title + "</div>");
+				sb_freeboard.append(" <div class=\"list__writer\">" + article.writer + "</div>");
+				sb_freeboard.append(" <div class=\"list__count\">" + article.count + "</div>");
+				sb_freeboard.append(" <div class=\"list__regDate\">" + article.regDate + "</div>");
 
 				sb_freeboard.append("</div>");
 			}
 
 			sb_freeboard.append("</main>");
+			sb_freeboard.append("<div class=\"page flex\">");
+			sb_freeboard.append(paging);
 			sb_freeboard.append("</div>");
 			sb_freeboard.append("</div>");
-			sb_freeboard.append("</section>");
+			sb_freeboard.append("</div>");
 
+			sb_freeboard.append("</section>");
+			
 			// Collections.reverse(articles);
 
 			// 파일쓰기
 			String freeboard_fileName = "Free board-" + page + ".html";
-			Util.writeFile("site/board/" + freeboard_fileName, head + freeboard + sb_freeboard.toString() + footer);
+			Util.writeFile("site/board/" + freeboard_fileName, head + list + sb_freeboard.toString() + footer);
 			System.out.printf("==%s 생성==\n", freeboard_fileName);
 		}
 	}
