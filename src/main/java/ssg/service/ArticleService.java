@@ -31,8 +31,18 @@ public class ArticleService {
 		return articleDao.getArticles(); 
 	}
 
+	public List<Article> getArticles(int boardId) {
+		return articleDao.getArticles(boardId);
+	}
+	
 	public List<Board> getBoards() {
 		return articleDao.getBoards();
 	}
+
+	public List<Board> getBoardsByboardId(int boardId) {
+		return articleDao.getBoardsByboardId(boardId);
+	}
+
+
 
 }

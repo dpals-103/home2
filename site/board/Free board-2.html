@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>head</title>
+    <style type="text/css">
+    @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+
+body, html{
+  overflow-x : hidden;
+  font-family: 'Roboto', sans-serif;
+}
+
+body, ul, li{
+  margin : 0; 
+  padding : 0; 
+  list-style : none; 
+}
+
+a{
+  color : inherit; 
+  text-decoration : none;
+  font-weight : bold; 
+}
+
+
+
+/*라이브러리*/ 
+
+.top__banner{
+  width : 100%; 
+  height : 150px;
+}
+
+.top__rightMenuBar{
+  height : 100px;
+}
+
+section{
+  height : 500px;
+  margin-top : 50px;
+}
+
+.con-min-width{
+  min-width : 1200px;
+}
+.con {
+  max-width : 1200px;
+  margin : 0 auto; 
+}
+
+.top__banner{
+  width : 100%; 
+  height : 150px; 
+
+}
+
+
+/* 커스텀*/ 
+/*메뉴바*/
+.top{
+  margin-bottom : 20px;
+}
+
+.row {
+  display : flex; 
+  justify-content : flex-end;   
+}
+
+.top__banner{
+  display : flex;
+  justify-content : center;
+  align-items : center;
+}
+
+.top__banner > .img-box > img{
+  width : 100px;
+}
+
+.top__banner > span{
+  font-size : 40px;
+  font-weight : 700;
+}
+
+.top__rightMenuBar li{
+  position : relative; 
+}
+
+.top__rightMenuBar ul ul {
+  display : none; 
+  position : absolute; 
+  top : 100%;
+  left: 0; 
+}
+
+
+
+
+.top__rightMenuBar .cell a{
+  padding : 5px 20px; 
+  font-size :14pt;
+  display : block;
+}
+
+
+.top__rightMenuBar  .cell  a:hover {
+  color : #67a1e9; 
+  transition : color 0.5s; 
+}
+
+
+.top__rightMenuBar .cell:hover > ul{
+  white-space : nowrap;
+  display : block; 
+}
+
+
+/*섹션*/ 
+
+/*푸터*/
+.bottom-bar{
+  display : block;
+  bottom :0;
+  width : 100%;
+  height : 70px;
+}
+
+
+.bottom-bar{
+  margin-top : 30px;
+  border-top : solid 1px; 
+  display : flex;
+  flex-direction : row;
+  justify-content : center;
+  align-items : center; 
+}
+
+
+.bottom-bar > div:first-child > span{
+  font-size : 30px;
+  font-weight : 500; 
+}
+
+.bottom-bar > div:nth-child(2) {
+  margin-left : 20px;
+}
+
+
+
+
+    
+    </style>
+  </head>
+  <body>
+
+    <header class="top con-min-width">
+      <div class="con">
+        <div class="top__banner">
+          <div class="img-box"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FXnwmU%2FbtqPNyskUIk%2FoEglomcERfDjifCAOVj900%2Fimg.png" alt=""></div> 
+          <span>Welcome!</span>
+        </div>
+
+        <div class="top__rightMenuBar">
+          <ul class="row flex">
+            <li class="cell"><a href="file:///C:/work/sts-4.8.0.RELEASE-workspace/ssg/site/home/index.html">Home</a></li>
+            <li class="cell"><a href="#">About</a></li>
+            <li class="cell"><a href="#">Board</a>
+              <ul>
+               <li><a href="file:///C:/work/sts-4.8.0.RELEASE-workspace/ssg/site/board/Notice.html">Notice</a></li><li><a href="file:///C:/work/sts-4.8.0.RELEASE-workspace/ssg/site/board/Free board.html">Free board</a></li>
+              </ul> 
+            </li>
+            <li class="cell"><a href="#">Social</a></li>
+            <li class="cell"><a href="#">Data</a></li>
+          </ul>  
+        </div>
+        <div class="top__leftMenuBar"></div>
+      </div>
+    </header><!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>list</title>
+    <style type="text/css">
+    :root{
+  --freeboard__id : 150px;
+  --freeboard__title : 300px;
+  --freeboard__writer : 200px;
+  --freeboard__count : 200px;
+  --freeboard__regDate : 400px;
+}
+
+
+.flex_list{
+  display : flex; 
+  justify-content : center; 
+}
+
+.freeboard{
+  text-align : center;
+  font-family : 'Noto Sans KR', sans-serif;
+}
+
+.freeboard > div{
+  font-weight : 500;
+  font-size : 12px;
+}
+.section-2__freeboard > .title{
+  display : inline-block;
+  margin-bottom : 30px;
+}
+
+.section-2__freeboard >.title > span{
+  font-weight : 700;
+  font-size : 30px;
+}
+
+
+.section-2__freeboard > header > div > div{
+  position : relative; 
+}
+
+.section-2__freeboard > header > div > div::after{
+  content : "";
+  width : 1px;
+  height : 15px;
+  background-color : #191919;
+  position : absolute; 
+  top : 50%;
+  transform : translatey(-50%);
+  right : 0; 
+}
+
+.freeboard__id{
+  width : var(--freeboard__id); 
+}
+
+.freeboard__title{
+  width : var(--freeboard__title); 
+}
+
+.freeboard__writer{
+  width : var(--freeboard__writer); 
+}
+
+.freeboard__count{
+  width : var(--freeboard__count); 
+}
+
+.freeboard__regDate{
+  width : var(--freeboard__regDate); 
+}
+
+.section-2__freeboard > header{
+  padding : 10px 0;
+}
+
+.section-2__freeboard > main{
+  padding : 10px 0;
+  border-top : solid 1px;
+}
+    
+    </style>
+  </head>
+  <body>
+  
+  <!-- 작성필요 / 리스트에 따라 번호 바뀌어야 됨-->
+  
+   <section class = "section-2 con-min-width">
+      <div class="con">
+        <div class = "section-2__freeboard">
+          <div class="title">
+             <span>[ Free Board ]</span>
+           </div>
+          
+          <header>
+            <div class = "freeboard flex_list">
+              <div class="freeboard__id">번호</div>
+              <div class="freeboard__title">제목</div>
+              <div class="freeboard__writer">작성자</div>
+              <div class="freeboard__count">조회수</div>
+              <div class="freeboard__regDate">날짜</div>
+            </div>
+          </header>
+          
+          <!--  
+          <main>
+            <div class = "notice flex_list">
+             <div class="notice__id">번호</div>
+              <div class="notice__title">제목</div>
+              <div class="notice__writer">작성자</div>
+              <div class="notice__count">조회수</div>
+              <div class="notice__regDate">날짜</div>
+            </div>
+          </main>
+       
+          
+        </div>
+      </div>
+    </section>
+       --><main><div class = "freeboard flex_list"> <div class="freeboard__id">50</div> <div class="freeboard__title">제목1</div> <div class="freeboard__writer">홍길순1</div> <div class="freeboard__count">0</div> <div class="freeboard__regDate">2020-12-11 11:22:15</div></div><div class = "freeboard flex_list"> <div class="freeboard__id">49</div> <div class="freeboard__title">제목1</div> <div class="freeboard__writer">홍길순1</div> <div class="freeboard__count">0</div> <div class="freeboard__regDate">2020-12-11 11:22:15</div></div><div class = "freeboard flex_list"> <div class="freeboard__id">48</div> <div class="freeboard__title">제목1</div> <div class="freeboard__writer">홍길순1</div> <div class="freeboard__count">0</div> <div class="freeboard__regDate">2020-12-11 11:22:15</div></div><div class = "freeboard flex_list"> <div class="freeboard__id">47</div> <div class="freeboard__title">제목1</div> <div class="freeboard__writer">홍길순1</div> <div class="freeboard__count">0</div> <div class="freeboard__regDate">2020-12-11 11:22:15</div></div><div class = "freeboard flex_list"> <div class="freeboard__id">46</div> <div class="freeboard__title">제목1</div> <div class="freeboard__writer">홍길순1</div> <div class="freeboard__count">0</div> <div class="freeboard__regDate">2020-12-11 11:22:15</div></div><div class = "freeboard flex_list"> <div class="freeboard__id">45</div> <div class="freeboard__title">제목1</div> <div class="freeboard__writer">홍길순1</div> <div class="freeboard__count">0</div> <div class="freeboard__regDate">2020-12-11 11:22:15</div></div><div class = "freeboard flex_list"> <div class="freeboard__id">44</div> <div class="freeboard__title">제목1</div> <div class="freeboard__writer">홍길순1</div> <div class="freeboard__count">0</div> <div class="freeboard__regDate">2020-12-11 11:22:15</div></div><div class = "freeboard flex_list"> <div class="freeboard__id">43</div> <div class="freeboard__title">제목1</div> <div class="freeboard__writer">홍길순1</div> <div class="freeboard__count">0</div> <div class="freeboard__regDate">2020-12-11 11:22:15</div></div><div class = "freeboard flex_list"> <div class="freeboard__id">42</div> <div class="freeboard__title">제목1</div> <div class="freeboard__writer">홍길순1</div> <div class="freeboard__count">0</div> <div class="freeboard__regDate">2020-12-11 11:22:15</div></div><div class = "freeboard flex_list"> <div class="freeboard__id">41</div> <div class="freeboard__title">제목1</div> <div class="freeboard__writer">홍길순1</div> <div class="freeboard__count">0</div> <div class="freeboard__regDate">2020-12-11 11:22:15</div></div></main></div></div></section>
+    <footer class="bottom con-min-width">
+      <div class="con">
+        <div class="bottom-bar">
+          <div>
+            <span>=Je-ya_portfolio=</span>
+          </div>
+          <div>
+            <span>Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </body>
+</html>

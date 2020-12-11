@@ -11,6 +11,12 @@ import ssg.mysqlUtill.SecSql;
 
 
 public class ArticleDao {
+	
+	int lastArticleId;
+	
+	public ArticleDao(){
+		lastArticleId = 0; 
+	}
 
 	public int makeboard(String title) {
 
@@ -64,6 +70,22 @@ public class ArticleDao {
 		return newArticles;
 	}
 
+	public List<Article> getArticles(int boardId) {
+		List<Article> newArticles = new ArrayList<>();
+
+		SecSql sql = new SecSql();
+		sql.append("select * from article where boardId=?", boardId);
+
+		List<Map<String, Object>> articleMapList = MysqlUtil.selectRows(sql);
+
+		for (Map<String, Object> articleMap : articleMapList) {
+			newArticles.add(new Article(articleMap));
+		}
+
+		return newArticles;
+	}
+	
+	
 	public List<Board> getBoards() {
 		
 		List<Board> boards = new ArrayList<>();
@@ -83,5 +105,28 @@ public class ArticleDao {
 
 		return boards;
 	}
+
+	public List<Board> getBoardsByboardId(int boardId) {
+
+		List<Board> boards = new ArrayList<>();
+
+		SecSql sql = new SecSql();
+		sql.append("select * from board where boardId =?", boardId);
+
+		List<Map<String, Object>> boardMapList = MysqlUtil.selectRows(sql);
+		
+		if (boardMapList.isEmpty()) {
+			return null;
+		}
+
+		for (Map<String, Object> boardMap : boardMapList) {
+			boards.add(new Board(boardMap));
+		}
+
+		return boards;
+
+	}
+
+	
 
 }

@@ -188,11 +188,11 @@ section{
     <title>list</title>
     <style type="text/css">
     :root{
-  --freeboard__id : 150px;
-  --freeboard__title : 300px;
-  --freeboard__writer : 200px;
-  --freeboard__count : 200px;
-  --freeboard__regDate : 400px;
+  --notice__id : 150px;
+  --notice__title : 300px;
+  --notice__writer : 200px;
+  --notice__count : 200px;
+  --notice__regDate : 400px;
 }
 
 
@@ -201,31 +201,31 @@ section{
   justify-content : center; 
 }
 
-.freeboard{
+.notice{
   text-align : center;
   font-family : 'Noto Sans KR', sans-serif;
 }
 
-.freeboard > div{
+.notice > div{
   font-weight : 500;
   font-size : 12px;
 }
-.section-2__freeboard > .title{
+.section-1__notice > .title{
   display : inline-block;
   margin-bottom : 30px;
 }
 
-.section-2__freeboard >.title > span{
+.section-1__notice >.title > span{
   font-weight : 700;
   font-size : 30px;
 }
 
 
-.section-2__freeboard > header > div > div{
+.section-1__notice > header > div > div{
   position : relative; 
 }
 
-.section-2__freeboard > header > div > div::after{
+.section-1__notice > header > div > div::after{
   content : "";
   width : 1px;
   height : 15px;
@@ -236,31 +236,31 @@ section{
   right : 0; 
 }
 
-.freeboard__id{
-  width : var(--freeboard__id); 
+.notice__id{
+  width : var(--notice__id); 
 }
 
-.freeboard__title{
-  width : var(--freeboard__title); 
+.notice__title{
+  width : var(--notice__title); 
 }
 
-.freeboard__writer{
-  width : var(--freeboard__writer); 
+.notice__writer{
+  width : var(--notice__writer); 
 }
 
-.freeboard__count{
-  width : var(--freeboard__count); 
+.notice__count{
+  width : var(--notice__count); 
 }
 
-.freeboard__regDate{
-  width : var(--freeboard__regDate); 
+.notice__regDate{
+  width : var(--notice__regDate); 
 }
 
-.section-2__freeboard > header{
+.section-1__notice > header{
   padding : 10px 0;
 }
 
-.section-2__freeboard > main{
+.section-1__notice > main{
   padding : 10px 0;
   border-top : solid 1px;
 }
@@ -271,20 +271,20 @@ section{
   
   <!-- 작성필요 / 리스트에 따라 번호 바뀌어야 됨-->
   
-   <section class = "section-2 con-min-width">
+   <section class = "section-1 con-min-width">
       <div class="con">
-        <div class = "section-2__freeboard">
+        <div class = "section-1__notice">
           <div class="title">
-             <span>[ Free Board ]</span>
+             <span>[ Notice ]</span>
            </div>
           
           <header>
-            <div class = "freeboard flex_list">
-              <div class="freeboard__id">번호</div>
-              <div class="freeboard__title">제목</div>
-              <div class="freeboard__writer">작성자</div>
-              <div class="freeboard__count">조회수</div>
-              <div class="freeboard__regDate">날짜</div>
+            <div class = "notice flex_list">
+              <div class="notice__id">번호</div>
+              <div class="notice__title">제목</div>
+              <div class="notice__writer">작성자</div>
+              <div class="notice__count">조회수</div>
+              <div class="notice__regDate">날짜</div>
             </div>
           </header>
           
@@ -303,7 +303,7 @@ section{
         </div>
       </div>
     </section>
-       --><main><div class = "freeboard flex_list"> <div class="freeboard__id">4</div> <div class="freeboard__title">gig</div> <div class="freeboard__writer">gigi</div> <div class="freeboard__count">0</div> <div class="freeboard__regDate">2020-12-11 02:03:04</div></div><div class = "freeboard flex_list"> <div class="freeboard__id">3</div> <div class="freeboard__title">제목3</div> <div class="freeboard__writer">임꺽정</div> <div class="freeboard__count">5</div> <div class="freeboard__regDate">2020-12-11 02:02:53</div></div><div class = "freeboard flex_list"> <div class="freeboard__id">2</div> <div class="freeboard__title">제목2</div> <div class="freeboard__writer">홍길삼</div> <div class="freeboard__count">5</div> <div class="freeboard__regDate">2020-12-11 02:02:53</div></div><div class = "freeboard flex_list"> <div class="freeboard__id">1</div> <div class="freeboard__title">제목1</div> <div class="freeboard__writer">홍길동</div> <div class="freeboard__count">3</div> <div class="freeboard__regDate">2020-12-11 02:02:53</div></div></main></div></div></section>
+       --><main><div class = "notice flex_list"> <div class="notice__id">20</div> <div class="notice__title">제목1</div> <div class="notice__writer">홍길동1</div> <div class="notice__count">0</div> <div class="notice__regDate">2020-12-11 11:22:15</div></div><div class = "notice flex_list"> <div class="notice__id">19</div> <div class="notice__title">제목1</div> <div class="notice__writer">홍길동1</div> <div class="notice__count">0</div> <div class="notice__regDate">2020-12-11 11:22:15</div></div><div class = "notice flex_list"> <div class="notice__id">18</div> <div class="notice__title">제목1</div> <div class="notice__writer">홍길동1</div> <div class="notice__count">0</div> <div class="notice__regDate">2020-12-11 11:22:15</div></div><div class = "notice flex_list"> <div class="notice__id">17</div> <div class="notice__title">제목1</div> <div class="notice__writer">홍길동1</div> <div class="notice__count">0</div> <div class="notice__regDate">2020-12-11 11:22:15</div></div><div class = "notice flex_list"> <div class="notice__id">16</div> <div class="notice__title">제목1</div> <div class="notice__writer">홍길동1</div> <div class="notice__count">0</div> <div class="notice__regDate">2020-12-11 11:22:15</div></div><div class = "notice flex_list"> <div class="notice__id">15</div> <div class="notice__title">제목1</div> <div class="notice__writer">홍길동1</div> <div class="notice__count">0</div> <div class="notice__regDate">2020-12-11 11:22:15</div></div><div class = "notice flex_list"> <div class="notice__id">14</div> <div class="notice__title">제목1</div> <div class="notice__writer">홍길동1</div> <div class="notice__count">0</div> <div class="notice__regDate">2020-12-11 11:22:15</div></div><div class = "notice flex_list"> <div class="notice__id">13</div> <div class="notice__title">제목1</div> <div class="notice__writer">홍길동1</div> <div class="notice__count">0</div> <div class="notice__regDate">2020-12-11 11:22:15</div></div><div class = "notice flex_list"> <div class="notice__id">12</div> <div class="notice__title">제목1</div> <div class="notice__writer">홍길동1</div> <div class="notice__count">0</div> <div class="notice__regDate">2020-12-11 11:22:15</div></div><div class = "notice flex_list"> <div class="notice__id">11</div> <div class="notice__title">제목1</div> <div class="notice__writer">홍길동1</div> <div class="notice__count">0</div> <div class="notice__regDate">2020-12-11 11:22:15</div></div></main></div></div></section>
     <footer class="bottom con-min-width">
       <div class="con">
         <div class="bottom-bar">

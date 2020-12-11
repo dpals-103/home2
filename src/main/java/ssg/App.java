@@ -3,6 +3,7 @@ package ssg;
 import java.util.Scanner;
 
 import ssg.container.Container;
+import ssg.controller.ArticleController;
 import ssg.controller.Controller;
 import ssg.mysqlUtill.MysqlUtil;
 import ssg.service.ArticleService;
@@ -17,12 +18,8 @@ public class App {
 	App(){
 		articleService = Container.articleService; 
 		memberService = Container.memberService; 
-		
 	}
 	
-	
-
-
 
 	public void run() {
 		Scanner sc = Container.scanner;
@@ -31,8 +28,8 @@ public class App {
 			System.out.printf("명령어 ) ");
 			String cmd = sc.nextLine();
 
-			MysqlUtil.setDBInfo("127.0.0.1", "dpals103", "dlgywn0168", "a1");
-			//MysqlUtil.setDBInfo("127.0.0.1", "sbsst", "sbs123414", "a1");
+			//MysqlUtil.setDBInfo("127.0.0.1", "dpals103", "dlgywn0168", "a1");
+			MysqlUtil.setDBInfo("127.0.0.1", "sbsst", "sbs123414", "a1");
 
 			boolean needToExit = false;
 
