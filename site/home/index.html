@@ -115,16 +115,57 @@ a{
   flex-grow : 1; 
 }
 
+.section-1__home{
+  min-height : 50vh;
+  width : 846px;
+  height : 520px;
+  margin : 0 auto;
+  position : relative; 
+}
+
+.section-1__home>.img-1>img{
+  display : block;
+  width:408px;
+  position:absolute;
+  z-index : 1; 
+}
+
+.section-1__home>.img-2>img{
+  position : absolute;
+  bottom:0;
+  right:0;
+}
+
+.section-1__home>.text-box{
+  position : absolute;
+  top:2%;
+  right:0;
+  width : 336px;
+}
+
+.section-1__home>.text-box > .text-1{
+  font-size : 40px;
+  font-weight : 700;
+}
+
+.section-1__home>.text-box > .text-2{
+  font-size : 14px;
+  font-weight : 400;
+  color : #505050;
+}
+  
+
 /*푸터*/ 
 .container > footer .bottom-bar{
   flex-direction : row; 
   justify-content : center; 
   align-items : center; 
   border-top : solid 1px; 
+  height : 70px;
 }
 
 .container > footer .bottom-bar > div:nth-child(1) >span{
-  font-size : 20px;
+  font-size : 14px;
   font-weight : 500;
 }
 
@@ -133,7 +174,7 @@ a{
 }
 
 .container > footer .bottom-bar > div:nth-child(3) span{
-  font-size : 20px;
+  font-size : 14px;
   font-weight : 500;
 }
 
@@ -175,7 +216,11 @@ a{
           <div class="top__leftMenuBar"></div>
         </div>
       </header>
-      <!-----------헤더 끝----------------------------------><!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1"><title>index</title></head><body><section class = "section-1 con-min-width"><div class="con"><div class = "section-contents">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam deleniti numquam iusto quae necessitatibus eveniet esse velit eius inventore dolores atque rerum maiores quis sapiente, magnam corporis, ut nesciunt! Impedit. Cumque, unde quo excepturi totam iste ad perspiciatis dolores distinctio laborum. Ducimus fuga explicabo culpa perferendis consectetur assumenda ullam dicta nostrum tempore voluptatibus ex, amet aspernatur enim, voluptatum, voluptatem aliquid! Sunt suscipit maxime rerum? Ducimus, cumque nisi assumenda ipsa dicta impedit ad itaque repudiandae quas error accusantium perferendis deserunt a ea doloremque ipsum nobis esse illum debitis nesciunt aliquam quod? Velit incidunt voluptatem, eum est cum labore at vero maxime dolores distinctio ad facilis ullam porro tempora repellendus et necessitatibus, quibusdam dignissimos voluptas sunt. Tempora porro quidem aliquam optio magnam! Facilis, ex minima? Ipsum similique corrupti ad nam soluta tempore quia, aspernatur fuga nulla est totam, hic repellendus voluptatem aliquam nobis fugiat provident, amet dolore exercitationem quam. Laborum, consectetur quas?</div></div></section></body></html><!-----------푸터 시작---------------------------------->
+      <!-----------헤더 끝----------------------------------><!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1"><title>index</title></head><body><section class = "con-min-width"><div class="con"><div class="section-1__home flex"><div class="img-1"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FOkHJU%2FbtqP4mlH810%2FKVNu5ZeCqN5kXnsT93K6c0%2Fimg.jpg" alt=""></div><div class="img-2"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbfmISn%2FbtqP6nScU7Z%2FHhHiDnrnmmEt1rPaNkVNs0%2Fimg.jpg" alt=""></div><div class="text-box"><span class="text-1">Hi, I'm Je-ya! :)</span><br><br><span class="text-2">Lorem ipsum dolor sit amet consectetur adipisici
+ng elit. Nam perferendis recusandae rem fuga du
+cimus, eaque natus earum labore praesentium m
+aiores quae deserunt voluptas error! Id voluptates
+quaerat iste ullam doloremque!</span></div></div></div></section></body></html><!-----------푸터 시작---------------------------------->
         <footer class="bottom con-min-width">
           <div class="con">
             <div class="bottom-bar flex">

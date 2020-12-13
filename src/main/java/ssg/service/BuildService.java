@@ -30,8 +30,8 @@ public class BuildService {
 		List<Board> boards = articleService.getBoards();
 
 		for (Board board : boards) {
-			boardListHtml += "<li><a href=\"file:///C:/work/sts-4.8.0.RELEASE-workspace/ssg/site/board/" + board.title + "-1"
-					+ ".html\">" + board.title + "</a></li>";
+			boardListHtml += "<li><a href=\"file:///C:/work/sts-4.8.0.RELEASE-workspace/ssg/site/board/" + board.title
+					+ "-1" + ".html\">" + board.title + "</a></li>";
 		}
 
 		head = head.replace("[aaa]", boardListHtml);
@@ -52,23 +52,26 @@ public class BuildService {
 
 		sb.append("<body>");
 
-		sb.append("<section class = \"section-1 con-min-width\">");
+		sb.append("<section class = \"con-min-width\">");
 		sb.append("<div class=\"con\">");
-		sb.append("<div class = \"section-contents\">");
-		sb.append("Lorem ipsum dolor sit amet consectetur adipisicing elit. "
-				+ "Nam deleniti numquam iusto quae necessitatibus eveniet esse velit eius "
-				+ "inventore dolores atque rerum maiores quis sapiente, magnam corporis, ut "
-				+ "nesciunt! Impedit. Cumque, unde quo excepturi totam iste ad perspiciatis dolores "
-				+ "distinctio laborum. Ducimus fuga explicabo culpa perferendis consectetur assumenda"
-				+ " ullam dicta nostrum tempore voluptatibus ex, amet aspernatur enim, voluptatum, voluptatem "
-				+ "aliquid! Sunt suscipit maxime rerum? Ducimus, cumque nisi assumenda ipsa dicta impedit ad "
-				+ "itaque repudiandae quas error accusantium perferendis deserunt a ea doloremque ipsum nobis "
-				+ "esse illum debitis nesciunt aliquam quod? Velit incidunt voluptatem, eum est cum labore at "
-				+ "vero maxime dolores distinctio ad facilis ullam porro tempora repellendus et necessitatibus, "
-				+ "quibusdam dignissimos voluptas sunt. Tempora porro quidem aliquam optio magnam! Facilis, "
-				+ "ex minima? Ipsum similique corrupti ad nam soluta tempore quia, aspernatur fuga nulla est totam,"
-				+ " hic repellendus voluptatem aliquam nobis fugiat provident, "
-				+ "amet dolore exercitationem quam. Laborum, consectetur quas?");
+		sb.append("<div class=\"section-1__home flex\">");
+		sb.append("<div class=\"img-1\">");
+		sb.append(
+				"<img src=\"https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FOkHJU%2FbtqP4mlH810%2FKVNu5ZeCqN5kXnsT93K6c0%2Fimg.jpg\" alt=\"\">");
+		sb.append("</div>");
+		sb.append("<div class=\"img-2\">");
+		sb.append(
+				"<img src=\"https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbfmISn%2FbtqP6nScU7Z%2FHhHiDnrnmmEt1rPaNkVNs0%2Fimg.jpg\" alt=\"\">");
+		sb.append("</div>");
+		sb.append("<div class=\"text-box\">");
+		sb.append("<span class=\"text-1\">Hi, I'm Je-ya! :)");
+		sb.append("</span><br><br>");
+		sb.append("<span class=\"text-2\">Lorem ipsum dolor sit amet consectetur adipisici\r\n"
+				+ "ng elit. Nam perferendis recusandae rem fuga du\r\n"
+				+ "cimus, eaque natus earum labore praesentium m\r\n"
+				+ "aiores quae deserunt voluptas error! Id voluptates\r\n" + "quaerat iste ullam doloremque!");
+		sb.append("</span>");
+		sb.append("</div>");
 		sb.append("</div>");
 		sb.append("</div>");
 		sb.append("</section>");
@@ -84,41 +87,34 @@ public class BuildService {
 
 		// -----------홈만들기 끝-------------------
 
-	
-		
-		
 		// -----------공지사항 게시판 만들기-------------------
 		Util.makeDir("site/board");
 		String list = Util.getFileContents("site_template/part/list.html");
 		String titleHtml = "";
 
-		
-		
 		titleHtml += "<span>Notice</span>";
 		list = list.replace("[bbb]", titleHtml);
-		
-		
 
 		// 페이징 제한
 		int itemsInAPage = 10;
 
 		// 공지사항 게시판의 게시글 불러오기
-		List<Article> serchArticles = articleService.getArticles(1);
+		List<Article> serchArticles_notice = articleService.getArticles(1);
 
 		String paging = "";
 
-		for (int i = 1; i <= serchArticles.size()/10; i++) {
-			paging += " <div class=\"box\">" + " <a href=\"file:///C:/work/sts-4.8.0.RELEASE-workspace/ssg/site/board/Notice-" + i + ".html\">" + "[" + i + "]" + "</a>"
-					+ " </div>";
+		for (int i = 1; i <= serchArticles_notice.size() / 10; i++) {
+			paging += " <div class=\"box\">"
+					+ " <a href=\"file:///C:/work/sts-4.8.0.RELEASE-workspace/ssg/site/board/Notice-" + i + ".html\">"
+					+ "[" + i + "]" + "</a>" + " </div>";
 		}
-		
-		
+
 		// 페이지가 1부터 시작될 때
 		for (int page = 1; page <= 100; page++) {
 
 			StringBuilder sb_notice = new StringBuilder();
 
-			int startPos = serchArticles.size() - 1;
+			int startPos = serchArticles_notice.size() - 1;
 			startPos -= (page - 1) * itemsInAPage;
 			int endPos = startPos - (itemsInAPage - 1);
 
@@ -134,7 +130,7 @@ public class BuildService {
 
 			for (int i = startPos; i >= endPos; i--) {
 
-				Article article = serchArticles.get(i);
+				Article article = serchArticles_notice.get(i);
 
 				sb_notice.append("<div class = \"list flex\">");
 
@@ -176,12 +172,13 @@ public class BuildService {
 
 		titleHtml += "<span>Free board</span>";
 		list = list.replace("[bbb]", titleHtml);
-		
+
 		paging = "";
 
-		for (int i = 1; i <= serchArticles.size()/10; i++) {
-			paging += " <div class=\"box\">" + " <a href=\"file:///C:/work/sts-4.8.0.RELEASE-workspace/ssg/site/board/Free board-" + i + ".html\">" + "[" + i + "]" + "</a>"
-					+ " </div>";
+		for (int i = 1; i <= serchArticles_notice.size() / 10; i++) {
+			paging += " <div class=\"box\">"
+					+ " <a href=\"file:///C:/work/sts-4.8.0.RELEASE-workspace/ssg/site/board/Free board-" + i
+					+ ".html\">" + "[" + i + "]" + "</a>" + " </div>";
 		}
 		// 자유게시판 게시판의 게시글 불러오기
 		List<Article> serchArticles_free = articleService.getArticles(2);
@@ -228,7 +225,7 @@ public class BuildService {
 			sb_freeboard.append("</div>");
 
 			sb_freeboard.append("</section>");
-			
+
 			// Collections.reverse(articles);
 
 			// 파일쓰기
@@ -236,5 +233,29 @@ public class BuildService {
 			Util.writeFile("site/board/" + freeboard_fileName, head + list + sb_freeboard.toString() + footer);
 			System.out.printf("==%s 생성==\n", freeboard_fileName);
 		}
+
+		// -----------자유게시판 만들기 끝-------------------
+	
+		// -----------게시글 디테일 만들기 -------------------
+		
+		Util.makeDir("site/article");
+		Util.makeDir("site/article/notice");
+		String detail = Util.getFileContents("site_template/part/detail.html");
+		
+		// 공지사항 게시판의 게시글 불러오기
+		serchArticles_notice = articleService.getArticles(1);
+		
+		for(Article article : serchArticles_notice) {
+			detail = detail.replace("[title]", article.title);
+			detail = detail.replace("[regDate]", article.regDate);
+			detail = detail.replace("[count]", String.valueOf(article.count));
+			detail = detail.replace("[body]", article.body);
+	
+			String article_fileName = "Notice-article-" + article.id + ".html";
+			Util.writeFile("site/article/notice" + article_fileName, head + list + detail + footer);
+			System.out.printf("==%s 생성==\n", article_fileName);
+		}
+
+
 	}
 }

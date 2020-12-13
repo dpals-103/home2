@@ -9,6 +9,7 @@ public class Article {
 	public int id;
 	public String writer;
 	public int count;
+	public String body;
 	
 	public Article(Map<String, Object> map) {
 		this.title = (String)map.get("title");
@@ -16,6 +17,7 @@ public class Article {
 		this.id = (int)map.get("id");
 		this.count = (int)map.get("count");
 		this.writer = (String)map.get("writer");
+		this.body = (String)map.get("body");
 	}
 	
 }

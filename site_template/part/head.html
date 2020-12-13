@@ -115,16 +115,57 @@ a{
   flex-grow : 1; 
 }
 
+.section-1__home{
+  min-height : 50vh;
+  width : 846px;
+  height : 520px;
+  margin : 0 auto;
+  position : relative; 
+}
+
+.section-1__home>.img-1>img{
+  display : block;
+  width:408px;
+  position:absolute;
+  z-index : 1; 
+}
+
+.section-1__home>.img-2>img{
+  position : absolute;
+  bottom:0;
+  right:0;
+}
+
+.section-1__home>.text-box{
+  position : absolute;
+  top:2%;
+  right:0;
+  width : 336px;
+}
+
+.section-1__home>.text-box > .text-1{
+  font-size : 40px;
+  font-weight : 700;
+}
+
+.section-1__home>.text-box > .text-2{
+  font-size : 14px;
+  font-weight : 400;
+  color : #505050;
+}
+  
+
 /*푸터*/ 
 .container > footer .bottom-bar{
   flex-direction : row; 
   justify-content : center; 
   align-items : center; 
   border-top : solid 1px; 
+  height : 70px;
 }
 
 .container > footer .bottom-bar > div:nth-child(1) >span{
-  font-size : 20px;
+  font-size : 14px;
   font-weight : 500;
 }
 
@@ -133,7 +174,7 @@ a{
 }
 
 .container > footer .bottom-bar > div:nth-child(3) span{
-  font-size : 20px;
+  font-size : 14px;
   font-weight : 500;
 }
 
