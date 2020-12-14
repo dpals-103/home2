@@ -43,6 +43,10 @@ public class ArticleService {
 		return articleDao.getBoardsByboardId(boardId);
 	}
 
+	public String getArticle(int articleId, int boardId) {
+		return articleDao.getArticle(articleId, boardId); 
+	}
+
 
 
 }

@@ -32,6 +32,10 @@ a{
 
 /*라이브러리*/ 
 
+.container > section{
+	flex-grow : 1; 
+}
+
 .container{
   display: flex;
   flex-direction : column;
@@ -111,9 +115,7 @@ a{
 
 
 /*섹션*/ 
-.container > section{
-  flex-grow : 1; 
-}
+
 
 .section-1__home{
   min-height : 50vh;
@@ -216,108 +218,116 @@ a{
           <div class="top__leftMenuBar"></div>
         </div>
       </header>
-      <!-----------헤더 끝----------------------------------><!DOCTYPE html>
+      <!-----------헤더 끝----------------------------------> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>list</title>
 <style type="text/css">
-:root { 
-	-list__id: 150px; 
-	-list__title: 300px; 
-	-list__writer: 200px;
-	-list__count: 200px; 
-	-list__regDate: 400px;
+ :root{
+  --list__id : 150px;
+  --list__title : 300px;
+  --list__writer : 200px;
+  --list__count : 200px;
+  --list__regDate : 400px;
 }
 
-.container>section {
-	flex-grow: 1;
+
+.container > section{
+  flex-grow : 1; 
 }
 
-.section-1__list {
-	flex-direction: column;
-	min-height: 50vh;
+.section-1__list{
+  flex-direction : column; 
+  min-height: 50vh;
 }
 
-.section-1__list .list {
-	font-family: 'Noto Sans KR', sans-serif;
-	font-size: 15px;
-	font-weight: 400;
-	flex-shrink: 0;
-	text-align: center;
+
+.section-1__list .list{
+  font-size : 15px;
+  font-weight : 400; 
+  flex-shrink : 0; 
+  text-align : center; 
 }
 
-.section-1__list>header {
-	padding: 5px 0;
-	border-bottom: solid 1px;
+.section-1__list> header {
+  padding : 5px 0;
+  border-bottom : solid 1px; 
 }
 
-.section-1__list>main {
-	height: 350px;
-	padding: 5px 0;
+.section-1__list> main {
+  height : 350px;
+  padding : 5px 0;
 }
 
-.section-1__list>.title {
-	height: 50px;
+.section-1__list> .title{
+  height : 50px;
+
 }
 
-.section-1__list>main>div {
-	padding: 5px 0;
+.section-1__list> main > div{
+  padding : 5px 0;
 }
 
-.section-1__list>.title>span {
-	font-size: 30px;
-	font-weight: 500;
+
+.section-1__list> .title > span{
+  font-size : 30px;
+  font-weight : 500;
 }
 
-.section-1__list>header>div>div {
-	position: relative;
+
+.section-1__list> header > div > div{
+  position : relative;
 }
 
-.section-1__list>.page {
-	justify-content: center;
-	align-content: flex-end;
-	margin: 20px 0;
+
+.section-1__list> .page{
+  justify-content : center;
+  align-content : flex-end;
+  margin: 20px 0;
 }
 
-.section-1__list>header>div>div::after {
-	content: "";
-	background-color: black;
-	position: absolute;
-	top: 50%;
-	right: 0;
-	width: 1px;
-	height: 15px;
-	transform: translatey(-50%);
+.section-1__list> header > div > div::after{
+  content :"";
+  background-color : black;
+  position : absolute;
+  top : 50%;
+  right : 0; 
+  width : 1px;
+  height : 15px;
+  transform : translatey(-50%);
 }
 
-.section-1__list>.page>.box>a {
-	margin: 0 5px;
+
+.section-1__list> .page > .box > a{
+  margin: 0 5px;
 }
 
-.section-1__list>.page>.box:hover>a {
-	color: lightgray;
+.section-1__list> .page > .box:hover > a{
+  color : lightgray; 
 }
 
-.list__id {
-	width: var(- -list__id);
+
+.list__id{
+  width : var(--list__id); 
 }
 
-.list__title {
-	width: var(- -list__title);
+.list__title{
+  width : var(--list__title); 
 }
 
-.list__writer {
-	width: var(- -list__writer);
+.list__writer{
+  width : var(--list__writer); 
 }
 
-.list__count {
-	width: var(- -list__count);
+.list__count{
+  width : var(--list__count); 
 }
 
-.list__regDate {
-	width: var(- -list__regDate);
+.list__regDate{
+  width : var(--list__regDate); 
 }
 </style>
 </head>
@@ -342,7 +352,9 @@ a{
 					</div>
 				</header>
 
-				<!-----------섹션 끝----------------------------------><main><div class = "list flex"> <div class="list__id">13</div> <div class="list__title">제목1</div> <div class="list__writer">홍길동1</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-14 07:39:38</div></div><div class = "list flex"> <div class="list__id">12</div> <div class="list__title">제목1</div> <div class="list__writer">홍길동1</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-14 07:39:38</div></div><div class = "list flex"> <div class="list__id">11</div> <div class="list__title">제목1</div> <div class="list__writer">홍길동1</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-14 07:39:38</div></div><div class = "list flex"> <div class="list__id">10</div> <div class="list__title">제목1</div> <div class="list__writer">홍길동1</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-14 07:39:38</div></div><div class = "list flex"> <div class="list__id">9</div> <div class="list__title">제목1</div> <div class="list__writer">홍길동1</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-14 07:39:38</div></div><div class = "list flex"> <div class="list__id">8</div> <div class="list__title">제목1</div> <div class="list__writer">홍길동1</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-14 07:39:38</div></div><div class = "list flex"> <div class="list__id">7</div> <div class="list__title">제목1</div> <div class="list__writer">홍길동1</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-14 07:39:38</div></div><div class = "list flex"> <div class="list__id">6</div> <div class="list__title">제목1</div> <div class="list__writer">홍길동1</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-14 07:39:38</div></div><div class = "list flex"> <div class="list__id">5</div> <div class="list__title">제목1</div> <div class="list__writer">홍길동1</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-14 07:39:38</div></div><div class = "list flex"> <div class="list__id">4</div> <div class="list__title">제목1</div> <div class="list__writer">홍길동1</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-14 07:39:38</div></div></main><div class="page flex"> <div class="box"> <a href="file:///C:/work/sts-4.8.0.RELEASE-workspace/ssg/site/board/Notice-1.html">[1]</a> </div> <div class="box"> <a href="file:///C:/work/sts-4.8.0.RELEASE-workspace/ssg/site/board/Notice-2.html">[2]</a> </div> <div class="box"> <a href="file:///C:/work/sts-4.8.0.RELEASE-workspace/ssg/site/board/Notice-3.html">[3]</a> </div></div></div></div></section><!-----------푸터 시작---------------------------------->
+				<!-----------섹션 끝---------------------------------->
+
+<main><div class = "list flex"> <div class="list__id">10</div> <div class="list__title">제목10</div> <div class="list__writer">홍길동10</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-14 11:32:55</div></div><div class = "list flex"> <div class="list__id">9</div> <div class="list__title">제목9</div> <div class="list__writer">홍길동9</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-14 11:32:55</div></div><div class = "list flex"> <div class="list__id">8</div> <div class="list__title">제목8</div> <div class="list__writer">홍길동8</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-14 11:32:55</div></div><div class = "list flex"> <div class="list__id">7</div> <div class="list__title">제목7</div> <div class="list__writer">홍길동7</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-14 11:32:55</div></div><div class = "list flex"> <div class="list__id">6</div> <div class="list__title">제목6</div> <div class="list__writer">홍길동6</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-14 11:32:55</div></div><div class = "list flex"> <div class="list__id">5</div> <div class="list__title">제목5</div> <div class="list__writer">홍길동5</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-14 11:32:55</div></div><div class = "list flex"> <div class="list__id">4</div> <div class="list__title">제목4</div> <div class="list__writer">홍길동4</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-14 11:32:55</div></div><div class = "list flex"> <div class="list__id">3</div> <div class="list__title">제목3</div> <div class="list__writer">홍길동3</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-14 11:32:55</div></div><div class = "list flex"> <div class="list__id">2</div> <div class="list__title">제목2</div> <div class="list__writer">홍길동2</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-14 11:32:55</div></div><div class = "list flex"> <div class="list__id">1</div> <div class="list__title">제목1</div> <div class="list__writer">홍길동1</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-14 11:32:55</div></div></main><div class="page flex"> <div class="box"> <a href="file:///C:/work/sts-4.8.0.RELEASE-workspace/ssg/site/board/Notice-1.html">[1]</a> </div> <div class="box"> <a href="file:///C:/work/sts-4.8.0.RELEASE-workspace/ssg/site/board/Notice-2.html">[2]</a> </div> <div class="box"> <a href="file:///C:/work/sts-4.8.0.RELEASE-workspace/ssg/site/board/Notice-3.html">[3]</a> </div></div></div></div></section><!-----------푸터 시작---------------------------------->
         <footer class="bottom con-min-width">
           <div class="con">
             <div class="bottom-bar flex">

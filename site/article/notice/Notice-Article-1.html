@@ -32,6 +32,10 @@ a{
 
 /*라이브러리*/ 
 
+.container > section{
+	flex-grow : 1; 
+}
+
 .container{
   display: flex;
   flex-direction : column;
@@ -111,9 +115,7 @@ a{
 
 
 /*섹션*/ 
-.container > section{
-  flex-grow : 1; 
-}
+
 
 .section-1__home{
   min-height : 50vh;
@@ -221,128 +223,123 @@ a{
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>list</title>
+<title>detail</title>
 <style type="text/css">
-:root { 
-	-list__id: 150px; 
-	-list__title: 300px; 
-	-list__writer: 200px;
-	-list__count: 200px; 
-	-list__regDate: 400px;
-}
-
 .container>section {
+	font-family: 'Noto Sans KR', sans-serif;
 	flex-grow: 1;
 }
 
-.section-1__list {
+.section-1__detail {
+	min-height: 70vh;
 	flex-direction: column;
-	min-height: 50vh;
+	width: 846px;
+	margin: 0 auto;
 }
 
-.section-1__list .list {
-	font-family: 'Noto Sans KR', sans-serif;
-	font-size: 15px;
-	font-weight: 400;
-	flex-shrink: 0;
-	text-align: center;
+.section-1__detail>div {
+	padding: 0 30px;
 }
 
-.section-1__list>header {
-	padding: 5px 0;
+.section-1__detail>.detail_1 {
+	align-items: center;
+	height: 60px;
 	border-bottom: solid 1px;
 }
 
-.section-1__list>main {
-	height: 350px;
-	padding: 5px 0;
-}
-
-.section-1__list>.title {
-	height: 50px;
-}
-
-.section-1__list>main>div {
-	padding: 5px 0;
-}
-
-.section-1__list>.title>span {
+.section-1__detail>.detail_1>span {
 	font-size: 30px;
+	font-weight: 700;
+}
+
+.section-1__detail>.detail_2 {
+	align-items: center;
+	height: 30px;
+	border-bottom: solid 1px;
+}
+
+.section-1__detail>.detail_2>div {
+	font-size: 14px;
+	font-weight: 400;
+}
+
+.section-1__detail>.detail_2>div:nth-child(3) {
+	margin-left: 30px;
+}
+
+.section-1__detail>.detail_2>div:nth-child(5) {
+	margin-left: 30px;
+}
+
+.section-1__detail>.detail_3 {
+	height: 450px;
+	padding: 20px 30px;
+	border-bottom: solid 1px;
+}
+
+.section-1__detail>.detail_4 {
+	flex-direction: column;
+	justify-content: center;
+	height: 80px;
+}
+
+.section-1__detail>.detail_4  span {
+	font-size: 14px;
 	font-weight: 500;
 }
 
-.section-1__list>header>div>div {
-	position: relative;
-}
-
-.section-1__list>.page {
-	justify-content: center;
-	align-content: flex-end;
-	margin: 20px 0;
-}
-
-.section-1__list>header>div>div::after {
-	content: "";
-	background-color: black;
-	position: absolute;
-	top: 50%;
-	right: 0;
-	width: 1px;
-	height: 15px;
-	transform: translatey(-50%);
-}
-
-.section-1__list>.page>.box>a {
-	margin: 0 5px;
-}
-
-.section-1__list>.page>.box:hover>a {
-	color: lightgray;
-}
-
-.list__id {
-	width: var(- -list__id);
-}
-
-.list__title {
-	width: var(- -list__title);
-}
-
-.list__writer {
-	width: var(- -list__writer);
-}
-
-.list__count {
-	width: var(- -list__count);
-}
-
-.list__regDate {
-	width: var(- -list__regDate);
+.section-1__detail>.detail_4>div:hover span {
+	color: #505050;
 }
 </style>
 </head>
 <body>
-
-	<!-- 작성필요 / 리스트에 따라 번호 바뀌어야 됨-->
-
 	<!----------섹션 시작---------------------------------->
 	<section class="con-min-width">
 		<div class="con">
-			<div class="section-1__list flex">
+		
+			<!-- 
+			<div class="section-1__detail flex">
+				<div class="detail_1 flex">
+					<span>[title]</span>
+				</div>
+				
+			
+				<div class="detail_2 flex">
+					<div>작성일 :</div>
+					<div class="regDate">[regDate]</div>
+					<div>작성자 :</div>
+					<div class="writer">[writer]</div>
+					<div>조회수</div>
+					<div class="count">[count]</div>
+				</div>
 
-				<div class="title"><span>Notice</span></div>
+				<div class="detail_3">
+					<div class="body">[body]</div>
+				</div>
 
-				<header>
-					<div class="list flex">
-						<div class="list__id">번호</div>
-						<div class="list__title">제목</div>
-						<div class="list__writer">작성자</div>
-						<div class="list__count">조회수</div>
-						<div class="list__regDate">날짜</div>
+
+				<div class="detail_4 flex">
+				
+			 
+					<div class="prev">
+						<a href="#"><이전글>
+						<span>[prev_title]</span>
+						</a>
 					</div>
-				</header>
+					<div class="next">
+						<a href="#"><다음글>
+						<span>[next_title]</span>
+						</a>
+					</div>
+				</div>
 
-				<!-----------섹션 끝----------------------------------><main><div class = "list flex"> <div class="list__id">44</div> <div class="list__title">제목1</div> <div class="list__writer">홍길순1</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-12 02:04:27</div></div><div class = "list flex"> <div class="list__id">43</div> <div class="list__title">제목1</div> <div class="list__writer">홍길순1</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-12 02:04:27</div></div><div class = "list flex"> <div class="list__id">42</div> <div class="list__title">제목1</div> <div class="list__writer">홍길순1</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-12 02:04:27</div></div><div class = "list flex"> <div class="list__id">41</div> <div class="list__title">제목1</div> <div class="list__writer">홍길순1</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-12 02:04:27</div></div><div class = "list flex"> <div class="list__id">40</div> <div class="list__title">제목1</div> <div class="list__writer">홍길순1</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-12 02:04:27</div></div><div class = "list flex"> <div class="list__id">39</div> <div class="list__title">제목1</div> <div class="list__writer">홍길순1</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-12 02:04:27</div></div><div class = "list flex"> <div class="list__id">38</div> <div class="list__title">제목1</div> <div class="list__writer">홍길순1</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-12 02:04:27</div></div><div class = "list flex"> <div class="list__id">37</div> <div class="list__title">제목1</div> <div class="list__writer">홍길순1</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-12 02:04:27</div></div><div class = "list flex"> <div class="list__id">36</div> <div class="list__title">제목1</div> <div class="list__writer">홍길순1</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-12 02:04:27</div></div><div class = "list flex"> <div class="list__id">35</div> <div class="list__title">제목1</div> <div class="list__writer">홍길순1</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-12 02:04:27</div></div></main><div class="page flex"> <div class="box"> <a href="file:///C:/work/sts-4.8.0.RELEASE-workspace/ssg/site/board/Free board-1.html">[1]</a> </div> <div class="box"> <a href="file:///C:/work/sts-4.8.0.RELEASE-workspace/ssg/site/board/Free board-2.html">[2]</a> </div> <div class="box"> <a href="file:///C:/work/sts-4.8.0.RELEASE-workspace/ssg/site/board/Free board-3.html">[3]</a> </div> <div class="box"> <a href="file:///C:/work/sts-4.8.0.RELEASE-workspace/ssg/site/board/Free board-4.html">[4]</a> </div> <div class="box"> <a href="file:///C:/work/sts-4.8.0.RELEASE-workspace/ssg/site/board/Free board-5.html">[5]</a> </div> <div class="box"> <a href="file:///C:/work/sts-4.8.0.RELEASE-workspace/ssg/site/board/Free board-6.html">[6]</a> </div></div></div></div></section><!-----------푸터 시작---------------------------------->
+			</div>
+		</div>
+	</section>
+-->
+
+				<!----------섹션 끝----------------------------------><!-----------푸터 시작---------------------------------->
         <footer class="bottom con-min-width">
           <div class="con">
             <div class="bottom-bar flex">

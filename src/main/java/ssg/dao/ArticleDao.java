@@ -127,6 +127,15 @@ public class ArticleDao {
 
 	}
 
+	public String getArticle(int articleId, int boardId) {
+		
+		SecSql sql = new SecSql();
+		sql.append("select title from article where id=? and boardId =? ", articleId, boardId);
+		
+		return MysqlUtil.selectRowStringValue(sql);
+		
+	}
+
 	
 
 }

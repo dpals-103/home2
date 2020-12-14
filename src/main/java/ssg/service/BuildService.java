@@ -235,27 +235,60 @@ public class BuildService {
 		}
 
 		// -----------자유게시판 만들기 끝-------------------
-	
-		// -----------게시글 디테일 만들기 -------------------
 		
+		
+
+		// ----------- 공지사항 게시글 디테일 만들기 -------------------
+		
+
 		Util.makeDir("site/article");
-		Util.makeDir("site/article/notice");
+		Util.makeDir("site/article/notice/");
 		String detail = Util.getFileContents("site_template/part/detail.html");
-		
+
 		// 공지사항 게시판의 게시글 불러오기
-		serchArticles_notice = articleService.getArticles(1);
+		List<Article> articles = articleService.getArticles(1);
 		
-		for(Article article : serchArticles_notice) {
-			detail = detail.replace("[title]", article.title);
-			detail = detail.replace("[regDate]", article.regDate);
-			detail = detail.replace("[count]", String.valueOf(article.count));
-			detail = detail.replace("[body]", article.body);
-	
-			String article_fileName = "Notice-article-" + article.id + ".html";
-			Util.writeFile("site/article/notice" + article_fileName, head + list + detail + footer);
+		for(int i =1; i <= articles.size(); i++) {
+			
+			StringBuilder sb_article = new StringBuilder();
+			
+			for(Article article : articles) {
+			sb_article.append("<div class=\"detail_1 flex\">"); 
+			sb_article.append("<span>"+ article.title + "</span>"); 
+			sb_article.append("</div>"); 
+			
+			sb_article.append("<div class=\"detail_2 flex\">"); 
+			sb_article.append("<div>작성일 : </div>" ); 
+			sb_article.append("<div class=\"regDate\">" + article.regDate + "</div>"); 
+			sb_article.append("<div>작성자 : </div>"); 
+			sb_article.append("<div class=\"writer\" >" + article.writer + "</div>"); 
+			sb_article.append("<div>조회수</div>"); 
+			sb_article.append("<div class=\"count\">"+ article.count +"</div>"); 
+			sb_article.append("</div>");
+			
+			sb_article.append("<div class=\"detail_3\">");
+			sb_article.append("<div class=\"body\">"+ article.body + "</div>");
+			sb_article.append("</div>");
+			}
+			
+			
+			sb_article.append("<div class=\"detail_4 flex\">");
+			sb_article.append("<div class=\"prev\">");
+			sb_article.append("<a href=\"Notice-Article-" + i +".html\"><이전글>");
+			sb_article.append("<span>[prev_title]</span>");
+			sb_article.append("</a></div>");
+			
+			sb_article.append("<div class=\"next\">");
+			sb_article.append("<a href=\"Notice-Article-" + i + ".html\"><다음글>");
+			sb_article.append("<span>[next_title]</span>");
+			sb_article.append("</a></div>");
+			
+			sb_article.append("</div></div></div></section>");
+			
+			String article_fileName = "Notice-Article-" + i + ".html";
+			Util.writeFile("site/article/notice/" + article_fileName, head + detail + footer);
 			System.out.printf("==%s 생성==\n", article_fileName);
 		}
-
 
 	}
 }
