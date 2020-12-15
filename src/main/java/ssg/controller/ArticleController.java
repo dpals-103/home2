@@ -40,13 +40,13 @@ public class ArticleController extends Controller {
 	private void doMakedata(String cmd) {
 
 		// 공지사항
-		for (int i = 1; i <= 30; i++) {
-			articleService.write("제목" + i, "내용" + i, "홍길동" + i, 1);
+		for (int i = 1; i <= 20; i++) {
+			articleService.write("공지사항" + i, "공지사항" + i, "홍길동" + i, 1);
 		}
 
 		// 자유게시판
-		for (int i = 1; i <= 30; i++) {
-			articleService.write("제목" + i, "내용" + i, "홍길순" + i, 2);
+		for (int i = 1; i <= 20; i++) {
+			articleService.write("자유글" + i, "자유글" + i, "홍길순" + i, 2);
 		}
 
 		System.out.println("게시글 데이터를 생성했습니다.");

@@ -220,143 +220,144 @@ a {
 				<div class="top__leftMenuBar"></div>
 			</div>
 		</header>
-		<!-----------헤더 끝---------------------------------->
-<!DOCTYPE html>
+		<!-----------헤더 끝----------------------------------><!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>list</title>
+<title>detail</title>
 <style type="text/css">
-:root{
-  --list__id : 150px;
-  --list__title : 300px;
-  --list__writer : 200px;
-  --list__count : 200px;
-  --list__regDate : 400px;
+
+/*섹션*/
+.container>section {
+	font-family: 'Noto Sans KR', sans-serif;
+	flex-grow: 1;
 }
 
-.container>section {
-	flex-grow: 1;
+.section-1__detail {
+	min-height: 60vh;
+	flex-direction: column;
 	width: 846px;
 	margin: 0 auto;
 }
 
-.section-1__list {
-	flex-direction: column;
-	min-height: 50vh;
+.section-1__detail>div {
+	padding: 0 30px;
 }
 
-.section-1__list .list {
-	font-size: 15px;
-	font-weight: 400;
-	flex-shrink: 0;
-	text-align: center;
-}
-
-.section-1__list>header {
-	padding: 5px 0;
+.section-1__detail>.detail_1 {
+	align-items: center;
+	height: 60px;
 	border-bottom: solid 1px;
 }
 
-.section-1__list>main {
-	height: 350px;
-	padding: 5px 0;
-}
-
-.section-1__list>.title {
-	height: 50px;
-}
-
-.section-1__list>main>div {
-	padding: 5px 0;
-}
-
-.section-1__list>.title>span {
+.section-1__detail>.detail_1>span {
 	font-size: 30px;
+	font-weight: 700;
+}
+
+.section-1__detail>.detail_2 {
+	align-items: center;
+	height: 30px;
+	border-bottom: solid 1px;
+}
+
+.section-1__detail>.detail_2>div {
+	font-size: 14px;
+	font-weight: 400;
+}
+
+.section-1__detail>.detail_2>div:nth-child(3) {
+	margin-left: 30px;
+}
+
+.section-1__detail>.detail_2>div:nth-child(5) {
+	margin-left: 30px;
+}
+
+.section-1__detail>.detail_3 {
+	height: 450px;
+	padding: 20px 30px;
+	border-bottom: solid 1px;
+}
+
+.section-1__detail>.detail_4 {
+	align-items: center;
+	justify-content: space-around;
+	height: 30px;
+}
+
+.section-1__detail>.detail_4>div>a {
+	font-size: 14px;
 	font-weight: 500;
 }
 
-.section-1__list>header>div>div {
-	position: relative;
-}
-
-.section-1__list>header>div>div:not(:nth-child(5))::after {
-	content: "";
-	background-color: black;
-	position: absolute;
-	top: 50%;
-	right: 0;
-	width: 1px;
-	height: 15px;
-	transform: translatey(-50%);
-}
-
-.section-1__list>.page {
-	justify-content: center;
-	align-content: flex-end;
-	font-size: 14px;
-}
-
-.section-1__list>.page>li {
-	margin: 0 5px;
-}
-
-.section-1__list>.page>li>a {
-	border: solid 1px transparent;
-	min-width: 20px;
-	padding: 0 5px;
-}
-
-.section-1__list>.page>li>a:hover {
-	color: lightgray;
-	border-color: lightgray;
-}
-
-
-.list__id {
-	width: var(--list__id);
-}
-
-.list__title {
-	width: var(--list__title);
-}
-
-.list__writer {
-	width: var(--list__writer);
-}
-
-.list__count {
-	width: var(--list__count);
-}
-
-.list__regDate {
-	width: var(--list__regDate);
+.section-1__detail>.detail_4>div:hover>a {
+	color: #505050;
+	text-decoration: underline;
 }
 </style>
 </head>
 <body>
 
-	<!-- 작성필요 / 리스트에 따라 번호 바뀌어야 됨-->
-
-	<!----------섹션 시작---------------------------------->
-	<section class="con-min-width main">
+<!-- 
+	<section class="con-min-width">
 		<div class="con">
-			<div class="section-1__list flex">
+			<div class="section-1__detail flex">
+				<div class="detail_1 flex">
+					<span>필독사항! 꼭 읽어주세요!</span>
+				</div>
+				<div class="detail_2 flex">
+					<div>작성일 :</div>
+					<div class="regDate">2020-12-13 00:00:00</div>
 
-				<div class="title"><span>Notice</span></div>
+					<div>작성자 :</div>
+					<div class="writer">홍길동</div>
 
-				<header>
-					<div class="list flex">
-						<div class="list__id">번호</div>
-						<div class="list__title">제목</div>
-						<div class="list__writer">작성자</div>
-						<div class="list__count">조회수</div>
-						<div class="list__regDate">날짜</div>
+					<div>조회수</div>
+					<div class="count">50</div>
+				</div>
+				<div class="detail_3">
+					<div class="body">Lorem ipsum dolor, sit amet consectetur
+						adipisicing elit. Nisi minima minus numquam, libero autem quis
+						laboriosam sint nihil saepe reiciendis hic, optio magnam suscipit
+						neque qui ducimus ipsum, et sit! Illo blanditiis alias corporis
+						asperiores! Voluptatibus autem porro repudiandae neque dolorem
+						magni sapiente sint nam ducimus, quaerat id in, excepturi aut
+						inventore ratione quisquam cumque maxime quia. Blanditiis, itaque
+						eaque? Nisi vitae debitis quae quam aspernatur odit dolor rem a!
+						Est beatae ullam doloremque magni, eveniet ipsa facere eaque nemo
+						veritatis repellendus nisi tempore asperiores quo nobis dolor
+						illo? Consectetur. Earum mollitia quisquam ratione vel, voluptas
+						dolor maxime, iste nostrum dolore vero aliquam harum velit animi
+						repellendus aliquid perferendis ducimus laborum ullam non sit!
+						Voluptatem repudiandae ipsam consequuntur dolorum laborum. Eos
+						officiis est tempora, vel voluptatem sit reprehenderit aperiam
+						beatae ipsa voluptatibus ullam numquam voluptates ex dicta eius
+						inventore odio quidem veniam enim unde. Deleniti officia ipsam
+						officiis error maxime?</div>
+				</div>
+
+				<div class="detail_4 flex">
+
+					<div class="prev">
+						<a href="#">&lt; 이전글</a>
 					</div>
-				</header>
 
-				<!-----------섹션 끝----------------------------------><main><div class = "list flex"> <div class="list__id">40</div> <div class="list__title">자유글20</div> <div class="list__writer">홍길순20</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-15 11:44:52</div></div><div class = "list flex"> <div class="list__id">39</div> <div class="list__title">자유글19</div> <div class="list__writer">홍길순19</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-15 11:44:52</div></div><div class = "list flex"> <div class="list__id">38</div> <div class="list__title">자유글18</div> <div class="list__writer">홍길순18</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-15 11:44:52</div></div><div class = "list flex"> <div class="list__id">37</div> <div class="list__title">자유글17</div> <div class="list__writer">홍길순17</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-15 11:44:52</div></div><div class = "list flex"> <div class="list__id">36</div> <div class="list__title">자유글16</div> <div class="list__writer">홍길순16</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-15 11:44:52</div></div><div class = "list flex"> <div class="list__id">35</div> <div class="list__title">자유글15</div> <div class="list__writer">홍길순15</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-15 11:44:52</div></div><div class = "list flex"> <div class="list__id">34</div> <div class="list__title">자유글14</div> <div class="list__writer">홍길순14</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-15 11:44:52</div></div><div class = "list flex"> <div class="list__id">33</div> <div class="list__title">자유글13</div> <div class="list__writer">홍길순13</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-15 11:44:52</div></div><div class = "list flex"> <div class="list__id">32</div> <div class="list__title">자유글12</div> <div class="list__writer">홍길순12</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-15 11:44:52</div></div><div class = "list flex"> <div class="list__id">31</div> <div class="list__title">자유글11</div> <div class="list__writer">홍길순11</div> <div class="list__count">0</div> <div class="list__regDate">2020-12-15 11:44:52</div></div></main><ul class="page flex"><li><a href="file:///C:/work/sts-4.4.0.RELEASE-workspace/home2/site/board/Free board-1.html">&lt; 이전글</a></li><li><a href="file:///C:/work/sts-4.4.0.RELEASE-workspace/home2/site/board/Free board-1.html">1</a><li><li><a href="file:///C:/work/sts-4.4.0.RELEASE-workspace/home2/site/board/Free board-2.html">2</a><li><li><a href="file:///C:/work/sts-4.4.0.RELEASE-workspace/home2/site/board/Free board-2.html">다음글 &gt;</a></li></ul></div></section><!-----------푸터 시작---------------------------------->
+					<div class="article_list">
+						<a href="#">목록으로 돌아가기</a>
+					</div>
+
+					<div class="next">
+						<a href="#"> 다음글 &gt;</a>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	 --><section class="con-min-width"><div class="con"><div class="section-1__detail flex"><div class="detail_1 flex"><span>공지사항11</span></div><div class="detail_2 flex"><div>작성일 : </div><div class="regDate">2020-12-15 11:44:52</div><div>작성자 :</div><div class="writer">홍길동11</div><div>조회수</div><div class="count">0</div></div>	<div class="detail_3"><div class="body">공지사항11</div></div><div class="detail_4 flex"><div class="prev"><a href="Noticle-article-10.html"> &lt; 이전글 </a></div><div class="article_list"><a href="site/board/Notice-1.html">목록으로돌아가기</a></div><div class="next"><a href="Noticle-article-12.html">다음글 &gt;</a></div></div></div></div></section><!-----------푸터 시작---------------------------------->
         <footer class="bottom con-min-width main">
           <div class="con">
             <div class="bottom-bar flex">

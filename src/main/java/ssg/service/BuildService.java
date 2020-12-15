@@ -103,10 +103,8 @@ public class BuildService {
 
 		String paging = "";
 
-		for (int i = 1; i <= serchArticles_notice.size() / 10; i++) {
-			paging += " <div class=\"box\">"
-					+ " <a href=\"file:///C:/work/sts-4.8.0.RELEASE-workspace/ssg/site/board/Notice-" + i + ".html\">"
-					+ "[" + i + "]" + "</a>" + " </div>";
+		for (int i = 1; i <= serchArticles_notice.size()/itemsInAPage; i++) {
+			paging += "<li><a href=\"file:///C:/work/sts-4.4.0.RELEASE-workspace/home2/site/board/Notice-"+ i + ".html\">" + i + "</a><li>";
 		}
 
 		// 페이지가 1부터 시작될 때
@@ -145,12 +143,18 @@ public class BuildService {
 			}
 
 			sb_notice.append("</main>");
-			sb_notice.append("<div class=\"page flex\">");
+			sb_notice.append("<ul class=\"page flex\">");
+			
+			if(page == 1) {
+				sb_notice.append("<li><a href=\"file:///C:/work/sts-4.4.0.RELEASE-workspace/home2/site/board/Notice-1.html\">&lt; 이전글</a></li>");
+			} else {
+				sb_notice.append("<li><a href=\"file:///C:/work/sts-4.4.0.RELEASE-workspace/home2/site/board/Notice-" + (page-1) + ".html\">&lt; 이전글</a></li>");
+			}
 			sb_notice.append(paging);
+			sb_notice.append("<li><a href=\"file:///C:/work/sts-4.4.0.RELEASE-workspace/home2/site/board/Notice-"+ (page + 1) + ".html\">다음글 &gt;</a></li>");
+			sb_notice.append("</ul>");
+			
 			sb_notice.append("</div>");
-			sb_notice.append("</div>");
-			sb_notice.append("</div>");
-
 			sb_notice.append("</section>");
 
 			// Collections.reverse(articles);
@@ -175,11 +179,10 @@ public class BuildService {
 
 		paging = "";
 
-		for (int i = 1; i <= serchArticles_notice.size() / 10; i++) {
-			paging += " <div class=\"box\">"
-					+ " <a href=\"file:///C:/work/sts-4.8.0.RELEASE-workspace/ssg/site/board/Free board-" + i
-					+ ".html\">" + "[" + i + "]" + "</a>" + " </div>";
+		for (int i = 1; i <= serchArticles_notice.size()/itemsInAPage; i++) {
+			paging += "<li><a href=\"file:///C:/work/sts-4.4.0.RELEASE-workspace/home2/site/board/Free board-"+ i + ".html\">" + i + "</a><li>";
 		}
+		
 		// 자유게시판 게시판의 게시글 불러오기
 		List<Article> serchArticles_free = articleService.getArticles(2);
 
@@ -218,12 +221,19 @@ public class BuildService {
 			}
 
 			sb_freeboard.append("</main>");
-			sb_freeboard.append("<div class=\"page flex\">");
+			sb_freeboard.append("<ul class=\"page flex\">");
+			
+			if(page == 1) {
+				sb_freeboard.append("<li><a href=\"file:///C:/work/sts-4.4.0.RELEASE-workspace/home2/site/board/Free board-1.html\">&lt; 이전글</a></li>");
+			} else {
+				sb_freeboard.append("<li><a href=\"file:///C:/work/sts-4.4.0.RELEASE-workspace/home2/site/board/Free board-" + (page-1) + ".html\">&lt; 이전글</a></li>");
+			}
+			
 			sb_freeboard.append(paging);
+			sb_freeboard.append("<li><a href=\"file:///C:/work/sts-4.4.0.RELEASE-workspace/home2/site/board/Free board-"+ (page + 1) + ".html\">다음글 &gt;</a></li>");
+			sb_freeboard.append("</ul>");
+			
 			sb_freeboard.append("</div>");
-			sb_freeboard.append("</div>");
-			sb_freeboard.append("</div>");
-
 			sb_freeboard.append("</section>");
 
 			// Collections.reverse(articles);
@@ -235,58 +245,68 @@ public class BuildService {
 		}
 
 		// -----------자유게시판 만들기 끝-------------------
-		
-		
 
 		// ----------- 공지사항 게시글 디테일 만들기 -------------------
-		
 
 		Util.makeDir("site/article");
-		Util.makeDir("site/article/notice/");
+		Util.makeDir("site/article/notice");
+
 		String detail = Util.getFileContents("site_template/part/detail.html");
 
-		// 공지사항 게시판의 게시글 불러오기
 		List<Article> articles = articleService.getArticles(1);
-		
-		for(int i =1; i <= articles.size(); i++) {
+
+		for (Article article : articles) {
 			
 			StringBuilder sb_article = new StringBuilder();
-			
-			for(Article article : articles) {
-			sb_article.append("<div class=\"detail_1 flex\">"); 
-			sb_article.append("<span>"+ article.title + "</span>"); 
-			sb_article.append("</div>"); 
-			
-			sb_article.append("<div class=\"detail_2 flex\">"); 
-			sb_article.append("<div>작성일 : </div>" ); 
-			sb_article.append("<div class=\"regDate\">" + article.regDate + "</div>"); 
-			sb_article.append("<div>작성자 : </div>"); 
-			sb_article.append("<div class=\"writer\" >" + article.writer + "</div>"); 
-			sb_article.append("<div>조회수</div>"); 
-			sb_article.append("<div class=\"count\">"+ article.count +"</div>"); 
+
+			sb_article.append("<section class=\"con-min-width\">");
+			sb_article.append("<div class=\"con\">");
+			sb_article.append("<div class=\"section-1__detail flex\">");
+
+			sb_article.append("<div class=\"detail_1 flex\">");
+			sb_article.append("<span>" + article.title + "</span>");
 			sb_article.append("</div>");
+
+			sb_article.append("<div class=\"detail_2 flex\">");
+			sb_article.append("<div>작성일 : </div>");
+			sb_article.append("<div class=\"regDate\">" + article.regDate + "</div>");
+			sb_article.append("<div>작성자 :</div>");
+			sb_article.append("<div class=\"writer\">" + article.writer + "</div>");
+			sb_article.append("<div>조회수</div>");
+			sb_article.append("<div class=\"count\">" + article.count + "</div>");
+			sb_article.append("</div>");
+
+			sb_article.append("	<div class=\"detail_3\">");
+			sb_article.append("<div class=\"body\">" + article.body);
+			sb_article.append("</div>");
+			sb_article.append("</div>");
+
+			sb_article.append("<div class=\"detail_4 flex\">");
 			
-			sb_article.append("<div class=\"detail_3\">");
-			sb_article.append("<div class=\"body\">"+ article.body + "</div>");
+			if(article.id >1) {
+			sb_article.append("<div class=\"prev\">");
+			sb_article.append("<a href=\"Noticle-article-" + (article.id-1) + ".html\"> &lt; 이전글 </a>");
 			sb_article.append("</div>");
 			}
 			
-			
-			sb_article.append("<div class=\"detail_4 flex\">");
-			sb_article.append("<div class=\"prev\">");
-			sb_article.append("<a href=\"Notice-Article-" + i +".html\"><이전글>");
-			sb_article.append("<span>[prev_title]</span>");
-			sb_article.append("</a></div>");
-			
+			sb_article.append("<div class=\"article_list\">");
+			sb_article.append("<a href=\"site/board/Notice-1.html\">목록으로돌아가기</a>");
+			sb_article.append("</div>");
+
+			if(article.id < articles.size()) {
 			sb_article.append("<div class=\"next\">");
-			sb_article.append("<a href=\"Notice-Article-" + i + ".html\"><다음글>");
-			sb_article.append("<span>[next_title]</span>");
-			sb_article.append("</a></div>");
+			sb_article.append("<a href=\"Noticle-article-" + (article.id+1) + ".html\">다음글 &gt;</a>");
+			sb_article.append("</div>");
+			}
 			
-			sb_article.append("</div></div></div></section>");
-			
-			String article_fileName = "Notice-Article-" + i + ".html";
-			Util.writeFile("site/article/notice/" + article_fileName, head + detail + footer);
+			sb_article.append("</div>");
+
+			sb_article.append("</div>");
+			sb_article.append("</div>");
+			sb_article.append("</section>");
+
+			String article_fileName = "Noticle-article-" + article.id + ".html";
+			Util.writeFile("site/article/notice/" + article_fileName, head + detail + sb_article + footer);
 			System.out.printf("==%s 생성==\n", article_fileName);
 		}
 
