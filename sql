@@ -1,0 +1,29 @@
+DROP DATABASE IF EXISTS a1;
+CREATE DATABASE a1;
+USE a1;
+
+CREATE TABLE board(
+    id INT(10) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    title VARCHAR(30) NOT NULL,
+    regDate DATETIME NOT NULL
+    
+);
+
+CREATE TABLE article(
+    id INT(10) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    title VARCHAR(30) NOT NULL,
+    `body` VARCHAR(100) NOT NULL,
+    writer VARCHAR(30) NOT NULL,
+    `count` INT(10) UNSIGNED NOT NULL DEFAULT '0',
+    boardId INT(10) UNSIGNED NOT NULL DEFAULT '0',
+    regDate DATETIME NOT NULL
+);
+
+INSERT INTO board
+SET title = 'Notice',
+regDate = NOW();
+
+INSERT INTO board
+SET title = 'Free board',
+regDate = NOW();
+
