@@ -105,7 +105,7 @@ public class BuildService {
 		int totalPage = (int) Math.ceil((double) serchArticles_notice.size() / itemsInAPage);
 
 		// 페이지가 1부터 시작될 때
-		for (int page = 1; page <= 100; page++) {
+		for (int page = 1; page <= totalPage; page++) {
 
 			StringBuilder sb_notice = new StringBuilder();
 
@@ -187,27 +187,22 @@ public class BuildService {
 		// -----------자유게시판 만들기-------------------
 
 		Util.makeDir("site/board");
-		Util.makeDir("site/article/free");
-
-		list = Util.getFileContents("site_template/part/list.html");
 		titleHtml = "";
-
-		titleHtml += "<span>Free board</span>";
+		list = Util.getFileContents("site_template/part/list.html");
+		
+		titleHtml += "<span>Free</span>";
 		list = list.replace("[bbb]", titleHtml);
 
-		String paging = "";
-
-		for (int i = 1; i <= serchArticles_notice.size() / itemsInAPage; i++) {
-			paging += "<li><a href=\"Free board-" + i + ".html\">" + i + "</a><li>";
-		}
 
 		// 자유게시판 게시판의 게시글 불러오기
 		List<Article> serchArticles_free = articleService.getArticles(2);
 
+		totalPage = (int) Math.ceil((double) serchArticles_free.size() / itemsInAPage);
+		
 		// 페이지가 1부터 시작될 때
-		for (int page = 1; page <= 100; page++) {
+		for (int page = 1; page <= totalPage; page++) {
 
-			StringBuilder sb_freeboard = new StringBuilder();
+			StringBuilder sb_free = new StringBuilder();
 
 			int startPos = serchArticles_free.size() - 1;
 			startPos -= (page - 1) * itemsInAPage;
@@ -221,46 +216,64 @@ public class BuildService {
 				break;
 			}
 
-			sb_freeboard.append("<main>");
+			sb_free.append("<main>");
 
 			for (int i = startPos; i >= endPos; i--) {
 
 				Article article = serchArticles_free.get(i);
 
-				sb_freeboard.append("<div class = \"list flex\">");
+				sb_free.append("<div class = \"list flex\">");
 
-				sb_freeboard.append(" <div class=\"list__id\">" + article.id + "</div>");
-				sb_freeboard.append(" <div class=\"list__title\"><a href =\"" + dir + "/site/article/free/free-article-"
-						+ article.id + ".html\">" + article.title + "</a></div>");
-				sb_freeboard.append(" <div class=\"list__writer\">" + article.writer + "</div>");
-				sb_freeboard.append(" <div class=\"list__count\">" + article.count + "</div>");
-				sb_freeboard.append(" <div class=\"list__regDate\">" + article.regDate + "</div>");
+				sb_free.append(" <div class=\"list__id\">" + article.id + "</div>");
+				sb_free.append(" <div class=\"list__title\"><a href =\"" + dir + "/site/article/free/free-"
+								+ article.id + ".html\">" + article.title + "</a></div>");
+				sb_free.append(" <div class=\"list__writer\">" + article.writer + "</div>");
+				sb_free.append(" <div class=\"list__count\">" + article.count + "</div>");
+				sb_free.append(" <div class=\"list__regDate\">" + article.regDate + "</div>");
 
-				sb_freeboard.append("</div>");
+				sb_free.append("</div>");
+
 			}
 
-			sb_freeboard.append("</main>");
-			sb_freeboard.append("<ul class=\"page flex\">");
+			sb_free.append("</main>");
+			sb_free.append("<ul class=\"page flex\">");
 
-			if (page == 1) {
-				sb_freeboard.append("<li><a href=\"Free board-1.html\">&lt; 이전글</a></li>");
-			} else {
-				sb_freeboard.append("<li><a href=\"Free board-" + (page - 1) + ".html\">&lt; 이전글</a></li>");
+			// <이전글> 기능 구현범위
+			if (page > 1) {
+				sb_free.append("<li><a href=\"Free Board-" + (page - 1) + ".html\">&lt; 이전글</a></li>");
 			}
 
-			sb_freeboard.append(paging);
-			sb_freeboard.append("<li><a href=\"Free board-" + (page + 1) + ".html\">다음글 &gt;</a></li>");
-			sb_freeboard.append("</ul>");
+			String paging = "";
 
-			sb_freeboard.append("</div>");
-			sb_freeboard.append("</section>");
+			for (int i = 1; i <= totalPage; i++) {
+				String selectClass = ""; 
+
+				if(i == page) {
+					selectClass = "<li class =\"list__link--selected\">";
+					paging += selectClass + "<a href=\"Free Board-" + i + ".html\">" + i + "</a><li>";
+				} else {
+					paging += "<li><a href=\"Free Board-" + i + ".html\">" + i + "</a><li>";
+				}
+			}
+
+			sb_free.append(paging);
+
+			// <다음글> 기능 구현범위
+			if (page < totalPage) {
+				sb_free.append("<li><a href=\"Free Board-" + (page + 1) + ".html\">다음글 &gt;</a></li>");
+			}
+
+			sb_free.append("</ul>");
+
+			sb_free.append("</div>");
+			sb_free.append("</section>");
 
 			// Collections.reverse(articles);
 
 			// 파일쓰기
-			String freeboard_fileName = "Free board-" + page + ".html";
-			Util.writeFile("site/board/" + freeboard_fileName, head + list + sb_freeboard.toString() + footer);
-			System.out.printf("==%s 생성==\n", freeboard_fileName);
+			String free_fileName = "Free Board-" + page + ".html";
+			Util.writeFile("site/board/" + free_fileName, head + list + sb_free.toString() + footer);
+			System.out.printf("==%s 생성==\n", free_fileName);
 		}
 
 		// -----------자유게시판 만들기 끝-------------------
@@ -276,8 +289,15 @@ public class BuildService {
 
 		for (Article article : articles) {
 
-			StringBuilder sb_article = new StringBuilder();
+		
 
+			detail = detail.replace("${detail_title}", article.title);
+			detail = detail.replace("${detail_regDate}", article.regDate);
+			detail = detail.replace("${detail_writer}", article.writer);
+			detail = detail.replace("${detail_count}",String.valueOf(article.count));
+			detail = detail.replace("${detail_body}", article.body);
+			
+			/*
 			sb_article.append("<section class=\"con-min-width\">");
 			sb_article.append("<div class=\"con\">");
 			sb_article.append("<div class=\"section-1__detail flex\">");
@@ -296,10 +316,12 @@ public class BuildService {
 			sb_article.append("</div>");
 
 			sb_article.append("	<div class=\"detail_3\">");
-			sb_article.append("<div class=\"body\">" + article.body);
+			sb_article.append("<div class=\"detail_body\"></div>");
 			sb_article.append("</div>");
-			sb_article.append("</div>");
-
+*/
+			
+			StringBuilder sb_article = new StringBuilder();
+			
 			sb_article.append("<div class=\"detail_4 flex\">");
 
 			if (article.id > 1) {
@@ -324,8 +346,9 @@ public class BuildService {
 			sb_article.append("</div>");
 			sb_article.append("</section>");
 
+			String toast = Util.getFileContents("site_template/part/toast.html");
 			String article_fileName = "Notice-article-" + article.id + ".html";
-			Util.writeFile("site/article/notice/" + article_fileName, head + detail + sb_article + footer);
+			Util.writeFile("site/article/notice/" + article_fileName, head + detail + sb_article + toast + footer);
 			System.out.printf("==%s 생성==\n", article_fileName);
 		}
 

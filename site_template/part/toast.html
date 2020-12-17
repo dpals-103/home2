@@ -1,0 +1,15 @@
+<script>
+	function detail_body__init() {
+		
+		if(toastui === undefined){
+			return; 
+		}
+		
+		var viewer = new toastui.Editor.factory({
+			el : document.querySelector('.detail_body'),
+			initialValue : "${detail_body}",
+			viewer : true
+		});
+	}
+	detail_body__init();
+</script>
