@@ -20,7 +20,7 @@ public class BuildService {
 
 		// -----------메인 홈 만들기 -------------------
 		Util.makeDir("site");
-		Util.makeDir("site/home");
+
 		String dir = System.getProperty("user.dir");
 
 		// 홈 템플릿 가져오기
@@ -31,7 +31,7 @@ public class BuildService {
 		List<Board> boards = articleService.getBoards();
 
 		for (Board board : boards) {
-			boardListHtml += "<li><a href=\"" + dir + "/site/board/" + board.title + "-1.html\">" + board.title
+			boardListHtml += "<li><a href=\"" + board.title + "-1.html\">" + board.title
 					+ "</a></li>";
 		}
 
@@ -83,13 +83,12 @@ public class BuildService {
 
 		// 파일쓰기
 		String fileName = "index" + ".html";
-		Util.writeFile("site/home/" + fileName, head + sb.toString() + footer);
+		Util.writeFile("site/" + fileName, head + sb.toString() + footer);
 		System.out.printf("==%s 생성==\n", fileName);
 
 		// -----------홈만들기 끝-------------------
 
 		// -----------공지사항 게시판 만들기-------------------
-		Util.makeDir("site/board");
 		String list = Util.getFileContents("site_template/part/list.html");
 		String titleHtml = "";
 
@@ -130,9 +129,7 @@ public class BuildService {
 				sb_notice.append("<div class = \"list flex\">");
 
 				sb_notice.append(" <div class=\"list__id\">" + article.id + "</div>");
-				sb_notice
-						.append(" <div class=\"list__title\"><a href =\"" + dir + "/site/article/notice/Notice-article-"
-								+ article.id + ".html\">" + article.title + "</a></div>");
+				sb_notice.append(" <div class=\"list__title\"><a href =\"" + dir + "/site/Notice-article-" + article.id + ".html\">" + article.title + "</a></div>");
 				sb_notice.append(" <div class=\"list__writer\">" + article.writer + "</div>");
 				sb_notice.append(" <div class=\"list__count\">" + article.count + "</div>");
 				sb_notice.append(" <div class=\"list__regDate\">" + article.regDate + "</div>");
@@ -178,7 +175,7 @@ public class BuildService {
 
 			// 파일쓰기
 			String notice_fileName = "Notice-" + page + ".html";
-			Util.writeFile("site/board/" + notice_fileName, head + list + sb_notice.toString() + footer);
+			Util.writeFile("site/"+notice_fileName, head + list + sb_notice.toString() + footer);
 			System.out.printf("==%s 생성==\n", notice_fileName);
 		}
 
@@ -186,7 +183,6 @@ public class BuildService {
 
 		// -----------자유게시판 만들기-------------------
 
-		Util.makeDir("site/board");
 		titleHtml = "";
 		list = Util.getFileContents("site_template/part/list.html");
 		
@@ -225,8 +221,7 @@ public class BuildService {
 				sb_free.append("<div class = \"list flex\">");
 
 				sb_free.append(" <div class=\"list__id\">" + article.id + "</div>");
-				sb_free.append(" <div class=\"list__title\"><a href =\"" + dir + "/site/article/free/free-"
-								+ article.id + ".html\">" + article.title + "</a></div>");
+				sb_free.append(" <div class=\"list__title\"><a href =\"" + dir + "/site/free-article-" + article.id + ".html\">" + article.title + "</a></div>");
 				sb_free.append(" <div class=\"list__writer\">" + article.writer + "</div>");
 				sb_free.append(" <div class=\"list__count\">" + article.count + "</div>");
 				sb_free.append(" <div class=\"list__regDate\">" + article.regDate + "</div>");
@@ -272,7 +267,7 @@ public class BuildService {
 
 			// 파일쓰기
 			String free_fileName = "Free Board-" + page + ".html";
-			Util.writeFile("site/board/" + free_fileName, head + list + sb_free.toString() + footer);
+			Util.writeFile("site/" + free_fileName, head + list + sb_free.toString() + footer);
 			System.out.printf("==%s 생성==\n", free_fileName);
 		}
 
@@ -280,24 +275,15 @@ public class BuildService {
 
 		// ----------- 공지사항 게시글 디테일 만들기 -------------------
 
-		Util.makeDir("site/article");
-		Util.makeDir("site/article/notice");
-
 		String detail = Util.getFileContents("site_template/part/detail.html");
+		String toast = Util.getFileContents("site_template/part/toast.html");
 
 		List<Article> articles = articleService.getArticles(1);
 
 		for (Article article : articles) {
 
-		
-
-			detail = detail.replace("${detail_title}", article.title);
-			detail = detail.replace("${detail_regDate}", article.regDate);
-			detail = detail.replace("${detail_writer}", article.writer);
-			detail = detail.replace("${detail_count}",String.valueOf(article.count));
-			detail = detail.replace("${detail_body}", article.body);
+			StringBuilder sb_article = new StringBuilder();
 			
-			/*
 			sb_article.append("<section class=\"con-min-width\">");
 			sb_article.append("<div class=\"con\">");
 			sb_article.append("<div class=\"section-1__detail flex\">");
@@ -316,27 +302,29 @@ public class BuildService {
 			sb_article.append("</div>");
 
 			sb_article.append("	<div class=\"detail_3\">");
-			sb_article.append("<div class=\"detail_body\"></div>");
-			sb_article.append("</div>");
-*/
 			
-			StringBuilder sb_article = new StringBuilder();
+			
+			String edit = "<div class=\"detail_body\"></div>";
+			edit = edit.replace("{article.body}", article.body);
+		
+			sb_article.append(edit);
+			sb_article.append("</div>");
 			
 			sb_article.append("<div class=\"detail_4 flex\">");
 
 			if (article.id > 1) {
 				sb_article.append("<div class=\"prev\">");
-				sb_article.append("<a href=\"Noticle-article-" + (article.id - 1) + ".html\"> &lt; 이전글 </a>");
+				sb_article.append("<a href=\"Notice-article-" + (article.id - 1) + ".html\"> &lt; 이전글 </a>");
 				sb_article.append("</div>");
 			}
 
 			sb_article.append("<div class=\"article_list\">");
-			sb_article.append("<a href=\"" + dir + "/site/board/Notice-1.html\">목록으로돌아가기</a>");
+			sb_article.append("<a href=\"" + dir + "Notice-1.html\">목록으로돌아가기</a>");
 			sb_article.append("</div>");
 
 			if (article.id < articles.size()) {
 				sb_article.append("<div class=\"next\">");
-				sb_article.append("<a href=\"Noticle-article-" + (article.id + 1) + ".html\">다음글 &gt;</a>");
+				sb_article.append("<a href=\"Notice-article-" + (article.id + 1) + ".html\">다음글 &gt;</a>");
 				sb_article.append("</div>");
 			}
 
@@ -345,10 +333,10 @@ public class BuildService {
 			sb_article.append("</div>");
 			sb_article.append("</div>");
 			sb_article.append("</section>");
-
-			String toast = Util.getFileContents("site_template/part/toast.html");
+		
+			
 			String article_fileName = "Notice-article-" + article.id + ".html";
-			Util.writeFile("site/article/notice/" + article_fileName, head + detail + sb_article + toast + footer);
+			Util.writeFile("site/" + article_fileName, head + detail + sb_article + toast + footer);
 			System.out.printf("==%s 생성==\n", article_fileName);
 		}
 

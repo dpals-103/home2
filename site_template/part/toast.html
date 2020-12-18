@@ -5,9 +5,9 @@
 			return; 
 		}
 		
-		var viewer = new toastui.Editor.factory({
+		const viewer = new toastui.Editor.factory({
 			el : document.querySelector('.detail_body'),
-			initialValue : "${detail_body}",
+			initialValue : "{article.body}",
 			viewer : true
 		});
 	}
