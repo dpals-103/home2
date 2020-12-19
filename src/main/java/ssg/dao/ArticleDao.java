@@ -74,7 +74,7 @@ public class ArticleDao {
 		List<Article> newArticles = new ArrayList<>();
 
 		SecSql sql = new SecSql();
-		sql.append("select * from article where boardId=?", boardId);
+		sql.append("select A.*,M.name as extra__writer from article as A inner join `member` as M on A.memberId = M.id where boardId=?", boardId);
 
 		List<Map<String, Object>> articleMapList = MysqlUtil.selectRows(sql);
 
