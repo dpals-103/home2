@@ -44,11 +44,11 @@ public class BuildService {
 		for (Board board : boards) {
 
 			List<Article> articles = articleService.getArticles(board.id);
-
+	
 			for (int i = 0; i < articles.size(); i++) {
 
 				Article article = articles.get(i);
-
+  
 				StringBuilder mainContent = new StringBuilder();
 
 				mainContent.append("<div class=\"detail_1 flex\">");
@@ -122,6 +122,8 @@ public class BuildService {
 				String filePath = "site/" + boardTitle + "-article-" + article.id + ".html";
 				Util.writeFile(filePath, sb.toString());
 				System.out.println(filePath + "생성");
+				
+				
 			}
 
 		}
@@ -145,101 +147,101 @@ public class BuildService {
 			/* 게시글 수 에 따른 페이지 수 */
 			int totalPage = (int) Math.ceil((double) articlesCount / itemsInAPage);
 
-				for (int page = 1; page <= totalPage; page++) {
+			for (int page = 1; page <= totalPage; page++) {
 
-					StringBuilder sb = new StringBuilder();
+				StringBuilder sb = new StringBuilder();
 
-					// 헤더 첨부
-					sb.append(head);
+				// 헤더 첨부
+				sb.append(head);
 
-					// 리스트(항목 부분) 시작_첨부
-					String list = Util.getFileContents("site_template/list.html");
+				// 리스트(항목 부분) 시작_첨부
+				String list = Util.getFileContents("site_template/list.html");
 
-					String boardTitle = articleService.getBoard(boardId).title;
-					list = list.replace("[board.title]", boardTitle);
+				String boardTitle = articleService.getBoard(boardId).title;
+				list = list.replace("[board.title]", boardTitle);
 
-					sb.append(list);
+				sb.append(list);
 
-					// 리스트(db 부분) 시작
+				// 리스트(db 부분) 시작
 
-					StringBuilder mainList = new StringBuilder();
+				StringBuilder mainList = new StringBuilder();
 
-					int startPos = articlesCount - 1;
-					startPos -= (page - 1) * itemsInAPage;
-					int endPos = startPos - (itemsInAPage - 1);
+				int startPos = articlesCount - 1;
+				startPos -= (page - 1) * itemsInAPage;
+				int endPos = startPos - (itemsInAPage - 1);
 
-					if (endPos < 0) {
-						endPos = 0;
-					}
-
-					if (startPos < 0) {
-						break;
-					}
-
-					for (int i = startPos; i >= endPos; i--) {
-
-						Article article = serchArticles.get(i);
-
-						mainList.append("<div class = \"list flex\">");
-
-						/*mainList.append(" <div class=\"list__id\">" + article.id + "</div>");*/
-						mainList.append(" <div class=\"list__title\"><a href =\"" + boardTitle + "-article-"
-								+ article.id + ".html\">" + article.title + "</a></div>");
-						mainList.append(" <div class=\"list__writer\">" + article.extra__writer + "</div>");
-						mainList.append(" <div class=\"list__count\">" + article.count + "</div>");
-						mainList.append(" <div class=\"list__regDate\">" + article.regDate + "</div>");
-
-						mainList.append("</div>");
-					}
-					
-					mainList.append("</main>");
-
-					sb.append(mainList);
-
-					// 리스트 페이징
-					StringBuilder paging = new StringBuilder();
-
-					paging.append("<ul class=\"page flex\">");
-
-					/* <이전글> 기능 구현범위 */
-					if (page > 1) {
-						paging.append("<li><a href=\"" + boardTitle + "-" + (page - 1) + ".html\">&lt; 이전글</a></li>");
-					}
-
-					/* 열려있는 페이지박스에 클래스 추가하기 */
-					for (int i = 1; i <= totalPage; i++) {
-						String selectClass = "";
-
-						if (i == page) {
-							selectClass = "<li class =\"list__link--selected\">";
-							paging.append(selectClass);
-							paging.append("<a href=\"" + boardTitle + "-" + i + ".html\">" + i + "</a><li>");
-						} else {
-							paging.append("<li><a href=\"" + boardTitle + "-" + i + ".html\">" + i + "</a><li>");
-						}
-					}
-
-					/* <다음글> 기능 구현범위 */
-					if (page < totalPage) {
-						paging.append("<li><a href=\"" + boardTitle + "-" + (page + 1) + ".html\">다음글 &gt;</a></li>");
-					}
-					paging.append("</ul>");
-					paging.append("</div>");
-					paging.append("</section>");
-
-					// 페이징 첨부
-					sb.append(paging);
-					
-					// 푸터 첨부
-					sb.append(footer);
-					// 파일 생성
-					String filePath = "site/" + boardTitle + "-" + page + ".html";
-					Util.writeFile(filePath, sb.toString());
-					System.out.println(filePath + "생성");
-
+				if (endPos < 0) {
+					endPos = 0;
 				}
 
+				if (startPos < 0) {
+					break;
+				}
+
+				for (int i = startPos; i >= endPos; i--) {
+
+					Article article = serchArticles.get(i);
+
+					mainList.append("<div class = \"list flex\">");
+
+					/* mainList.append(" <div class=\"list__id\">" + article.id + "</div>"); */
+					mainList.append(" <div class=\"list__title\"><a href =\"" + boardTitle + "-article-" + article.id
+							+ ".html\">" + article.title + "</a></div>");
+					mainList.append(" <div class=\"list__writer\">" + article.extra__writer + "</div>");
+					mainList.append(" <div class=\"list__count\">" + article.count + "</div>");
+					mainList.append(" <div class=\"list__regDate\">" + article.regDate + "</div>");
+
+					mainList.append("</div>");
+				}
+
+				mainList.append("</main>");
+
+				sb.append(mainList);
+
+				// 리스트 페이징
+				StringBuilder paging = new StringBuilder();
+
+				paging.append("<ul class=\"page flex\">");
+
+				/* <이전글> 기능 구현범위 */
+				if (page > 1) {
+					paging.append("<li><a href=\"" + boardTitle + "-" + (page - 1) + ".html\">&lt; 이전글</a></li>");
+				}
+
+				/* 열려있는 페이지박스에 클래스 추가하기 */
+				for (int i = 1; i <= totalPage; i++) {
+					String selectClass = "";
+
+					if (i == page) {
+						selectClass = "<li class =\"list__link--selected\">";
+						paging.append(selectClass);
+						paging.append("<a href=\"" + boardTitle + "-" + i + ".html\">" + i + "</a><li>");
+					} else {
+						paging.append("<li><a href=\"" + boardTitle + "-" + i + ".html\">" + i + "</a><li>");
+					}
+				}
+
+				/* <다음글> 기능 구현범위 */
+				if (page < totalPage) {
+					paging.append("<li><a href=\"" + boardTitle + "-" + (page + 1) + ".html\">다음글 &gt;</a></li>");
+				}
+				paging.append("</ul>");
+				paging.append("</div>");
+				paging.append("</section>");
+
+				// 페이징 첨부
+				sb.append(paging);
+
+				// 푸터 첨부
+				sb.append(footer);
+				// 파일 생성
+				String filePath = "site/" + boardTitle + "-" + page + ".html";
+				Util.writeFile(filePath, sb.toString());
+				System.out.println(filePath + "생성");
+
 			}
+
+		}
 	}
 
 	/*---------------홈만들기---------------------------*/

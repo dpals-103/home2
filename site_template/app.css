@@ -12,6 +12,7 @@
 body, html {
 	overflow-x: hidden;
 	font-family: 'Roboto', sans-serif;
+	/*background : #fffaf3;*/
 }
 
 body, ul, li {
@@ -64,51 +65,87 @@ a {
 .container>header .top__banner  a>span {
 	font-size: 40px;
 	font-weight: 700;
+	color : #191919;
 }
 
 .container>header .top__banner  a>img {
 	width: 100px;
 }
 
-/*헤더 ---- 메뉴바 */
-.container>header .top__menuBar {
-	flex-direction: row;
-	justify-content: space-between;
-	height: 130px;
+
+/*헤더---- 탑 메뉴바 -----*/
+
+.container > header .top__menuBar{
+  flex-direction : row;
+  justify-content : space-between;
+  height : 130px;
 }
 
-.container>header .top__menuBar>.icon>img {
-	padding: 5px;
-	width: 30px;
+.top__menuBar li{
+  position : relative; 
 }
 
-.top__menuBar li {
-	position: relative;
+.top__menuBar > .row li > a{
+  font-size : 14pt;
+  display : block;
+  padding : 2px 18px;
+  white-space : nowrap; 
+  color : #4a6110;
 }
 
-.top__menuBar ul ul {
-	display: none;
-	position: absolute;
+.top__menuBar > .icon > img{
+  cursor : pointer; 
 }
 
-.top__menuBar>.row li>a {
-	font-size: 14pt;
-	display: block;
-	padding: 5px 20px;
-	white-space: nowrap;
+.top__menuBar > .row .cell a:hover{
+  color : #4a6110;
 }
 
-.top__menuBar>.icon>img {
-	cursor: pointer;
+.top__menuBar > .row .cell a:not(.point)::after{
+  content :"";
+  display : block; 
+  width : 0%;
+  background-color : #eddec3;
+  height : 2px;
+  transition : width,1s; 
 }
 
-.top__menuBar>.row .cell  a:hover {
-	color: #1e66aa;
-	transition: color 0.5s;
+.top__menuBar > .row .cell a:hover::after{
+  width : 110%;
+  transition : width,1s; 
 }
 
-.top__menuBar>.row .cell:hover ul {
-	display: block;
+.top__menuBar > .top__boardMenu > ul{
+  position :fixed;
+}
+
+.top__menuBar > .top__boardMenu > ul > li > a {
+  background-color : #eddec3;
+  border-radius : 15px;
+  color : #4a6110;
+}
+
+.top__menuBar > .top__boardMenu > ul > li > a{
+  color : #2e3c0a;
+}
+
+.top__menuBar > .top__boardMenu > ul ul{
+  display : none;  
+  position : absolute; 
+  border-left : solid 3px #eddec3;
+}
+
+.top__menuBar > .top__boardMenu > ul ul > li {
+  padding-top : 5px;
+}
+
+.top__menuBar > .top__boardMenu > ul > li:hover > .point{
+  color : #eddec3;
+  background-color : #4a6110;
+}
+
+.top__menuBar > .top__boardMenu .cell:hover ul{
+  display : block; 
 }
 
 /*섹션-1 홈 메인*/
@@ -138,6 +175,19 @@ a {
 	top: 0;
 	right: 0;
 	width: 420px;
+}
+
+.section-1__home>.text-box>.text-1 {
+	font-size: 40px;
+	font-weight: 700;
+	color : #191919;
+}
+
+.section-1__home>.text-box>.text-2 {
+	font-size: 14px;
+	font-weight: 400;
+	color: #505050;
+	
 }
 
 /*----섹션-2 리스트-----*/
@@ -261,16 +311,7 @@ a {
 	color: red;
 }
 
-.section-1__home>.text-box>.text-1 {
-	font-size: 40px;
-	font-weight: 700;
-}
 
-.section-1__home>.text-box>.text-2 {
-	font-size: 14px;
-	font-weight: 400;
-	color: #505050;
-}
 
 /*섹션3 -----글 상세보기*/
 .container>section {
@@ -335,8 +376,9 @@ a {
 }
 
 .section-3_detail>.detail_4>div:hover>a {
-	color: #505050;
-	text-decoration: underline;
+	color : #4a6110; 
+  text-decoration : underline;
+  font-weight : bold;
 }
 
 /*푸터*/
@@ -348,16 +390,13 @@ a {
 	height: 70px;
 }
 
-.container>footer .bottom-bar>div:nth-child(1)>span {
+.container>footer .bottom-bar span {
 	font-size: 14px;
-	font-weight: 500;
+	font-weight: 700;
+	color : #505050;
 }
 
 .container>footer .bottom-bar>.img-box>img {
 	width: 40px;
 }
 
-.container>footer .bottom-bar>div:nth-child(3) span {
-	font-size: 14px;
-	font-weight: 500;
-}

@@ -1,8 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VJBTE5EBQ2"></script>
+<!-- 구글 애드센스 -->
+<script data-ad-client="ca-pub-3581650995417063" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-VJBTE5EBQ2');
+</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <!-- 구글 소유권 확인 메타태그 -->
 <meta name="google-site-verification" content="FMeDBTNNwUmSnehpaqlFZHq9_r_b8ItDaQqR79DRLMs" />
 <link rel="stylesheet" href="app.css" />
@@ -12,36 +25,40 @@
 
 	<div class="container">
 
-		<!-----------헤더 시작---------------------------------->
+<!-----------헤더 시작---------------------------------->
+      <header class="top con-min-width">
+        <div class="con">
 
-		<header class="top con-min-width">
-			<div class="con">
-				<div class="top__banner flex">
-					<a href="index.html" class="flex"> <img
-						src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FXnwmU%2FbtqPNyskUIk%2FoEglomcERfDjifCAOVj900%2Fimg.png"
-						alt=""> <span>Welcome!</span>
-					</a>
+          <!-- 탑배너 로고-->
+          <div class="top__banner flex">  
+            <a href="index.html" class="flex">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FXnwmU%2FbtqPNyskUIk%2FoEglomcERfDjifCAOVj900%2Fimg.png" alt="">
+              <span>JEYA-BLOG!</span>
+            </a>
+          </div> 
 
-				</div>
+          <!-- 메뉴바 부분-->
+          <div class="top__menuBar flex">
 
-				<div class="top__menuBar flex">
-					<div class="icon">
-						<img
-							src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdGbRo9%2FbtqP0sMtymz%2FdaU5uKrftzz9jTxknr92a1%2Fimg.png"
-							alt="">
-					</div>
+            <!--게시판 목록 부분 (왼쪽 사이드바)-->
+            <div class="top__boardMenu row flex">
+              <ul>
+                <li class="cell "><a class ="point" href="#">Board</a>
+                  <ul>
+                   [aaa]
+                  </ul>
+                </li>
+              </ul>
+            </div>
+            <!--기타 정보 부분 (오른쪽 메뉴나열)-->
+            <ul class="top__basicMenu row flex ">
+              <li class="cell"><a href="index.html">Home</a></li>
+              <li class="cell"><a href="#">About</a></li>
+              <li class="cell"><a href="#">Social</a></li>
+              <li class="cell"><a href="#">Data</a></li>
+            </ul>  
+          </div>
 
-					<ul class="row flex">
-						<li class="cell"><a href="index.html">Home</a></li>
-						<li class="cell"><a href="#">About</a></li>
-						<li class="cell"><a href="#">Board</a>
-							<ul>[aaa]
-							</ul></li>
-						<li class="cell"><a href="#">Social</a></li>
-						<li class="cell"><a href="#">Data</a></li>
-					</ul>
-				</div>
-				<div class="top__leftMenuBar"></div>
-			</div>
-		</header>
-		<!-----------헤더 끝---------------------------------->
+        </div>
+      </header>
+      <!-----------헤더 끝---------------------------------->
