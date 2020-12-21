@@ -30,6 +30,24 @@ public class BuildService {
 		buildIndex();
 		buildBoard();
 		buildDetail();
+		buildAbout();
+	}
+
+	/*------------- 소개페이지 -----------------------*/ 
+	private void buildAbout() {
+		
+		StringBuilder sb = new StringBuilder();
+
+		String about = Util.getFileContents("site_template/about.html");
+
+		sb.append(head);
+		sb.append(about);
+		sb.append(footer);
+
+		String filePath = "site/about.html";
+		Util.writeFile(filePath, sb.toString());
+		System.out.println(filePath + "생성");
+		
 	}
 
 	/*--------------게시글 상세보기 만들기---------------------*/
