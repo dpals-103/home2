@@ -26,11 +26,73 @@ public class BuildService {
 
 		Util.makeDir("site");
 		Util.copy("site_template/app.css", "site/app.css");
+		Util.copy("site_template/app.js", "site/app.js");
 
 		buildIndex();
 		buildBoard();
 		buildDetail();
 		buildAbout();
+		buildStats();
+		buildSocial();
+	}
+	
+	
+	/*-------소셜페이지----------------*/
+	private void buildSocial() {
+		StringBuilder sb = new StringBuilder();
+		String social = Util.getFileContents("site_template/social.html");
+		
+		//헤더
+		sb.append(head);
+		// 소셜페이지
+		sb.append(social); 
+		//푸터
+		sb.append(footer);
+		
+		String filePath = "site/social.html"; 
+		Util.writeFile(filePath, sb.toString());
+	}
+
+	/*------------- 통계페이지 -----------------------*/ 
+	private void buildStats() {
+		
+		StringBuilder sb = new StringBuilder();
+		
+		String stats = Util.getFileContents("site_template/stats.html");
+
+		//헤더 첨부
+		sb.append(head);
+		
+		List<Board> boards = articleService.getBoards();
+		
+		String dataHtml = "";
+		
+		for(int i =1; i <= boards.size(); i++) {
+			Board board = articleService.getBoard(i);
+			dataHtml += "<ul class =\"data flex\">";
+			dataHtml += "<li class =\"boardTitle\">" + board.title + "</li>";
+			
+			List<Article> articles = articleService.getArticles(board.id);
+			
+			dataHtml += " <li class =\"count\">" + articles.size() + "</li>";
+			dataHtml += "</ul>";
+		}
+			
+		stats = stats.replace("[data]", dataHtml);
+		
+		List<Article> articles = articleService.getArticles();
+		int total_count = articles.size();  
+		
+		stats = stats.replace("[total.count]", String.valueOf(total_count));
+		
+		sb.append(stats);
+		
+		//푸터 첨부
+		sb.append(footer);
+		
+		String filePath = "site/stats.html";
+		Util.writeFile(filePath, sb.toString());
+		System.out.println(filePath + "생성");
 	}
 
 	/*------------- 소개페이지 -----------------------*/ 
