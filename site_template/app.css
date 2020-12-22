@@ -502,7 +502,32 @@ a {
 .section-6__social > .social_link > .cell{
   position : relative;
 }
-.section-6__social > .social_link .img-box::after{
+
+.section-6__social > .social_link >.cell:nth-child(1)>.link > a{
+  display : block; 
+  padding : 100px;
+  color : #ffffff;
+  font-size : 30px;
+  position : absolute;
+  top:50%;
+  left :50%;
+  transform : translatey(-50%) translatex(-50%); 
+  opacity : 1; 
+}
+
+.section-6__social > .social_link >.cell:nth-child(2)>.link > a{
+  display : block; 
+  padding : 100px;
+  color : #ffffff;
+  font-size : 30px;
+  position : absolute;
+  top:50%;
+  left :50%;
+  transform : translatey(-50%) translatex(-50%); 
+  opacity : 1; 
+}
+
+.section-6__social > .social_link > .cell > .link{
   content : "";
   display : block; 
   background : rgba(74,97,16,0.7);
@@ -513,41 +538,12 @@ a {
   top : 0;
 }
 
-.section-6__social > .social_link >.cell:nth-child(1)::after{
-  content : "Github";
-  display : none; 
-  color : #ffffff;
-  font-size : 30px;
-  position : absolute;
-  top:50%;
-  left :50%;
-  transform : translatey(-50%) translatex(-50%); 
-  opacity : 1;
-}
-
-.section-6__social > .social_link >.cell:nth-child(2)::after{
-  content : "tistory";
-  display : none; 
-  color : #ffffff;
-  font-size : 30px;
-  position : absolute;
-  top:50%;
-  left :50%;
-  transform : translatey(-50%) translatex(-50%); 
-  opacity : 1;
-  
-}
-
-.section-6__social > .social_link >.cell:hover >.img-box::after{
-  cursor : pointer;
-  opacity : 1;
+.section-6__social > .social_link > .cell:hover > .link{
+  opacity : 1; 
   transition : opacity 0.5s;
-}
+} 
 
-.section-6__social > .social_link >.cell:hover::after{
-  display : block;
-  z-index :1;
-}
+
 
 .section-6__social > .contact-text{
   align-self : flex-end;
@@ -566,7 +562,6 @@ a {
   font-size : 20px;
   font-weight : 500;
 }
-
 
 
 /*푸터*/
