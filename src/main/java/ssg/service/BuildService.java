@@ -177,6 +177,10 @@ public class BuildService {
 				mainContent.append("</div>");
 				mainContent.append("</div>");
 				mainContent.append("</div>");
+				
+				String js = "<script src=\"app.js\"></script>";
+				mainContent.append(js);
+				
 				mainContent.append("</section>");
 
 				StringBuilder sb = new StringBuilder();
@@ -189,11 +193,12 @@ public class BuildService {
 				sb.append(mainContent);
 
 				// 토스트 에디터 첨부
-				sb.append(toast);
+				//sb.append(toast);
 
 				// 댓글 기능 첨부 
 				String reply = Util.getFileContents("site_template/reply.html"); 
 				sb.append(reply); 
+				
 				
 				// 푸터 첨부
 				sb.append(footer);
