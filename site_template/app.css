@@ -174,10 +174,10 @@ a {
 /*----섹션-2 리스트-----*/
 :root {
   --list__id : 150px;
-  --list__title : 300px;
-  --list__writer : 200px;
-  --list__count : 200px;
-  --list__regDate : 400px;
+  --list__title : 400px;
+  --list__writer : 150px;
+  --list__count : 150px;
+  --list__regDate : 200px;
 }
 
 .container>section {
