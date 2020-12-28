@@ -28,8 +28,8 @@ public class App {
 			System.out.printf("명령어 ) ");
 			String cmd = sc.nextLine();
 
-			//MysqlUtil.setDBInfo("127.0.0.1", "dpals103", "dlgywn0168", "a1");
-			MysqlUtil.setDBInfo("127.0.0.1", "sbsst", "sbs123414", "a1");
+			MysqlUtil.setDBInfo("127.0.0.1", "dpals103", "dlgywn0168", "a1");
+			//MysqlUtil.setDBInfo("127.0.0.1", "sbsst", "sbs123414", "a1");
 
 			boolean needToExit = false;
 

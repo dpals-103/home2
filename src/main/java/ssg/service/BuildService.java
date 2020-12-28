@@ -10,13 +10,11 @@ import ssg.util.Util;
 public class BuildService {
 
 	private ArticleService articleService;
-	private String head;
 	private String footer;
 	private String dir;
 
 	public BuildService() {
 		articleService = Container.articleService;
-		head = Util.getFileContents("site_template/head.html");
 		footer = Util.getFileContents("site_template/footer.html");
 		dir = System.getProperty("user.dir");
 	}
@@ -25,6 +23,7 @@ public class BuildService {
 		System.out.println("html생성을 시작합니다");
 
 		Util.makeDir("site");
+		Util.copy("site_template/favicon.ico", "site/favicon.ico");
 		Util.copy("site_template/app.css", "site/app.css");
 		Util.copy("site_template/app.js", "site/app.js");
 
@@ -43,6 +42,7 @@ public class BuildService {
 		String social = Util.getFileContents("site_template/social.html");
 		
 		//헤더
+		String head = getHeadHtml("social");
 		sb.append(head);
 		// 소셜페이지
 		sb.append(social); 
@@ -61,6 +61,7 @@ public class BuildService {
 		String stats = Util.getFileContents("site_template/stats.html");
 
 		//헤더 첨부
+		String head = getHeadHtml("stats");
 		sb.append(head);
 		
 		List<Board> boards = articleService.getBoards();
@@ -101,7 +102,8 @@ public class BuildService {
 		StringBuilder sb = new StringBuilder();
 
 		String about = Util.getFileContents("site_template/about.html");
-
+		String head = getHeadHtml("about");
+		
 		sb.append(head);
 		sb.append(about);
 		sb.append(footer);
@@ -186,6 +188,8 @@ public class BuildService {
 				StringBuilder sb = new StringBuilder();
 
 				// 헤더_상세보기템플릿 첨부
+				String head = getHeadHtml("detail");
+				head = head.replace("detail", article.title);
 				sb.append(head);
 
 				// 디테일 첨부
@@ -237,6 +241,8 @@ public class BuildService {
 				StringBuilder sb = new StringBuilder();
 
 				// 헤더 첨부
+				String head = getHeadHtml("[board]");
+				head = head.replace("[board]", board.title);
 				sb.append(head);
 
 				// 리스트(항목 부분) 시작_첨부
@@ -333,15 +339,8 @@ public class BuildService {
 	private void buildIndex() {
 
 		StringBuilder sb = new StringBuilder();
-
-		String boardListHtml = "";
-		List<Board> boards = articleService.getBoards();
-
-		for (Board board : boards) {
-			boardListHtml += "<li><a href=\"" + board.title + "-1.html\">" + board.title + "</a></li>";
-		}
-
-		head = head.replace("[aaa]", boardListHtml);
+		
+		String head = getHeadHtml("index");
 
 		String main = Util.getFileContents("site_template/main.html");
 
@@ -352,6 +351,52 @@ public class BuildService {
 		String filePath = "site/index.html";
 		Util.writeFile(filePath, sb.toString());
 		System.out.println(filePath + "생성");
+	}
+
+	
+	
+	private String getHeadHtml(String pageName) {
+		
+		String head = Util.getFileContents("site_template/head.html");
+		
+		String printPageName = pageName;
+		List<Board> boards = articleService.getBoards();
+		
+		if(printPageName.equals("index")) {
+			printPageName = "JEYA-BLOG | Home"; 
+		}
+		else if(printPageName.equals("about")) {
+			printPageName = "JEYA-BLOG | About"; 
+		}
+		else if(printPageName.equals("social")) {
+			printPageName = "JEYA-BLOG | Social"; 
+		}
+		else if(printPageName.equals("stats")) {
+			printPageName = "JEYA-BLOG | Data"; 
+		}
+		else if(printPageName.equals("[board]")) {
+			printPageName = "[board]"; 
+		}
+		else if(printPageName.equals("detail")) {
+			printPageName = "detail"; 
+		}
+		
+		head = head.replace("[pageTitle]", printPageName);
+		
+		
+		String boardListHtml = "";
+
+		for (Board board : boards) {
+			boardListHtml += "<li><a href=\"" + board.title + "-1.html\">" + board.title + "</a></li>";
+		}
+
+		
+		head = head.replace("[aaa]", boardListHtml);
+		
+		
+		return head;
+		
+		
 	}
 
 }
