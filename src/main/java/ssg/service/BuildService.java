@@ -26,6 +26,7 @@ public class BuildService {
 		Util.copy("site_template/favicon.ico", "site/favicon.ico");
 		Util.copy("site_template/app.css", "site/app.css");
 		Util.copy("site_template/app.js", "site/app.js");
+		Util.copy("site_template/logo.png", "site/logo.png");
 
 		buildIndex();
 		buildBoard();
@@ -34,76 +35,75 @@ public class BuildService {
 		buildStats();
 		buildSocial();
 	}
-	
-	
+
 	/*-------소셜페이지----------------*/
 	private void buildSocial() {
 		StringBuilder sb = new StringBuilder();
 		String social = Util.getFileContents("site_template/social.html");
-		
-		//헤더
+
+		// 헤더
 		String head = getHeadHtml("social");
 		sb.append(head);
 		// 소셜페이지
-		sb.append(social); 
-		//푸터
+		sb.append(social);
+		// 푸터
 		sb.append(footer);
-		
-		String filePath = "site/social.html"; 
+
+		String filePath = "site/social.html";
 		Util.writeFile(filePath, sb.toString());
 	}
 
-	/*------------- 통계페이지 -----------------------*/ 
+	/*------------- 통계페이지 -----------------------*/
 	private void buildStats() {
-		
+
 		StringBuilder sb = new StringBuilder();
-		
+
 		String stats = Util.getFileContents("site_template/stats.html");
 
-		//헤더 첨부
+		// 헤더 첨부
 		String head = getHeadHtml("stats");
 		sb.append(head);
-		
+
 		List<Board> boards = articleService.getBoards();
-		
+
 		String dataHtml = "";
-		
-		for(int i =1; i <= boards.size(); i++) {
+
+		for (int i = 1; i <= boards.size(); i++) {
 			Board board = articleService.getBoard(i);
 			dataHtml += "<ul class =\"data flex\">";
 			dataHtml += "<li class =\"boardTitle\">" + board.title + "</li>";
-			
+
 			List<Article> articles = articleService.getArticles(board.id);
-			
+
 			dataHtml += " <li class =\"count\">" + articles.size() + "</li>";
 			dataHtml += "</ul>";
 		}
-			
+
 		stats = stats.replace("[data]", dataHtml);
-		
+
 		List<Article> articles = articleService.getArticles();
-		int total_count = articles.size();  
-		
+		int total_count = articles.size();
+
 		stats = stats.replace("[total.count]", String.valueOf(total_count));
-		
+
 		sb.append(stats);
-		
-		//푸터 첨부
+
+		// 푸터 첨부
 		sb.append(footer);
-		
+
 		String filePath = "site/stats.html";
 		Util.writeFile(filePath, sb.toString());
 		System.out.println(filePath + "생성");
 	}
 
-	/*------------- 소개페이지 -----------------------*/ 
+	/*------------- 소개페이지 -----------------------*/
 	private void buildAbout() {
-		
+
 		StringBuilder sb = new StringBuilder();
 
 		String about = Util.getFileContents("site_template/about.html");
 		String head = getHeadHtml("about");
-		
+
 		sb.append(head);
 		sb.append(about);
 		sb.append(footer);
@@ -111,7 +111,7 @@ public class BuildService {
 		String filePath = "site/about.html";
 		Util.writeFile(filePath, sb.toString());
 		System.out.println(filePath + "생성");
-		
+
 	}
 
 	/*--------------게시글 상세보기 만들기---------------------*/
@@ -126,11 +126,11 @@ public class BuildService {
 		for (Board board : boards) {
 
 			List<Article> articles = articleService.getArticles(board.id);
-	
+
 			for (int i = 0; i < articles.size(); i++) {
 
 				Article article = articles.get(i);
-  
+
 				StringBuilder mainContent = new StringBuilder();
 
 				mainContent.append("<div class=\"detail_1 flex\">");
@@ -179,10 +179,10 @@ public class BuildService {
 				mainContent.append("</div>");
 				mainContent.append("</div>");
 				mainContent.append("</div>");
-				
+
 				String js = "<script src=\"app.js\"></script>";
 				mainContent.append(js);
-				
+
 				mainContent.append("</section>");
 
 				StringBuilder sb = new StringBuilder();
@@ -197,13 +197,12 @@ public class BuildService {
 				sb.append(mainContent);
 
 				// 토스트 에디터 첨부
-				//sb.append(toast);
+				// sb.append(toast);
 
-				// 댓글 기능 첨부 
-				String reply = Util.getFileContents("site_template/reply.html"); 
-				sb.append(reply); 
-				
-				
+				// 댓글 기능 첨부
+				String reply = Util.getFileContents("site_template/reply.html");
+				sb.append(reply);
+
 				// 푸터 첨부
 				sb.append(footer);
 
@@ -211,8 +210,7 @@ public class BuildService {
 				String filePath = "site/" + boardTitle + "-article-" + article.id + ".html";
 				Util.writeFile(filePath, sb.toString());
 				System.out.println(filePath + "생성");
-				
-				
+
 			}
 
 		}
@@ -337,13 +335,13 @@ public class BuildService {
 
 	/*---------------홈만들기---------------------------*/
 	private void buildIndex() {
+		
+		String main = Util.getFileContents("site_template/main.html");
+		
 
 		StringBuilder sb = new StringBuilder();
 		
 		String head = getHeadHtml("index");
-
-		String main = Util.getFileContents("site_template/main.html");
-
 		sb.append(head);
 		sb.append(main);
 		sb.append(footer);
@@ -353,50 +351,60 @@ public class BuildService {
 		System.out.println(filePath + "생성");
 	}
 
-	
-	
 	private String getHeadHtml(String pageName) {
-		
+
 		String head = Util.getFileContents("site_template/head.html");
-		
-		String printPageName = pageName;
 		List<Board> boards = articleService.getBoards();
-		
-		if(printPageName.equals("index")) {
-			printPageName = "JEYA-BLOG | Home"; 
+		List<Article> articles = articleService.getArticles(); 
+
+		/* SEO 메타태그 */
+		String siteDomain = "blog.ljeya.org";
+		String siteMainUrl = "https://" + siteDomain;
+		String siteSubject = "코린이 제야의 개발블로그";
+		String siteName = Container.config.getSiteName();
+		String siteKeyWord = "HTMl, CSS, JAVASCRIPT, JAVA, MySQL, Web Design";
+		String currentDate = Util.getNowDateStr().replace(" ", "T");
+		String siteDescription = "초보 개발자의 개발공부 블로그입니다.";
+
+		head = head.replace("${site-domain}", siteDomain);
+		head = head.replace("${site-main-url}", siteMainUrl);
+		head = head.replace("${site-subject}", siteSubject);
+		head = head.replace("${site-name}", siteName);
+		head = head.replace("${site-keywords}", siteKeyWord);
+		head = head.replace("${current-date}", currentDate);
+		head = head.replace("${site-description}", siteDescription);
+
+
+		String printPageName = pageName;
+
+		/* 카테고리 별 타이틀 엘리먼트 */
+		if (printPageName.equals("index")) {
+			printPageName = "JEYA-BLOG | Home";
+		} else if (printPageName.equals("about")) {
+			printPageName = "JEYA-BLOG | About";
+		} else if (printPageName.equals("social")) {
+			printPageName = "JEYA-BLOG | Social";
+		} else if (printPageName.equals("stats")) {
+			printPageName = "JEYA-BLOG | Data";
+		} else if (printPageName.equals("[board]")) {
+			printPageName = "[board]";
+		} else if (printPageName.equals("detail")) {
+			printPageName = "detail";
 		}
-		else if(printPageName.equals("about")) {
-			printPageName = "JEYA-BLOG | About"; 
-		}
-		else if(printPageName.equals("social")) {
-			printPageName = "JEYA-BLOG | Social"; 
-		}
-		else if(printPageName.equals("stats")) {
-			printPageName = "JEYA-BLOG | Data"; 
-		}
-		else if(printPageName.equals("[board]")) {
-			printPageName = "[board]"; 
-		}
-		else if(printPageName.equals("detail")) {
-			printPageName = "detail"; 
-		}
-		
+
 		head = head.replace("[pageTitle]", printPageName);
-		
-		
+
+		/* 사이드바 --- 게시판 목록 */
 		String boardListHtml = "";
 
 		for (Board board : boards) {
 			boardListHtml += "<li><a href=\"" + board.title + "-1.html\">" + board.title + "</a></li>";
 		}
 
-		
 		head = head.replace("[aaa]", boardListHtml);
-		
-		
+
 		return head;
-		
-		
 	}
+
 
 }

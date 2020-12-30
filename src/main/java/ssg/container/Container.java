@@ -21,8 +21,11 @@ public class Container {
 	public static BuildService buildService;
 	public static Session session;
 	public static MemberService memberService;
+	public static AppConfig config;
 
 	static {
+		
+		config = new AppConfig(); 
 		scanner = new Scanner(System.in);
 		session = new Session();
 		articleDao = new ArticleDao(); 
