@@ -26,7 +26,6 @@ public class BuildService {
 		Util.copy("site_template/favicon.ico", "site/favicon.ico");
 		Util.copy("site_template/app.css", "site/app.css");
 		Util.copy("site_template/app.js", "site/app.js");
-		Util.copy("site_template/logo.png", "site/logo.png");
 
 		buildIndex();
 		buildBoard();
@@ -188,7 +187,7 @@ public class BuildService {
 				StringBuilder sb = new StringBuilder();
 
 				// 헤더_상세보기템플릿 첨부
-				String head = getHeadHtml("detail");
+				String head = getHeadHtml("detail",article);
 				head = head.replace("detail", article.title);
 				sb.append(head);
 
@@ -201,6 +200,13 @@ public class BuildService {
 
 				// 댓글 기능 첨부
 				String reply = Util.getFileContents("site_template/reply.html");
+				
+				String siteDomain = "blog.ljeya.org";
+				String fileName = boardTitle + "-article-" + article.id + ".html";
+				
+				reply = reply.replace("${site-domain}", siteDomain);
+				reply = reply.replace("${file-name}", fileName);
+				
 				sb.append(reply);
 
 				// 푸터 첨부
@@ -352,6 +358,10 @@ public class BuildService {
 	}
 
 	private String getHeadHtml(String pageName) {
+		return getHeadHtml(pageName,null); 
+	}
+	
+	private String getHeadHtml(String pageName, Object object) {
 
 		String head = Util.getFileContents("site_template/head.html");
 		List<Board> boards = articleService.getBoards();
@@ -359,14 +369,25 @@ public class BuildService {
 
 		/* SEO 메타태그 */
 		String siteDomain = "blog.ljeya.org";
+		String siteImg = "site/img/logo.png";
 		String siteMainUrl = "https://" + siteDomain;
 		String siteSubject = "코린이 제야의 개발블로그";
 		String siteName = Container.config.getSiteName();
 		String siteKeyWord = "HTMl, CSS, JAVASCRIPT, JAVA, MySQL, Web Design";
 		String currentDate = Util.getNowDateStr().replace(" ", "T");
 		String siteDescription = "초보 개발자의 개발공부 블로그입니다.";
-
+		
+		
+		if (object instanceof Article) {
+			Article article = (Article) object;
+			siteSubject = article.title;
+			siteDescription = article.body;
+			siteDescription =  siteDescription.replaceAll("[^\uAC00-\uD7A3xfe0-9a-zA-Z\\s]", "");
+		}
+		
+		
 		head = head.replace("${site-domain}", siteDomain);
+		head = head.replace("${site-img}", siteImg);
 		head = head.replace("${site-main-url}", siteMainUrl);
 		head = head.replace("${site-subject}", siteSubject);
 		head = head.replace("${site-name}", siteName);
