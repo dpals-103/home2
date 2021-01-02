@@ -177,6 +177,7 @@ a {
   --list__title : 400px;
   --list__writer : 150px;
   --list__count : 150px;
+  --list__likes : 150px;
   --list__regDate : 200px;
 }
 
@@ -234,7 +235,7 @@ a {
 	position: relative;
 }
 
-.section-2__list>header>div>div:not(:nth-child(4))::after {
+.section-2__list>header>div>div:not(:nth-child(5))::after {
 	content: "";
 	background-color: black;
 	position: absolute;
@@ -272,6 +273,12 @@ a {
 
 .list__title {
 	width: var(--list__title);
+	justify-content : center;
+}
+
+.list__title>.comments_count{
+  color : #505050;
+  margin-left : 5px;
 }
 
 .list__writer {
@@ -280,6 +287,10 @@ a {
 
 .list__count {
 	width: var(--list__count);
+}
+
+.list__likes {
+	width: var(--list__likes);
 }
 
 .list__regDate {
@@ -323,19 +334,13 @@ a {
 .section-3_detail>.detail_2 {
 	align-items: center;
 	height: 30px;
+	font-size : 14px;
+    font-weight : 400;
 }
 
-.section-3_detail>.detail_2>div {
-	font-size: 14px;
-	font-weight: 400;
-}
 
-.section-3_detail>.detail_2>div:nth-child(3) {
-	margin-left: 30px;
-}
-
-.section-3_detail>.detail_2>div:nth-child(5) {
-	margin-left: 30px;
+.section-3_detail > .detail_2 > div{
+  margin-right:30px;
 }
 
 .section-3_detail>.detail_3 {
@@ -377,7 +382,7 @@ a {
 
 .section-3_detail>.detail_4>div:hover>a {
 	color : #4a6110; 
-  text-decoration : underline;
+  text-decoration : underline #4a6110;
   font-weight : bold;
 }
 

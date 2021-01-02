@@ -1,6 +1,8 @@
 package ssg.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import ssg.container.Container;
 import ssg.dto.Article;
@@ -10,11 +12,13 @@ import ssg.util.Util;
 public class BuildService {
 
 	private ArticleService articleService;
+	private DisqusApiService disqusApiService;
 	private String footer;
 	private String dir;
 
 	public BuildService() {
 		articleService = Container.articleService;
+		disqusApiService = Container.disqusApiService;
 		footer = Util.getFileContents("site_template/footer.html");
 		dir = System.getProperty("user.dir");
 	}
@@ -27,6 +31,8 @@ public class BuildService {
 		Util.copy("site_template/app.css", "site/app.css");
 		Util.copy("site_template/app.js", "site/app.js");
 
+		loadDisqusData();
+		
 		buildIndex();
 		buildBoard();
 		buildDetail();
@@ -34,6 +40,30 @@ public class BuildService {
 		buildStats();
 		buildSocial();
 	}
+
+	private void loadDisqusData() {
+
+		List<Article> articles = articleService.getArticles();
+		
+		for (Article article : articles) {
+
+				Map<String, Object> disqusArticleData = disqusApiService.getArticleData(article);
+
+				if (disqusArticleData != null) {
+					int likesCount = (int) disqusArticleData.get("likesCount");
+					int commentsCount = (int) disqusArticleData.get("commentsCount");
+					
+					
+					Map<String, Object> modifyArgs = new HashMap<>();
+					modifyArgs.put("id", article.id);
+					modifyArgs.put("likesCount", likesCount);
+					modifyArgs.put("commentsCount", commentsCount);
+					
+					articleService.modify(modifyArgs);
+				}
+			}
+		}
+
 
 	/*-------소셜페이지----------------*/
 	private void buildSocial() {
@@ -137,12 +167,16 @@ public class BuildService {
 				mainContent.append("</div>");
 
 				mainContent.append("<div class=\"detail_2 flex\">");
-				mainContent.append("<div>작성일 : </div>");
+				mainContent.append("작성일 : ");
 				mainContent.append("<div class=\"regDate\">" + article.regDate + "</div>");
-				mainContent.append("<div>작성자 :</div>");
+				mainContent.append("작성자 : ");
 				mainContent.append("<div class=\"writer\">" + article.extra__writer + "</div>");
-				mainContent.append("<div>조회수</div>");
+				mainContent.append("조회수 ");
 				mainContent.append("<div class=\"count\">" + article.count + "</div>");
+				mainContent.append("추천수 ");
+				mainContent.append("<div class=\"count\">" + article.likesCount + "</div>");
+				mainContent.append("댓글수 ");
+				mainContent.append("<div class=\"count\">" + article.commentsCount + "</div>");
 				mainContent.append("</div>");
 
 				mainContent.append("<div class=\"detail_3\">");
@@ -160,7 +194,7 @@ public class BuildService {
 				if (i > 0) {
 					mainContent.append("<div class=\"prev\">");
 					mainContent.append(
-							"<a href=\"" + boardTitle + "-article-" + (article.id - 1) + ".html\"> &lt; 이전글 </a>");
+							"<a href=\"" + "article-" + (article.id - 1) + ".html\"> &lt; 이전글 </a>");
 					mainContent.append("</div>");
 				}
 
@@ -171,7 +205,7 @@ public class BuildService {
 				if (i + 1 < articles.size()) {
 					mainContent.append("<div class=\"next\">");
 					mainContent.append(
-							"<a href=\"" + boardTitle + "-article-" + (article.id + 1) + ".html\">다음글 &gt;</a>");
+							"<a href=\"" + "article-" + (article.id + 1) + ".html\">다음글 &gt;</a>");
 					mainContent.append("</div>");
 				}
 
@@ -187,7 +221,7 @@ public class BuildService {
 				StringBuilder sb = new StringBuilder();
 
 				// 헤더_상세보기템플릿 첨부
-				String head = getHeadHtml("detail",article);
+				String head = getHeadHtml("detail", article);
 				head = head.replace("detail", article.title);
 				sb.append(head);
 
@@ -200,20 +234,20 @@ public class BuildService {
 
 				// 댓글 기능 첨부
 				String reply = Util.getFileContents("site_template/reply.html");
-				
+
 				String siteDomain = "blog.ljeya.org";
-				String fileName = boardTitle + "-article-" + article.id + ".html";
-				
+				String fileName = getArticleDetailFileName(article.id);
+
 				reply = reply.replace("${site-domain}", siteDomain);
 				reply = reply.replace("${file-name}", fileName);
-				
+
 				sb.append(reply);
 
 				// 푸터 첨부
 				sb.append(footer);
 
 				// 파일 생성
-				String filePath = "site/" + boardTitle + "-article-" + article.id + ".html";
+				String filePath = "site/" + fileName;
 				Util.writeFile(filePath, sb.toString());
 				System.out.println(filePath + "생성");
 
@@ -279,11 +313,17 @@ public class BuildService {
 
 					mainList.append("<div class = \"list flex\">");
 
-					/* mainList.append(" <div class=\"list__id\">" + article.id + "</div>"); */
-					mainList.append(" <div class=\"list__title\"><a href =\"" + boardTitle + "-article-" + article.id
-							+ ".html\">" + article.title + "</a></div>");
+					String fileName = getArticleDetailFileName(article.id);
+					
+					if(article.commentsCount == 0) {
+					mainList.append(" <div class=\"list__title flex\"><a href =\"" + fileName + "\">" + article.title + "</a></div>");
+					} else {
+						mainList.append(" <div class=\"list__title flex\"><a href =\"" + fileName + "\">" + article.title + "</a>"
+								+ " <div class=\"comments_count\">(" + article.commentsCount +")</div></div>");
+					}
 					mainList.append(" <div class=\"list__writer\">" + article.extra__writer + "</div>");
 					mainList.append(" <div class=\"list__count\">" + article.count + "</div>");
+					mainList.append(" <div class=\"list__likes\">" + article.likesCount + "</div>");
 					mainList.append(" <div class=\"list__regDate\">" + article.regDate + "</div>");
 
 					mainList.append("</div>");
@@ -341,12 +381,11 @@ public class BuildService {
 
 	/*---------------홈만들기---------------------------*/
 	private void buildIndex() {
-		
+
 		String main = Util.getFileContents("site_template/main.html");
-		
 
 		StringBuilder sb = new StringBuilder();
-		
+
 		String head = getHeadHtml("index");
 		sb.append(head);
 		sb.append(main);
@@ -358,14 +397,14 @@ public class BuildService {
 	}
 
 	private String getHeadHtml(String pageName) {
-		return getHeadHtml(pageName,null); 
+		return getHeadHtml(pageName, null);
 	}
-	
+
 	private String getHeadHtml(String pageName, Object object) {
 
 		String head = Util.getFileContents("site_template/head.html");
 		List<Board> boards = articleService.getBoards();
-		List<Article> articles = articleService.getArticles(); 
+		List<Article> articles = articleService.getArticles();
 
 		/* SEO 메타태그 */
 		String siteDomain = "blog.ljeya.org";
@@ -376,16 +415,14 @@ public class BuildService {
 		String siteKeyWord = "HTMl, CSS, JAVASCRIPT, JAVA, MySQL, Web Design";
 		String currentDate = Util.getNowDateStr().replace(" ", "T");
 		String siteDescription = "초보 개발자의 개발공부 블로그입니다.";
-		
-		
+
 		if (object instanceof Article) {
 			Article article = (Article) object;
 			siteSubject = article.title;
 			siteDescription = article.body;
-			siteDescription =  siteDescription.replaceAll("[^\uAC00-\uD7A3xfe0-9a-zA-Z\\s]", "");
+			siteDescription = siteDescription.replaceAll("[^\uAC00-\uD7A3xfe0-9a-zA-Z\\s]", "");
 		}
-		
-		
+
 		head = head.replace("${site-domain}", siteDomain);
 		head = head.replace("${site-img}", siteImg);
 		head = head.replace("${site-main-url}", siteMainUrl);
@@ -395,18 +432,17 @@ public class BuildService {
 		head = head.replace("${current-date}", currentDate);
 		head = head.replace("${site-description}", siteDescription);
 
-
 		String printPageName = pageName;
 
 		/* 카테고리 별 타이틀 엘리먼트 */
 		if (printPageName.equals("index")) {
-			printPageName = "JEYA-BLOG | Home";
+			printPageName = Container.config.getSiteName() + " | Home";
 		} else if (printPageName.equals("about")) {
-			printPageName = "JEYA-BLOG | About";
+			printPageName = Container.config.getSiteName() + " | About";
 		} else if (printPageName.equals("social")) {
-			printPageName = "JEYA-BLOG | Social";
+			printPageName = Container.config.getSiteName() + " | Social";
 		} else if (printPageName.equals("stats")) {
-			printPageName = "JEYA-BLOG | Data";
+			printPageName = Container.config.getSiteName() + " | Data";
 		} else if (printPageName.equals("[board]")) {
 			printPageName = "[board]";
 		} else if (printPageName.equals("detail")) {
@@ -427,5 +463,8 @@ public class BuildService {
 		return head;
 	}
 
+	public String getArticleDetailFileName(int articleId) {
+		return "article-" + articleId + ".html";
+	}
 
 }

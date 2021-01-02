@@ -1,6 +1,7 @@
 package ssg.service;
 
 import java.util.List;
+import java.util.Map;
 
 import ssg.container.Container;
 import ssg.dao.ArticleDao;
@@ -45,6 +46,11 @@ public class ArticleService {
 
 	public String getArticle(int articleId, int boardId) {
 		return articleDao.getArticle(articleId, boardId); 
+	}
+
+	public int modify(Map<String, Object> args) {
+		return articleDao.modify(args);
+		
 	}
 
 

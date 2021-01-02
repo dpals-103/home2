@@ -13,6 +13,7 @@ public class DisqusApiDataListTread {
 	public static class Response {
 		public int likes;
 		public int posts;
+		
 	}
 
 }

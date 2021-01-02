@@ -56,6 +56,10 @@ regDate = NOW();
 TRUNCATE article;
 
 
+# 칼럼추가
+ALTER TABLE article ADD COLUMN likesCount INT(10) UNSIGNED NOT NULL DEFAULT '0';
+ALTER TABLE article ADD COLUMN commentsCount INT(10) UNSIGNED NOT NULL DEFAULT '0'; 
+
 SELECT*
 FROM article;
 

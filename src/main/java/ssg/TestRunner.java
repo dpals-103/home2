@@ -9,6 +9,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ssg.apidto.DisqusApiDataListTread;
+import ssg.container.Container;
 import ssg.util.Util;
 
 public class TestRunner {
@@ -20,7 +21,7 @@ public class TestRunner {
 	}
 
 	void run() {
-		testApi3();
+		testApi2();
 
 	}
 
@@ -116,21 +117,21 @@ public class TestRunner {
 	private void testApi2() {
 		String url = "https://disqus.com/api/3.0/forums/listThreads.json";
 
-		Map<String,Object> rs = Util.callApiResponseToMap(url, "api_key=YjjuMG96pqVNFfDz4GsjVi1NKb7WwF12nkhLA5ztOx9GgcR7l86n10vHlQCYp17a",
-				"forum=jeya-portfolio", "thread:ident=IT-article-2.html");
+		Map<String,Object> rs = Util.callApiResponseToMap(url, "api_key="+ Container.config.getDisqusApiKey(),
+				"forum=jeya-portfolio", "thread:ident=article-1.html");
 		List<Map<String,Object>> response = (List<Map<String,Object>>) rs. get("response");
 		Map<String,Object> thread = response.get(0);
-		System.out.println((int)thread.get("likes"));
+		System.out.println(rs);
 	}
 	
 	
 	private void testApi3() {
 		String url = "https://disqus.com/api/3.0/forums/listThreads.json";
 
-		DisqusApiDataListTread rs = (DisqusApiDataListTread)Util.callApiResponseTo(DisqusApiDataListTread.class, url ,"api_key=YjjuMG96pqVNFfDz4GsjVi1NKb7WwF12nkhLA5ztOx9GgcR7l86n10vHlQCYp17a",
-				"forum=jeya-portfolio", "thread:ident=IT-article-2.html");
-	
-		System.out.println(rs.response.get(0).likes + rs.response.get(0).posts);
+		DisqusApiDataListTread rs = (DisqusApiDataListTread)Util.callApiResponseTo(DisqusApiDataListTread.class, url ,"api_key="+ Container.config.getDisqusApiKey(),
+				"forum=jeya-portfolio", "thread:ident=article-1.html");
+		System.out.println(rs);
+		//System.out.println(rs.response.get(0).posts);
 	}
 
 }
