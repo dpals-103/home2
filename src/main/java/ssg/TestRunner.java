@@ -8,18 +8,19 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import ssg.apidto.DisqusApiDataListTread;
 import ssg.util.Util;
 
 public class TestRunner {
 	@JsonIgnoreProperties(ignoreUnknown = true)
-	public static class TestDataType1{
+	public static class TestDataType1 {
 		public int age;
 		public int height;
 		public String name;
 	}
-	
+
 	void run() {
-		testJackson5();
+		testApi3();
 
 	}
 
@@ -30,7 +31,8 @@ public class TestRunner {
 		List<TestDataType1> rs = null;
 
 		try {
-			rs = ob.readValue(jsonString, new TypeReference<List<TestDataType1>>(){});
+			rs = ob.readValue(jsonString, new TypeReference<List<TestDataType1>>() {
+			});
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 			return;
@@ -43,7 +45,7 @@ public class TestRunner {
 		String jsonString = "[{\"age\":22, \"name\":\"홍길동\"},{\"age\":23, \"name\":\"홍길순\"},{\"age\":25, \"name\":\"임꺽정\"}]";
 
 		ObjectMapper ob = new ObjectMapper();
-		List<Map<String,Object>> rs = null;
+		List<Map<String, Object>> rs = null;
 
 		try {
 			rs = ob.readValue(jsonString, List.class);
@@ -54,8 +56,6 @@ public class TestRunner {
 		System.out.println(rs.get(2).get("age"));
 
 	}
-
-
 
 	private void testJacson3() {
 		String jsonString = "[1,2,3]";
@@ -111,4 +111,26 @@ public class TestRunner {
 				"forum=jeya-portfolio", "thread:ident=IT-article-2.html");
 		System.out.println(rs);
 	}
+
+	//좋아요
+	private void testApi2() {
+		String url = "https://disqus.com/api/3.0/forums/listThreads.json";
+
+		Map<String,Object> rs = Util.callApiResponseToMap(url, "api_key=YjjuMG96pqVNFfDz4GsjVi1NKb7WwF12nkhLA5ztOx9GgcR7l86n10vHlQCYp17a",
+				"forum=jeya-portfolio", "thread:ident=IT-article-2.html");
+		List<Map<String,Object>> response = (List<Map<String,Object>>) rs. get("response");
+		Map<String,Object> thread = response.get(0);
+		System.out.println((int)thread.get("likes"));
+	}
+	
+	
+	private void testApi3() {
+		String url = "https://disqus.com/api/3.0/forums/listThreads.json";
+
+		DisqusApiDataListTread rs = (DisqusApiDataListTread)Util.callApiResponseTo(DisqusApiDataListTread.class, url ,"api_key=YjjuMG96pqVNFfDz4GsjVi1NKb7WwF12nkhLA5ztOx9GgcR7l86n10vHlQCYp17a",
+				"forum=jeya-portfolio", "thread:ident=IT-article-2.html");
+	
+		System.out.println(rs.response.get(0).likes + rs.response.get(0).posts);
+	}
+
 }

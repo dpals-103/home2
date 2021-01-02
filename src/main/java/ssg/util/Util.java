@@ -20,11 +20,14 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 
 public class Util {
@@ -140,8 +143,8 @@ public class Util {
 	}
 
 	public static void writeFile(String path, String body) {
-		File file = new File(path); 
-		
+		File file = new File(path);
+
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 			writer.write(body);
@@ -153,79 +156,106 @@ public class Util {
 
 	public static boolean copy(String sourcePath, String destPath) {
 		Path source = Paths.get(sourcePath);
-        Path target = Paths.get(destPath);
+		Path target = Paths.get(destPath);
 
-        if (!Files.exists(target.getParent())) {
-            try {
+		if (!Files.exists(target.getParent())) {
+			try {
 				Files.createDirectories(target.getParent());
 			} catch (IOException e) {
 				e.printStackTrace();
 				return false;
 			}
-        }
+		}
 
-        try {
+		try {
 			Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException e) {
 			return true;
 		}
-        
-        return true;
+
+		return true;
 	}
 
 	public static String callApi(String urlStr, String... args) {
-		//url 구성시작 
+		// url 구성시작
 		StringBuilder queryString = new StringBuilder();
-		
+
 		for (String param : args) {
-			if(queryString.length() == 0) {
+			if (queryString.length() == 0) {
 				queryString.append("?");
-			}else {
+			} else {
 				queryString.append("&");
 			}
-			
-			queryString.append(param); 
+
+			queryString.append(param);
 		}
 		urlStr += queryString.toString();
 		// url 구성 끝
-		
+
 		// 연결생성
 		HttpURLConnection con = null;
-		
+
 		try {
-			URL url = new URL(urlStr); 
-			con = (HttpURLConnection)url.openConnection();
+			URL url = new URL(urlStr);
+			con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("GET");
 			con.setConnectTimeout(5000); // 최대 통신시간 제한
-			con.setReadTimeout(5000); // 최대 데이터읽기 시간제한 
+			con.setReadTimeout(5000); // 최대 데이터읽기 시간제한
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 			return null;
 		} catch (ProtocolException e) {
 			e.printStackTrace();
 			return null;
-		}catch (IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
 		}
 		// 연결 생성 끝
-		
-		// 연결을 통해서 데이터 가져오기 시작 
+
+		// 연결을 통해서 데이터 가져오기 시작
 		StringBuffer content = null;
-		try(BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))){
+		try (BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
 			String inputLine;
 			content = new StringBuffer();
-			while((inputLine = in.readLine()) != null) {
+			while ((inputLine = in.readLine()) != null) {
 				content.append(inputLine);
 			}
-		}catch (IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		// 데이터 가져오기 끝
-		
+
 		return content.toString();
 	}
-	
-	
-}
 
+	public static Map<String, Object> callApiResponseToMap(String urlStr, String... args) {
+		String jsonString = callApi(urlStr, args);
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		try {
+			return (Map<String, Object>) mapper.readValue(jsonString, Map.class);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	public static Object callApiResponseTo(Class cls, String urlStr, String... args) {
+		
+		String jsonString = callApi(urlStr, args);
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		try {
+			return mapper.readValue(jsonString, cls);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+}
