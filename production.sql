@@ -64,6 +64,93 @@ SELECT*
 FROM article;
 
 
+select 
+if(
+instr(ga4_PC.pagePath, '?') = 0,
+ga4_PC.pagePath,
+substr(ga4_PC.pagePath, 1, instr(ga4_PC.pagePath,'?')-1)
+) as pathWoQueryStr,
+sum(ga4_PC.count) as `count`
+from ga4DataPageCount as ga4_PC
+where ga4_PC.pagePath like '/%-article-%.html'
+group by pathWoQueryStr;
+
+select cast(replace(
+replace(
+replace(pathWoQueryStr,"/IT-article-",""), 
+".html",""),
+"/Notice-article-","")
+as unsigned) as articleId, `count`
+from(
+    SELECT 
+    IF(
+    INSTR(ga4_PC.pagePath, '?') = 0,
+    ga4_PC.pagePath,
+    SUBSTR(ga4_PC.pagePath, 1, INSTR(ga4_PC.pagePath,'?')-1)
+    ) AS pathWoQueryStr,
+    SUM(ga4_PC.count) AS `count`
+    FROM ga4DataPageCount AS ga4_PC
+    WHERE ga4_PC.pagePath LIKE '/%-article-%.html'
+    GROUP BY pathWoQueryStr
+) as ga4_PC;
+
+
+# 애널리틱스에서 가져온 데이터 기반으로 조회수 확인 
+select article.id, article.count,ga4_PC.count
+from article 
+inner join (
+select cast(replace(
+replace(
+replace(pathWoQueryStr,"/IT-article-",""), 
+".html",""),
+"/Notice-article-","")
+as unsigned) as articleId, `count`
+from(
+    SELECT 
+    IF(
+    INSTR(ga4_PC.pagePath, '?') = 0,
+    ga4_PC.pagePath,
+    SUBSTR(ga4_PC.pagePath, 1, INSTR(ga4_PC.pagePath,'?')-1)
+    ) AS pathWoQueryStr,
+    SUM(ga4_PC.count) AS `count`
+    FROM ga4DataPageCount AS ga4_PC
+    WHERE ga4_PC.pagePath LIKE '/%-article-%.html'
+    GROUP BY pathWoQueryStr
+) as ga4_PC
+
+)AS ga4_PC
+on article.id = ga4_PC.articleId;
+
+
+# 애널리틱스에서 가져온 데이터 기반으로 조회수 갱신
+update article
+inner join (
+select cast(replace(
+replace(
+replace(pathWoQueryStr,"/IT-article-",""), 
+".html",""),
+"/Notice-article-","")
+as unsigned) as articleId, `count`
+from(
+    SELECT 
+    IF(
+    INSTR(ga4_PC.pagePath, '?') = 0,
+    ga4_PC.pagePath,
+    SUBSTR(ga4_PC.pagePath, 1, INSTR(ga4_PC.pagePath,'?')-1)
+    ) AS pathWoQueryStr,
+    SUM(ga4_PC.count) AS `count`
+    FROM ga4DataPageCount AS ga4_PC
+    WHERE ga4_PC.pagePath LIKE '/%-article-%.html'
+    GROUP BY pathWoQueryStr
+) as ga4_PC
+
+)AS ga4_PC
+on article.id = ga4_PC.articleId
+set article.count = ga4_PC.count;
+
+
+
+
 # 각종 함수
 /*
 SELECT DATE(NOW());
