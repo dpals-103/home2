@@ -53,6 +53,12 @@ public class ArticleService {
 		
 	}
 
+	public int updateDbPageCounts() {
+		return articleDao.updateDbPageCounts();
+	}
+
+	
+
 
 
 

@@ -17,27 +17,48 @@ public class DisqusApiService {
 		articleService = Container.articleService;
 	}
 
-	public Map<String, Object> getArticleData(Article article) {
-		
-			String fileName = Container.buildService.getArticleDetailFileName(article.id);
+	public void updateArticleData() {
+		List<Article> articles = Container.articleService.getArticles();
 
-			String url = "https://disqus.com/api/3.0/forums/listThreads.json";
+		for (Article article : articles) {
 
-			DisqusApiDataListTread disqusApiDataListTread = (DisqusApiDataListTread) Util.callApiResponseTo(
-					DisqusApiDataListTread.class, url, "api_key=" + Container.config.getDisqusApiKey(),
-					"forum=" + Container.config.getDisqusForum(), "thread:ident=" + fileName);
+			Map<String, Object> disqusArticleData = getArticleData(article);
 
-			if (disqusApiDataListTread == null) {
-				return null;
+			if (disqusArticleData != null) {
+				int likesCount = (int) disqusArticleData.get("likesCount");
+				int commentsCount = (int) disqusArticleData.get("commentsCount");
+
+				Map<String, Object> modifyArgs = new HashMap<>();
+				modifyArgs.put("id", article.id);
+				modifyArgs.put("likesCount", likesCount);
+				modifyArgs.put("commentsCount", commentsCount);
+
+				Container.articleService.modify(modifyArgs);
 			}
-
-			Map<String, Object> rs = new HashMap<>();
-
-			rs.put("likesCount", disqusApiDataListTread.response.get(0).likes);
-			rs.put("commentsCount", disqusApiDataListTread.response.get(0).posts);
-
-			return rs;
-			
 		}
 	}
 
+	public Map<String, Object> getArticleData(Article article) {
+
+		String fileName = Container.buildService.getArticleDetailFileName(article.id);
+
+		String url = "https://disqus.com/api/3.0/forums/listThreads.json";
+
+		DisqusApiDataListTread disqusApiDataListTread = (DisqusApiDataListTread) Util.callApiResponseTo(
+				DisqusApiDataListTread.class, url, "api_key=" + Container.config.getDisqusApiKey(),
+				"forum=" + Container.config.getDisqusForum(), "thread:ident=" + fileName);
+
+		if (disqusApiDataListTread == null) {
+			return null;
+		}
+
+		Map<String, Object> rs = new HashMap<>();
+
+		rs.put("likesCount", disqusApiDataListTread.response.get(0).likes);
+		rs.put("commentsCount", disqusApiDataListTread.response.get(0).posts);
+
+		return rs;
+
+	}
+
+}

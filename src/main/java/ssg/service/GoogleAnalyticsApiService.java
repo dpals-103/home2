@@ -12,11 +12,23 @@ import com.google.analytics.data.v1alpha.RunReportRequest;
 import com.google.analytics.data.v1alpha.RunReportResponse;
 
 import ssg.container.Container;
+import ssg.dao.ArticleDao;
+import ssg.dao.Ga4DataDao;
 
 public class GoogleAnalyticsApiService {
+	private Ga4DataDao ga4DataDao; 
+	
+	public GoogleAnalyticsApiService() {
+		ga4DataDao = new Ga4DataDao(); 
+	}
+		
 
-	public void updatePageCountsData() {
+
+
+	public boolean updateGa4PageCountsData() {
+		
 		String ga4PropertyId = Container.config.getGa4PropertyId();
+		
 		try (AlphaAnalyticsDataClient analyticsData = AlphaAnalyticsDataClient.create()) {
 			RunReportRequest request = RunReportRequest.newBuilder()
 					.setEntity(Entity.newBuilder().setPropertyId(ga4PropertyId))
@@ -26,17 +38,38 @@ public class GoogleAnalyticsApiService {
 					.addMetrics(Metric.newBuilder().setName("activeUsers"))
 					.addDateRanges(DateRange.newBuilder().setStartDate("2020-03-31").setEndDate("today")).build();
 
-			// Make the request
+			
 			RunReportResponse response = analyticsData.runReport(request);
 
 			System.out.println("Report result:");
+			
 			for (Row row : response.getRowsList()) {
-				System.out.printf("%s, %s%n", row.getDimensionValues(0).getValue(), row.getMetricValues(0).getValue());
+				String pagePath = row.getDimensionValues(0).getValue();
+				int count = Integer.parseInt(row.getMetricValues(0).getValue());
+				
+				System.out.printf("pagePath : %s, counts : %d\n", pagePath, count);
+				
+				update(pagePath, count);
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			return false;
 		}
+		return true;
+	}
 
+
+	private void update(String pagePath, int count) {
+		ga4DataDao.deletePagePath(pagePath);
+		ga4DataDao.savePagePath(pagePath,count);
+		
+	}
+
+
+
+
+	public void updatePageCount() {
+		updateGa4PageCountsData();
+		Container.articleService.updateDbPageCounts();
 	}
 
 }

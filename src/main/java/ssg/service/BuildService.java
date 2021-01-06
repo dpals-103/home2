@@ -31,6 +31,7 @@ public class BuildService {
 		Util.copy("site_template/app.css", "site/app.css");
 		Util.copy("site_template/app.js", "site/app.js");
 
+		loadGa4DataArticleCount();
 		loadDisqusData();
 		
 		buildIndex();
@@ -41,27 +42,12 @@ public class BuildService {
 		buildSocial();
 	}
 
+	private void loadGa4DataArticleCount() {
+		Container.googleAnalyticsApiService.updatePageCount();
+	}
+
 	private void loadDisqusData() {
-
-		List<Article> articles = articleService.getArticles();
-		
-		for (Article article : articles) {
-
-				Map<String, Object> disqusArticleData = disqusApiService.getArticleData(article);
-
-				if (disqusArticleData != null) {
-					int likesCount = (int) disqusArticleData.get("likesCount");
-					int commentsCount = (int) disqusArticleData.get("commentsCount");
-					
-					
-					Map<String, Object> modifyArgs = new HashMap<>();
-					modifyArgs.put("id", article.id);
-					modifyArgs.put("likesCount", likesCount);
-					modifyArgs.put("commentsCount", commentsCount);
-					
-					articleService.modify(modifyArgs);
-				}
-			}
+		Container.disqusApiService.updateArticleData();
 		}
 
 

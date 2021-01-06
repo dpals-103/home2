@@ -145,10 +145,9 @@ public class ArticleDao {
 		String body = args.get("body") != null ? (String) args.get("body") : null;
 		int likesCount = args.get("likesCount") != null ? (int) args.get("likesCount") : -1;
 		int commentsCount = args.get("commentsCount") != null ? (int) args.get("commentsCount") : -1;
-		
 
 		sql.append("update article set updateDate = now()");
-	
+
 		if (title != null) {
 			sql.append(",title = ?", title);
 		}
@@ -157,15 +156,47 @@ public class ArticleDao {
 		}
 		if (commentsCount != -1) {
 			sql.append(",commentsCount = ?", commentsCount);
-			
+
 		}
 		if (likesCount != -1) {
 			sql.append(",likesCount = ?", likesCount);
 		}
-		
+
 		sql.append("where id =?", id);
 
 		return MysqlUtil.update(sql);
+	}
+
+	public int updateDbPageCounts() {
+
+		SecSql sql = new SecSql();
+
+		sql.append("UPDATE article");
+		sql.append("INNER JOIN (");
+		sql.append("SELECT CAST(REPLACE(");
+		sql.append("REPLACE(");
+		sql.append("REPLACE(pathWoQueryStr,\"/IT-article-\",\"\"),");
+		sql.append("\".html\",\"\"),");
+		sql.append("\"/Notice-article-\",\"\")");
+		sql.append("AS UNSIGNED) AS articleId, `count`");
+		sql.append("FROM(");
+		sql.append("SELECT");
+		sql.append("IF(");
+		sql.append("INSTR(ga4_PC.pagePath, '?') = 0,");
+		sql.append("ga4_PC.pagePath,");
+		sql.append("SUBSTR(ga4_PC.pagePath, 1, INSTR(ga4_PC.pagePath,'?')-1)");
+		sql.append(") AS pathWoQueryStr,");
+		sql.append("SUM(ga4_PC.count) AS `count`");
+		sql.append("FROM ga4DataPageCount AS ga4_PC");
+		sql.append("WHERE ga4_PC.pagePath LIKE '/%-article-%.html'");
+		sql.append("GROUP BY pathWoQueryStr");
+		sql.append(") AS ga4_PC");
+		sql.append(")AS ga4_PC");
+		sql.append("ON article.id = ga4_PC.articleId");
+		sql.append("SET article.count = ga4_PC.count;");
+
+		return MysqlUtil.update(sql);
+
 	}
 
 }

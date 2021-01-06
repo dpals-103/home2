@@ -19,6 +19,7 @@ import com.google.analytics.data.v1alpha.RunReportResponse;
 
 import ssg.apidto.DisqusApiDataListTread;
 import ssg.container.Container;
+import ssg.mysqlUtill.MysqlUtil;
 import ssg.util.Util;
 
 public class TestRunner {
@@ -31,13 +32,19 @@ public class TestRunner {
 
 	void run() {
 		// testApi2();
-		testGoogleCredentitials();
-		testUpdateGoogleAnalyticsApi();
+		MysqlUtil.setDBInfo("127.0.0.1", "dpals103", "dlgywn0168", "a1");
+		//testGoogleCredentitials();
+		//testUpdateGoogleAnalyticsApi();
+		testUpdatePageCountsByGa4Api();
 
 	}
 
+	private void testUpdatePageCountsByGa4Api() {
+		Container.googleAnalyticsApiService.updatePageCount();
+		
+	}
+
 	private void testUpdateGoogleAnalyticsApi() {
-		Container.googleAnalyticsApiService.updatePageCountsData();
 		String ga4PropertyId = Container.config.getGa4PropertyId();
 		try (AlphaAnalyticsDataClient analyticsData = AlphaAnalyticsDataClient.create()) {
 			RunReportRequest request = RunReportRequest.newBuilder()
@@ -51,14 +58,16 @@ public class TestRunner {
 			// Make the request
 			RunReportResponse response = analyticsData.runReport(request);
 
-			System.out.println("Report result:");
+			/*System.out.println("Report result:");
 			for (Row row : response.getRowsList()) {
 				System.out.printf("%s, %s%n", row.getDimensionValues(0).getValue(), row.getMetricValues(0).getValue());
-			}
+			}*/
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
+		
 	}
 	
 	
