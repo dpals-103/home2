@@ -2,6 +2,10 @@ package ssg.container;
 
 public class AppConfig {
 	
+	public String getGa4PropertyId() {
+		return "256758275";
+	}
+
 	public String getSiteName() {
 		return "JEYA-BLOG";
 	}

@@ -9,6 +9,7 @@ import ssg.dao.ArticleDao;
 import ssg.service.ArticleService;
 import ssg.service.BuildService;
 import ssg.service.DisqusApiService;
+import ssg.service.GoogleAnalyticsApiService;
 import ssg.service.MemberService;
 
 public class Container {
@@ -24,6 +25,7 @@ public class Container {
 	public static MemberService memberService;
 	public static AppConfig config;
 	public static DisqusApiService disqusApiService;
+	public static GoogleAnalyticsApiService googleAnalyticsApiService;
 
 	static {
 		
@@ -33,6 +35,7 @@ public class Container {
 		scanner = new Scanner(System.in);
 		session = new Session();
 		disqusApiService = new DisqusApiService();
+		googleAnalyticsApiService = new GoogleAnalyticsApiService();
 		articleDao = new ArticleDao();
 
 		memberService = new MemberService();
