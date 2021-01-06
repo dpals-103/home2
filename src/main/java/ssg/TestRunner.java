@@ -21,8 +21,15 @@ public class TestRunner {
 	}
 
 	void run() {
-		testApi2();
+		//testApi2();
+		testGoogleCredentitials();
 
+	}
+
+	// 환경변수 설정 테스트 --
+	private void testGoogleCredentitials() {
+		String keyFilePath = System.getenv("GOOGLE_APPLICATION_CREDENTIALS");
+		System.out.println(keyFilePath);
 	}
 
 	private void testJackson5() {
