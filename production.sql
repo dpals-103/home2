@@ -1,19 +1,19 @@
 DROP DATABASE IF EXISTS a1;
 
-CREATE DATABASE a1;
+CREATE DATABASE a1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
 USE a1;
 
 CREATE TABLE board(
     id INT(10) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    title VARCHAR(30)NOT NULL,
+    title char(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci not null,
     regDate DATETIME NOT NULL
 );
 
 CREATE TABLE article(
     id INT(10) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    title VARCHAR(30) NOT NULL,
-    `body` TEXT NOT NULL,
+    title VARCHAR(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+    `body` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci not null,
     `count` INT(10) UNSIGNED NOT NULL DEFAULT '0',
     boardId INT(10) UNSIGNED NOT NULL DEFAULT '0',
     memberId INT(10) UNSIGNED NOT NULL DEFAULT '1',
@@ -46,11 +46,11 @@ TRUNCATE `member`;
 
 
 #기본 사용자
-INSERT INTO `member`
-SET loginId = 'admin',
+insert Into `member`
+set loginId = 'admin',
 loginPw = 'admin',
 `name` ='제야',
-regDate = NOW();
+regDate = now();
 
 # 글 전부 삭제 
 TRUNCATE article;
@@ -59,10 +59,6 @@ TRUNCATE article;
 # 칼럼추가
 ALTER TABLE article ADD COLUMN likesCount INT(10) UNSIGNED NOT NULL DEFAULT '0';
 ALTER TABLE article ADD COLUMN commentsCount INT(10) UNSIGNED NOT NULL DEFAULT '0'; 
-
-SELECT*
-FROM article;
-
 
 select 
 if(
@@ -75,11 +71,7 @@ from ga4DataPageCount as ga4_PC
 where ga4_PC.pagePath like '/%-article-%.html'
 group by pathWoQueryStr;
 
-select cast(replace(
-replace(
-replace(pathWoQueryStr,"/IT-article-",""), 
-".html",""),
-"/Notice-article-","")
+select CAST(REPLACE(REPLACE(pathWoQueryStr,"/article-",""), ".html","")
 as unsigned) as articleId, `count`
 from(
     SELECT 
@@ -99,11 +91,7 @@ from(
 select article.id, article.count,ga4_PC.count
 from article 
 inner join (
-select cast(replace(
-replace(
-replace(pathWoQueryStr,"/IT-article-",""), 
-".html",""),
-"/Notice-article-","")
+select CAST(REPLACE(REPLACE(pathWoQueryStr,"/article-",""), ".html","")
 as unsigned) as articleId, `count`
 from(
     SELECT 
@@ -125,11 +113,7 @@ on article.id = ga4_PC.articleId;
 # 애널리틱스에서 가져온 데이터 기반으로 조회수 갱신
 update article
 inner join (
-select cast(replace(
-replace(
-replace(pathWoQueryStr,"/IT-article-",""), 
-".html",""),
-"/Notice-article-","")
+select CAST(REPLACE(REPLACE(pathWoQueryStr,"/article-",""), ".html","")
 as unsigned) as articleId, `count`
 from(
     SELECT 
@@ -173,4 +157,5 @@ title = concat("제목_", rand()),
 memberId = FLOOR(RAND() * 2) + 1,
 boardId = FLOOR(RAND() * 2) + 1;
 */
+
 
