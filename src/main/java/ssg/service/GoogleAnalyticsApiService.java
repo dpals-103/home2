@@ -36,7 +36,7 @@ public class GoogleAnalyticsApiService {
 					.addDimensions(Dimension.newBuilder().setName("pagePath"))
 					// 사용자 수
 					.addMetrics(Metric.newBuilder().setName("activeUsers"))
-					.addDateRanges(DateRange.newBuilder().setStartDate("2020-03-31").setEndDate("today")).build();
+					.addDateRanges(DateRange.newBuilder().setStartDate("2021-01-03").setEndDate("today")).build();
 
 			
 			RunReportResponse response = analyticsData.runReport(request);
