@@ -247,7 +247,7 @@ a {
 }
 
 .section-2__list>.page {
-	justify-content: center;
+	justify-content : center;
 	align-content: flex-end;
 	font-size: 14px;
 }
@@ -265,6 +265,11 @@ a {
 .section-2__list>.page>li:not(:first-child):not(:last-child)>a:hover {
 	color: lightgray;
 	border-color: lightgray;
+}
+
+.section-2__list>.search {
+	justify-content : flex-end;
+	padding : 15px;
 }
 
 .list__id {
@@ -605,4 +610,3 @@ a {
 .container>footer .bottom-bar>.img-box>img {
 	width: 40px;
 }
-

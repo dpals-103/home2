@@ -86,6 +86,22 @@ public class ArticleDao {
 
 		return newArticles;
 	}
+	
+	
+	public List<Article> getForPrintArticles() {
+		List<Article> newArticles = new ArrayList<>();
+
+		SecSql sql = new SecSql();
+		sql.append("select A.*,M.name as extra__writer from article as A inner join `member` as M on A.memberId = M.id");
+
+		List<Map<String, Object>> articleMapList = MysqlUtil.selectRows(sql);
+
+		for (Map<String, Object> articleMap : articleMapList) {
+			newArticles.add(new Article(articleMap));
+		}
+
+		return newArticles;
+	}
 
 	public List<Board> getBoards() {
 

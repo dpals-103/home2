@@ -57,6 +57,10 @@ public class ArticleService {
 		return articleDao.updateDbPageCounts();
 	}
 
+	public List<Article> getForPrintArticles() {
+		return articleDao.getForPrintArticles();
+	}
+
 	
 
 

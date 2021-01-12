@@ -30,16 +30,46 @@ public class BuildService {
 		Util.copy("site_template/favicon.ico", "site/favicon.ico");
 		Util.copy("site_template/app.css", "site/app.css");
 		Util.copy("site_template/app.js", "site/app.js");
+		Util.copy("site_template/listVue.js", "site/listVue.js");
 
 		loadGa4DataArticleCount();
 		loadDisqusData();
-		
+
 		buildIndex();
 		buildBoard();
 		buildDetail();
 		buildAbout();
 		buildStats();
 		buildSocial();
+		buildSearchPost();
+	}
+
+	private void buildSearchPost() {
+		
+		// 전체게시글 json 객체화 
+		List<Article> articles = articleService.getForPrintArticles(); 
+		String jsonText = Util.getJsonText(articles);
+		Util.writeFile("site/article_list.json", jsonText);
+		
+		
+		StringBuilder sb = new StringBuilder();
+
+
+		// 헤더 첨부
+		String head = getHeadHtml("search");
+		sb.append(head);
+		
+		// 템플릿 첨부 
+		String searchPost = Util.getFileContents("site_template/searchPost.html");
+		sb.append(searchPost);
+
+		// 푸터 첨부
+		sb.append(footer);
+		// 파일 생성
+		String filePath = "site/searchPost.html";
+		Util.writeFile(filePath, sb.toString());
+		System.out.println(filePath + "생성");
+
 	}
 
 	private void loadGa4DataArticleCount() {
@@ -48,8 +78,7 @@ public class BuildService {
 
 	private void loadDisqusData() {
 		Container.disqusApiService.updateArticleData();
-		}
-
+	}
 
 	/*-------소셜페이지----------------*/
 	private void buildSocial() {
@@ -179,8 +208,7 @@ public class BuildService {
 
 				if (i > 0) {
 					mainContent.append("<div class=\"prev\">");
-					mainContent.append(
-							"<a href=\"" + "article-" + (article.id - 1) + ".html\"> &lt; 이전글 </a>");
+					mainContent.append("<a href=\"" + "article-" + (article.id - 1) + ".html\"> &lt; 이전글 </a>");
 					mainContent.append("</div>");
 				}
 
@@ -190,8 +218,7 @@ public class BuildService {
 
 				if (i + 1 < articles.size()) {
 					mainContent.append("<div class=\"next\">");
-					mainContent.append(
-							"<a href=\"" + "article-" + (article.id + 1) + ".html\">다음글 &gt;</a>");
+					mainContent.append("<a href=\"" + "article-" + (article.id + 1) + ".html\">다음글 &gt;</a>");
 					mainContent.append("</div>");
 				}
 
@@ -300,12 +327,14 @@ public class BuildService {
 					mainList.append("<div class = \"list flex\">");
 
 					String fileName = getArticleDetailFileName(article.id);
-					
-					if(article.commentsCount == 0) {
-					mainList.append(" <div class=\"list__title flex\"><a href =\"" + fileName + "\">" + article.title + "</a></div>");
+
+					if (article.commentsCount == 0) {
+						mainList.append(" <div class=\"list__title flex\"><a href =\"" + fileName + "\">"
+								+ article.title + "</a></div>");
 					} else {
-						mainList.append(" <div class=\"list__title flex\"><a href =\"" + fileName + "\">" + article.title + "</a>"
-								+ " <div class=\"comments_count\">(" + article.commentsCount +")</div></div>");
+						mainList.append(" <div class=\"list__title flex\"><a href =\"" + fileName + "\">"
+								+ article.title + "</a>" + " <div class=\"comments_count\">(" + article.commentsCount
+								+ ")</div></div>");
 					}
 					mainList.append(" <div class=\"list__writer\">" + article.extra__writer + "</div>");
 					mainList.append(" <div class=\"list__count\">" + article.count + "</div>");
@@ -422,17 +451,19 @@ public class BuildService {
 
 		/* 카테고리 별 타이틀 엘리먼트 */
 		if (printPageName.equals("index")) {
-			printPageName = Container.config.getSiteName() + " | Home";
+			printPageName = Container.config.getSiteName() + " | 🏠Home";
 		} else if (printPageName.equals("about")) {
 			printPageName = Container.config.getSiteName() + " | About";
 		} else if (printPageName.equals("social")) {
-			printPageName = Container.config.getSiteName() + " | Social";
+			printPageName = Container.config.getSiteName() + " | 📱Social";
 		} else if (printPageName.equals("stats")) {
-			printPageName = Container.config.getSiteName() + " | Data";
+			printPageName = Container.config.getSiteName() + " | 📈Data";
 		} else if (printPageName.equals("[board]")) {
 			printPageName = "[board]";
 		} else if (printPageName.equals("detail")) {
 			printPageName = "detail";
+		} else if (printPageName.equals("search")) {
+			printPageName = Container.config.getSiteName() + " | 🔎Search Post";
 		}
 
 		head = head.replace("[pageTitle]", printPageName);

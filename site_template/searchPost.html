@@ -1,0 +1,51 @@
+
+<!----------섹션 시작---------------------------------->
+
+<!--loadash 불러오기-->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js"></script>
+
+<!--vue 불러오기-->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<section id="list-vue" class="con-min-width main">
+	<div class="con">
+		<div class="section-2__list flex .main">
+
+			<div class="title">🔎Search Post</div>
+
+			<div class="search flex">
+				<form action="">
+					<input @input="searchKeyWordInputed" v-model="searchKeyWord"
+						type="text" :value="searchKeyWord" placeholder="검색어를 입력하세요">
+				</form>
+			</div>
+
+			<header>
+				<div class="list flex">
+					<div class="list__title">제목</div>
+					<div class="list__writer">작성자</div>
+					<div class="list__count">조회수</div>
+					<div class="list__likes">추천수</div>
+					<div class="list__regDate">날짜</div>
+				</div>
+			</header>
+
+			<main>
+				<div v-for="article in filtered" class="list flex">
+					<div class="list__title">{{article.title}}</div>
+					<div class="list__writer">{{article.writer}}</div>
+					<div class="list__count">{{article.count}}</div>
+					<div class="list__likes">{{article.likes}}</div>
+					<div class="list__regDate">{{article.regDate}}</div>
+				</div>
+			</main>
+
+
+		</div>
+	</div>
+	<script src="listVue.js"></script>
+</section>
+
+
+<!-----------섹션 끝---------------------------------->
