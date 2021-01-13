@@ -8,14 +8,14 @@
 <!--vue 불러오기-->
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
-<section id="list-vue" class="con-min-width main">
+<section class="con-min-width main">
 	<div class="con">
 		<div class="section-2__list flex .main">
 
 			<div class="title">🔎Search Post</div>
 
 			<div class="search flex">
-				<form action="">
+				<form class="block">
 					<input @input="searchKeyWordInputed" v-model="searchKeyWord"
 						type="text" :value="searchKeyWord" placeholder="검색어를 입력하세요">
 				</form>
@@ -31,9 +31,11 @@
 				</div>
 			</header>
 
-			<main>
-				<div v-for="article in filtered" class="list flex">
-					<div class="list__title">{{article.title}}</div>
+			<main >
+				<div id="list-vue" v-for="article in filtered" class="list flex">
+					<div class="list__title">
+					<a :href="'article-' + article.id +'.html'" target="_blank">{{article.title}}</a>
+					</div>
 					<div class="list__writer">{{article.writer}}</div>
 					<div class="list__count">{{article.count}}</div>
 					<div class="list__likes">{{article.likes}}</div>

@@ -49,6 +49,7 @@ public class BuildService {
 		// 전체게시글 json 객체화 
 		List<Article> articles = articleService.getForPrintArticles(); 
 		String jsonText = Util.getJsonText(articles);
+		
 		Util.writeFile("site/article_list.json", jsonText);
 		
 		

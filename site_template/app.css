@@ -221,7 +221,7 @@ a {
 	font-weight: 400;
 }
 
-.section-2__list>main>.list>.list__title:hover>a {
+.section-2__list .list__title:hover>a {
 	text-decoration: underline;
 	color: gray;
 }
