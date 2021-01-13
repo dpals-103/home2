@@ -9,6 +9,7 @@ $.get(
 			console.log(row);
 			
 			const article = {
+				id : row.id,
 				title: row.title,
 				writer: row.extra__writer,
 				count: row.count,
@@ -38,7 +39,7 @@ const searchBox = new Vue({
 		},
 		filtered: function() {
 			if (this.filterKey.length == 0) {
-				return this.articleList;
+				return null;
 			}
 			return this.articleList.filter((row) => {
 				const keys = ['title', 'writer'];

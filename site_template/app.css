@@ -37,7 +37,7 @@ a {
 
 .container>section {
 	flex-grow: 1;
-	flex-basis : 550px;
+	flex-basis : 520px;
 }
 
 .con {
@@ -52,6 +52,11 @@ a {
 .main, #disqus_thread {
 	width: 846px;
 	margin: 0 auto;
+}
+
+.main-img{
+  max-width: 750px;
+  height : 450px;
 }
 
 /*헤더 ---- 배너*/
@@ -70,11 +75,33 @@ a {
 .container > header .top__menuBar{
   flex-direction : row;
   justify-content : space-between;
-  height : 130px;
+  height : 180px;
 }
+
+
 
 .top__menuBar li{
   position : relative; 
+}
+
+.top__menuBar > .top__searchMenu > div{
+  background-color : #eddec3;
+  padding : 7px 20px;
+  border-radius : 13px;  
+}
+
+.top__menuBar > .top__searchMenu > div > a {
+  color : #4a6110;
+  font-size : 14pt;
+}
+
+.top__menuBar > .top__basicMenu ul{
+  display : none;
+  position : absolute; 
+}
+
+.top__menuBar > .top__basicMenu > .board:hover > ul{
+  display : block;
 }
 
 .top__menuBar > .row li > a{
@@ -90,7 +117,7 @@ a {
   color : #4a6110;
 }
 
-.top__menuBar > .row .cell a:not(.point)::after{
+.top__menuBar > .row .cell a::after{
   content :"";
   display : block; 
   width : 0%;
@@ -100,53 +127,27 @@ a {
 }
 
 .top__menuBar > .row .cell a:hover::after{
-  width : 110%;
+  width : 100%;
   transition : width,1s; 
 }
 
-.top__menuBar > .top__boardMenu > ul > li > a {
-  background-color : #eddec3;
-  border-radius : 15px;
-  color : #4a6110;
-}
-
-
-.top__menuBar > .top__boardMenu > ul ul{
-  display : none;  
-  position : absolute; 
-  border-left : solid 3px #eddec3;
-}
-
-.top__menuBar > .top__boardMenu > ul ul > li {
-  padding-top : 5px;
-}
-
-.top__menuBar > .top__boardMenu > ul > li:hover > .point{
-  color : #eddec3;
-  background-color : #4a6110;
-}
-
-.top__menuBar > .top__boardMenu .cell:hover ul{
-  display : block; 
-}
 
 /*섹션-1 홈 메인*/
 .section-1__home {
-	width: 846px;
-	height: 520px;
 	margin: 0 auto;
 	position: relative;
 }
 
 .section-1__home>.img-1>img {
 	display: block;
-	width: 380px;
+	width: 300px;
 	position: absolute;
 	z-index: 1;
 }
 
 .section-1__home>.img-2>img {
 	position: absolute;
+	width: 500px;
 	bottom: 0;
 	right: 0;
 }
