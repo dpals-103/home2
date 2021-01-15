@@ -3,16 +3,19 @@ package ssg.dto;
 import java.text.SimpleDateFormat;
 import java.util.Map;
 
+import lombok.Data;
+
+@Data
 public class Article {
 	
-	public String title;
-	public String regDate;
-	public int id;
-	public String extra__writer;
-	public int count;
-	public int likesCount;
-	public int commentsCount;
-	public String body;
+	private String title;
+	private String regDate;
+	private int id;
+	private String extra__writer;
+	private int count;
+	private int likesCount;
+	private int commentsCount;
+	private String body;
 
 	
 	public Article(Map<String, Object> map) {
@@ -25,5 +28,7 @@ public class Article {
 		this.extra__writer = (String)map.get("extra__writer");
 		this.body = (String)map.get("body");
 	}
+
+
 	
 }

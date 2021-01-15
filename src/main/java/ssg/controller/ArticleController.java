@@ -78,7 +78,7 @@ public class ArticleController extends Controller {
 
 		for (int i = startPos; i >= endPos; i--) {
 			Article article = serchArticles.get(i);
-			System.out.printf("%d / %s / %d / %s\n", article.id, article.title, article.count, article.regDate);
+			System.out.printf("%d / %s / %d / %s\n", article.getId(), article.getTitle(), article.getCount(), article.getRegDate());
 		}
 
 	}

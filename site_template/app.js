@@ -1,3 +1,4 @@
+/*유튜브 플러그인*/ 
 function youtubePlugin() {
   toastui.Editor.codeBlockManager.setReplacer('youtube', youtubeId => {
     // Indentify multiple code blocks
@@ -15,6 +16,8 @@ function renderYoutube(wrapperId, youtubeId) {
 
   el.innerHTML = `<iframe width="420" height="315" src="https://www.youtube.com/embed/${youtubeId}"></iframe>`;
 }
+
+
 
 
 function detail_body__init() {

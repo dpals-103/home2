@@ -1,8 +1,6 @@
 package ssg.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import ssg.container.Container;
 import ssg.dto.Article;
@@ -116,9 +114,9 @@ public class BuildService {
 		for (int i = 1; i <= boards.size(); i++) {
 			Board board = articleService.getBoard(i);
 			dataHtml += "<ul class =\"data flex\">";
-			dataHtml += "<li class =\"boardTitle\">" + board.title + "</li>";
+			dataHtml += "<li class =\"boardTitle\">" + board.getTitle() + "</li>";
 
-			List<Article> articles = articleService.getArticles(board.id);
+			List<Article> articles = articleService.getArticles(board.getId());
 
 			dataHtml += " <li class =\"count\">" + articles.size() + "</li>";
 			dataHtml += "</ul>";
@@ -170,7 +168,7 @@ public class BuildService {
 
 		for (Board board : boards) {
 
-			List<Article> articles = articleService.getArticles(board.id);
+			List<Article> articles = articleService.getArticles(board.getId());
 
 			for (int i = 0; i < articles.size(); i++) {
 
@@ -179,33 +177,33 @@ public class BuildService {
 				StringBuilder mainContent = new StringBuilder();
 
 				mainContent.append("<div class=\"detail_1 flex\">");
-				mainContent.append("<span>" + article.title + "</span>");
+				mainContent.append("<span>" + article.getTitle() + "</span>");
 				mainContent.append("</div>");
 
 				mainContent.append("<div class=\"detail_2 flex\">");
 				mainContent.append("작성일 : ");
-				mainContent.append("<div class=\"regDate\">" + article.regDate + "</div>");
+				mainContent.append("<div class=\"regDate\">" + article.getRegDate() + "</div>");
 				mainContent.append("작성자 : ");
-				mainContent.append("<div class=\"writer\">" + article.extra__writer + "</div>");
+				mainContent.append("<div class=\"writer\">" + article.getExtra__writer() + "</div>");
 				mainContent.append("조회수 ");
-				mainContent.append("<div class=\"count\">" + article.count + "</div>");
+				mainContent.append("<div class=\"count\">" + article.getCount() + "</div>");
 				mainContent.append("추천수 ");
-				mainContent.append("<div class=\"count\">" + article.likesCount + "</div>");
+				mainContent.append("<div class=\"count\">" + article.getLikesCount() + "</div>");
 				mainContent.append("댓글수 ");
-				mainContent.append("<div class=\"count\">" + article.commentsCount + "</div>");
+				mainContent.append("<div class=\"count\">" + article.getCommentsCount() + "</div>");
 				mainContent.append("</div>");
 
 				mainContent.append("<div class=\"detail_3\">");
 
 				String edit = "<div class=\"detail_body\">{article.body}</div>";
-				edit = edit.replace("{article.body}", article.body);
+				edit = edit.replace("{article.body}", article.getBody());
 
 				mainContent.append(edit);
 				mainContent.append("</div>");
 
 				mainContent.append("<div class=\"detail_4 flex\">");
 
-				String boardTitle = articleService.getBoard(board.id).title;
+				String boardTitle = articleService.getBoard(board.getId()).getTitle();
 				
 				// --- 다음글 id 구하기 -- 
 				Article nextArticle = null;
@@ -216,7 +214,7 @@ public class BuildService {
 				
 				if(nextArticleIndex < articles.size()) {
 					nextArticle = articles.get(nextArticleIndex); 
-					nextArticleId = nextArticle.id;
+					nextArticleId = nextArticle.getId();
 				}
 				
 				// --- 이전글 id 구하기 --
@@ -227,7 +225,7 @@ public class BuildService {
 				
 				if(prevArticleIndex >= 0) {
 					prevArticle = articles.get(prevArticleIndex); 
-					prevArticleId = prevArticle.id; 
+					prevArticleId = prevArticle.getId(); 
 				}
 				
 				if (i != 0) {
@@ -259,7 +257,7 @@ public class BuildService {
 
 				// 헤더_상세보기템플릿 첨부
 				String head = getHeadHtml("detail", article);
-				head = head.replace("detail", article.title);
+				head = head.replace("detail", article.getTitle());
 				sb.append(head);
 
 				// 디테일 첨부
@@ -273,7 +271,7 @@ public class BuildService {
 				String reply = Util.getFileContents("site_template/reply.html");
 
 				String siteDomain = "blog.ljeya.org";
-				String fileName = getArticleDetailFileName(article.id);
+				String fileName = getArticleDetailFileName(article.getId());
 
 				reply = reply.replace("${site-domain}", siteDomain);
 				reply = reply.replace("${file-name}", fileName);
@@ -300,7 +298,7 @@ public class BuildService {
 
 		for (Board board : boards) {
 
-			int boardId = board.id;
+			int boardId = board.getId();
 
 			/* 게시글가져오기 */
 			List<Article> serchArticles = articleService.getArticles(boardId);
@@ -317,13 +315,13 @@ public class BuildService {
 
 				// 헤더 첨부
 				String head = getHeadHtml("[board]");
-				head = head.replace("[board]", board.title);
+				head = head.replace("[board]", board.getTitle());
 				sb.append(head);
 
 				// 리스트(항목 부분) 시작_첨부
 				String list = Util.getFileContents("site_template/list.html");
 
-				String boardTitle = articleService.getBoard(boardId).title;
+				String boardTitle = articleService.getBoard(boardId).getTitle();
 				list = list.replace("[board.title]", boardTitle);
 
 				sb.append(list);
@@ -350,20 +348,20 @@ public class BuildService {
 
 					mainList.append("<div class = \"list flex\">");
 
-					String fileName = getArticleDetailFileName(article.id);
+					String fileName = getArticleDetailFileName(article.getId());
 
-					if (article.commentsCount == 0) {
+					if (article.getCommentsCount() == 0) {
 						mainList.append(" <div class=\"list__title flex\"><a href =\"" + fileName + "\">"
-								+ article.title + "</a></div>");
+								+ article.getTitle() + "</a></div>");
 					} else {
 						mainList.append(" <div class=\"list__title flex\"><a href =\"" + fileName + "\">"
-								+ article.title + "</a>" + " <div class=\"comments_count\">(" + article.commentsCount
+								+ article.getTitle() + "</a>" + " <div class=\"comments_count\">(" + article.getCommentsCount()
 								+ ")</div></div>");
 					}
-					mainList.append(" <div class=\"list__writer\">" + article.extra__writer + "</div>");
-					mainList.append(" <div class=\"list__count\">" + article.count + "</div>");
-					mainList.append(" <div class=\"list__likes\">" + article.likesCount + "</div>");
-					mainList.append(" <div class=\"list__regDate\">" + article.regDate + "</div>");
+					mainList.append(" <div class=\"list__writer\">" + article.getExtra__writer() + "</div>");
+					mainList.append(" <div class=\"list__count\">" + article.getCount() + "</div>");
+					mainList.append(" <div class=\"list__likes\">" + article.getLikesCount() + "</div>");
+					mainList.append(" <div class=\"list__regDate\">" + article.getRegDate() + "</div>");
 
 					mainList.append("</div>");
 				}
@@ -457,8 +455,8 @@ public class BuildService {
 
 		if (object instanceof Article) {
 			Article article = (Article) object;
-			siteSubject = article.title;
-			siteDescription = article.body;
+			siteSubject = article.getTitle();
+			siteDescription = article.getBody();
 			siteDescription = siteDescription.replaceAll("[^\uAC00-\uD7A3xfe0-9a-zA-Z\\s]", "");
 		}
 
@@ -496,7 +494,7 @@ public class BuildService {
 		String boardListHtml = "";
 
 		for (Board board : boards) {
-			boardListHtml += "<li><a href=\"" + board.title + "-1.html\">" + board.title + "</a></li>";
+			boardListHtml += "<li><a href=\"" + board.getTitle() + "-1.html\">" + board.getTitle() + "</a></li>";
 		}
 
 		head = head.replace("[aaa]", boardListHtml);

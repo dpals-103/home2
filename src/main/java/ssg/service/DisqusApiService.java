@@ -29,7 +29,7 @@ public class DisqusApiService {
 				int commentsCount = (int) disqusArticleData.get("commentsCount");
 
 				Map<String, Object> modifyArgs = new HashMap<>();
-				modifyArgs.put("id", article.id);
+				modifyArgs.put("id", article.getId());
 				modifyArgs.put("likesCount", likesCount);
 				modifyArgs.put("commentsCount", commentsCount);
 
@@ -40,7 +40,7 @@ public class DisqusApiService {
 
 	public Map<String, Object> getArticleData(Article article) {
 
-		String fileName = Container.buildService.getArticleDetailFileName(article.id);
+		String fileName = Container.buildService.getArticleDetailFileName(article.getId());
 
 		String url = "https://disqus.com/api/3.0/forums/listThreads.json";
 
