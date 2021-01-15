@@ -206,10 +206,33 @@ public class BuildService {
 				mainContent.append("<div class=\"detail_4 flex\">");
 
 				String boardTitle = articleService.getBoard(board.id).title;
-
-				if (i > 0) {
+				
+				// --- 다음글 id 구하기 -- 
+				Article nextArticle = null;
+				// [0] == 가장 오래된 글 인덱스 
+				// 다음 게시글 인덱스 
+				int nextArticleIndex = i + 1; 
+				int nextArticleId= 0; 
+				
+				if(nextArticleIndex < articles.size()) {
+					nextArticle = articles.get(nextArticleIndex); 
+					nextArticleId = nextArticle.id;
+				}
+				
+				// --- 이전글 id 구하기 --
+				Article prevArticle = null; 
+				
+				int prevArticleIndex = i - 1;
+				int prevArticleId = 0;
+				
+				if(prevArticleIndex >= 0) {
+					prevArticle = articles.get(prevArticleIndex); 
+					prevArticleId = prevArticle.id; 
+				}
+				
+				if (i != 0) {
 					mainContent.append("<div class=\"prev\">");
-					mainContent.append("<a href=\"" + "article-" + (article.id - 1) + ".html\"> &lt; 이전글 </a>");
+					mainContent.append("<a href=\"" + "article-" + prevArticleId + ".html\"> &lt; 이전글 </a>");
 					mainContent.append("</div>");
 				}
 
@@ -217,9 +240,9 @@ public class BuildService {
 				mainContent.append("<a href=\"" + boardTitle + "-1.html\">목록으로돌아가기</a>");
 				mainContent.append("</div>");
 
-				if (i + 1 < articles.size()) {
+				if (i >= 0 && i < articles.size()-1) {
 					mainContent.append("<div class=\"next\">");
-					mainContent.append("<a href=\"" + "article-" + (article.id + 1) + ".html\">다음글 &gt;</a>");
+					mainContent.append("<a href=\"" + "article-" + nextArticleId + ".html\">다음글 &gt;</a>");
 					mainContent.append("</div>");
 				}
 

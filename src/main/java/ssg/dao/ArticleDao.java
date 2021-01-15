@@ -190,10 +190,8 @@ public class ArticleDao {
 		sql.append("UPDATE article");
 		sql.append("INNER JOIN (");
 		sql.append("SELECT CAST(REPLACE(");
-		sql.append("REPLACE(");
-		sql.append("REPLACE(pathWoQueryStr,\"/IT-article-\",\"\"),");
-		sql.append("\".html\",\"\"),");
-		sql.append("\"/Notice-article-\",\"\")");
+		sql.append("REPLACE(pathWoQueryStr,\"/article-\",\"\"),");
+		sql.append("\".html\",\"\")");
 		sql.append("AS UNSIGNED) AS articleId, `count`");
 		sql.append("FROM(");
 		sql.append("SELECT");
@@ -204,7 +202,7 @@ public class ArticleDao {
 		sql.append(") AS pathWoQueryStr,");
 		sql.append("SUM(ga4_PC.count) AS `count`");
 		sql.append("FROM ga4DataPageCount AS ga4_PC");
-		sql.append("WHERE ga4_PC.pagePath LIKE '/%-article-%.html'");
+		sql.append("WHERE ga4_PC.pagePath LIKE '/article-%.html'");
 		sql.append("GROUP BY pathWoQueryStr");
 		sql.append(") AS ga4_PC");
 		sql.append(")AS ga4_PC");
