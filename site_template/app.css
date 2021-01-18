@@ -12,8 +12,9 @@
 body, html {
 	overflow-x: hidden;
 	font-family: 'Roboto', sans-serif;
-	/*background : #fffaf3;*/
+	cursor: url(img/cursor.png) 0 0, auto;
 }
+
 
 body, ul, li {
 	margin: 0;
@@ -25,6 +26,7 @@ a {
 	color: inherit;
 	text-decoration: none;
 	font-weight: bold;
+	cursor: url(img/cursor.png) 0 0, auto;
 }
 
 /*라이브러리*/
@@ -473,44 +475,68 @@ a {
   background-color : #4a6110; 
 }
 
-.section-5__stats > .content > .stats_content li{
+.section-5__stats > .content > .stats_postCount li{
   text-align : center;
   width : calc(100%/2);
   color : #4a6110;
   padding : 3px 0 3px 20px;
   box-sizing : border-box;
+  font-size : 25px;
+  font-weight : 700; 
 }
 
-.section-5__stats > .content > .stats_content > .sub_title{
+.section-5__stats > .content .sub_title{
   text-align : center;
   font-size : 25px;
   font-weight : 700;
+  margin-bottom : 30px;
 }
 
-.section-5__stats > .content > .stats_content > .data {
+.section-5__stats > .content > .stats_postCount > .data {
   background-color :#eddec3;
   border-radius : 15px;
-  margin-top : 30px;
+  margin-bottom : 20px;
 }
 
-.section-5__stats > .content > .stats_content > .data > li{
-  font-size : 25px;
-}
-
-.section-5__stats > .content > .stats_content > .data  > .boardTitle{
-  font-weight : 700; 
-}
-
-.section-5__stats > .content > .stats_content > .data  > .count{
-  font-weight : 700; 
-}
-
-
-.section-5__stats > .content > .stats_content > .total > li {
+.section-5__stats > .content > .stats_postCount > .total > li {
   font-size : 30px;
-  font-weight : 700;
-  margin-top : 50px;
 }
+
+.section-5__stats > .content > .stats_bestPost{
+ margin-left : 100px;
+ text-align : center;
+}
+
+
+
+.section-5__stats > .content > .stats_bestPost > .data {
+  margin-bottom : 20px;
+}
+
+.section-5__stats > .content > .stats_bestPost > .data > .title > a {
+  font-size : 16px;
+  color : #505050;
+  font-weight : 700;
+}
+
+.section-5__stats > .content > .stats_bestPost > .data > .count  {
+  margin-left : 20px;
+  font-size : 16px;
+  color : #505050;
+  font-weight : 700;
+}
+
+.section-5__stats > .content > .stats_bestPost > .data > .count {
+  margin-left : 25px;
+  background-color : #eddec3;
+  color :  #4a6110;
+  font-size : 14px;
+}
+
+.section-5__stats > .content > .stats_bestPost > .data > .title > a:hover{
+  color : #4a6110;
+  text-decoration : underline #4a6110;
+} 
 
 
 

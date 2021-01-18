@@ -213,4 +213,25 @@ public class ArticleDao {
 
 	}
 
+	public List<Article> getBestArticles() {
+		
+		List<Article> bestArticles = new ArrayList<>();
+
+		SecSql sql = new SecSql();
+		
+		sql.append("select *"); 
+		sql.append("from article"); 
+		sql.append("order by `count` desc"); 
+		sql.append("limit 5;"); 
+	
+
+		List<Map<String, Object>> articleMapList = MysqlUtil.selectRows(sql);
+
+		for (Map<String, Object> articleMap : articleMapList) {
+			bestArticles.add(new Article(articleMap));
+		}
+
+		return bestArticles;
+	}
+
 }

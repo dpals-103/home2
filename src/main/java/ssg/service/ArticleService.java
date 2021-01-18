@@ -61,6 +61,10 @@ public class ArticleService {
 		return articleDao.getForPrintArticles();
 	}
 
+	public List<Article> getBestArticles() {
+		return articleDao.getBestArticles();
+	}
+
 	
 
 

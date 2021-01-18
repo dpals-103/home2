@@ -109,26 +109,43 @@ public class BuildService {
 
 		List<Board> boards = articleService.getBoards();
 
-		String dataHtml = "";
+		String postCountHtml = "";
 
+		//게시판 별 게시물 수---------------------
 		for (int i = 1; i <= boards.size(); i++) {
 			Board board = articleService.getBoard(i);
-			dataHtml += "<ul class =\"data flex\">";
-			dataHtml += "<li class =\"boardTitle\">" + board.getTitle() + "</li>";
+			postCountHtml += "<ul class =\"data flex\">";
+			postCountHtml += "<li class =\"boardTitle\">" + board.getTitle() + "</li>";
 
 			List<Article> articles = articleService.getArticles(board.getId());
 
-			dataHtml += " <li class =\"count\">" + articles.size() + "</li>";
-			dataHtml += "</ul>";
+			postCountHtml += " <li class =\"count\">" + articles.size() + "</li>";
+			postCountHtml += "</ul>";
 		}
 
-		stats = stats.replace("[data]", dataHtml);
+		stats = stats.replace("[postCount]", postCountHtml);
 
 		List<Article> articles = articleService.getArticles();
 		int total_count = articles.size();
 
 		stats = stats.replace("[total.count]", String.valueOf(total_count));
-
+		
+		//조회수 기준 상위 5개 게시물 구하기------------------------
+		
+		String bestPostHtml = "";
+		
+		List<Article> bestArticles = articleService.getBestArticles(); 
+		
+		for ( Article article : bestArticles) {		
+			bestPostHtml += "<ul class =\"data flex\">"; 
+			bestPostHtml += "<li class =\"title\">👉<a href=\"article-" + article.getId() +".html\">" + article.getTitle() + "</a></li>"; 
+			bestPostHtml += "<li class =\"count\">조회수" + article.getCount() + "</li>"; 
+			bestPostHtml += "</ul>"; 
+		}
+		
+		stats = stats.replace("[bestPost]", bestPostHtml);
+        
+		
 		sb.append(stats);
 
 		// 푸터 첨부
